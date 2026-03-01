@@ -1,0 +1,116 @@
+<!-- Author: Lead -->
+
+# Fusion Pipeline Monitor (全局监控看板)
+
+> **使用说明**: 本文件为 Commander（人类统帅）的实时作战屏幕。
+> 每当一个 Gate 被通过或拒绝，AI Agent 必须即时更新对应行的状态。
+> 本文件随项目仓库一同版本控制，是整个开发生命周期的唯一进度源。
+
+---
+
+## 项目状态卡 (Project Card)
+
+| 字段      | 值             |
+| --------- | -------------- |
+| 项目名称  | `<填写项目名>` |
+| 创建日期  | `<YYYY-MM-DD>` |
+| Commander | `<人类负责人>` |
+| 当前阶段  | `Stage 0`      |
+| 整体状态  | 🟡 进行中      |
+| 风险等级  | 🟢 低          |
+
+---
+
+## 阶段推进看板 (Stage Progress Board)
+
+> 状态枚举: ⬜ 未开始 | 🟡 进行中 | ✅ 已通过 | ❌ 已拒绝 | ⏭️ 已跳过
+
+| 阶段      | 描述                | 状态 | Gate 审批人 | 审批时间 | 备注                  |
+| --------- | ------------------- | ---- | ----------- | -------- | --------------------- |
+| Stage 0   | 需求深度解构        | ⬜   | —           | —        | —                     |
+| Gate 0    | Commander 签字      | ⬜   | —           | —        | —                     |
+| Stage 1   | 系统架构设计        | ⬜   | —           | —        | —                     |
+| Gate 1    | Commander 签字      | ⬜   | —           | —        | —                     |
+| Stage 1.5 | UI/逻辑原型         | ⬜   | —           | —        | 条件触发，可标记 SKIP |
+| Gate 1.5a | IV-01 视觉造影验收  | ⬜   | `iv-01`     | —        | VLM 像素级还原度对比  |
+| Gate 1.5b | Commander 签字/SKIP | ⬜   | —           | —        | —                     |
+| Stage 2   | 头脑风暴            | ⬜   | —           | —        | —                     |
+| Stage 3   | 微粒规划 & DAG      | ⬜   | —           | —        | —                     |
+| Gate 2    | Commander 签字      | ⬜   | —           | —        | —                     |
+| Stage 4   | Git Worktree 隔离   | ⬜   | —           | —        | —                     |
+| Stage 5   | TDD 并发实施        | ⬜   | —           | —        | —                     |
+| Stage 6   | 代码审查 & 集成     | ⬜   | —           | —        | —                     |
+| Gate 3    | Commander 签字      | ⬜   | —           | —        | —                     |
+| Stage 7   | 分支合并 & 发布     | ⬜   | —           | —        | —                     |
+
+---
+
+## 兵力部署追踪 (Troop Deployment Tracker)
+
+> 此表在 Stage 5 启动后由 DAG 调度器自动填写，用于追踪每名特种兵的作战状态。
+
+| 任务编号 | 分配兵种             | 描述 | TDD 红灯 | TDD 绿灯 | QA 通过 | IV 通过 |
+| -------- | -------------------- | ---- | -------- | -------- | ------- | ------- |
+| 1.1      | `db-schema-designer` | —    | ⬜       | ⬜       | ⬜      | ⬜      |
+| 1.2      | `be-domain-modeler`  | —    | ⬜       | ⬜       | ⬜      | ⬜      |
+| 1.3      | `fe-ui-builder`      | —    | ⬜       | ⬜       | ⬜      | ⬜      |
+| 2.1      | `fe-logic-binder`    | —    | ⬜       | ⬜       | ⬜      | ⬜      |
+| 2.2      | `be-api-router`      | —    | ⬜       | ⬜       | ⬜      | ⬜      |
+
+---
+
+## 产出物清单 (Deliverables Checklist)
+
+> 每完成一份产出物，Agent 必须在此勾选并填写路径。
+
+| 阶段      | 产出物                | 完成 | 文件路径                                   |
+| --------- | --------------------- | ---- | ------------------------------------------ |
+| Stage 0   | PRD.md                | ⬜   | `pipeline/0_requirements/PRD.md`           |
+| Stage 0   | BDD_Scenarios.md      | ⬜   | `pipeline/0_requirements/BDD_Scenarios.md` |
+| Stage 1   | System_Design.md      | ⬜   | `pipeline/1_architecture/System_Design.md` |
+| Stage 1   | INTERFACE.md          | ⬜   | `pipeline/1_architecture/INTERFACE.md`     |
+| Stage 1   | Data_Models.md        | ⬜   | `pipeline/1_architecture/Data_Models.md`   |
+| Stage 1.5 | UI_Mockups/           | ⬜   | `pipeline/1_5_prototype/UI_Mockups/`       |
+| Stage 1.5 | State_Flow.md         | ⬜   | `pipeline/1_5_prototype/State_Flow.md`     |
+| Stage 1.5 | VLM_Report.md         | ⬜   | `pipeline/1_5_prototype/VLM_Report.md`     |
+| Stage 2   | 设计文档              | ⬜   | `docs/plans/YYYY-MM-DD-<topic>-design.md`  |
+| Stage 3   | task.md               | ⬜   | `pipeline/2_planning/task.md`              |
+| Stage 3   | dependency_graph.md   | ⬜   | `pipeline/2_planning/dependency_graph.md`  |
+| Stage 6   | Audit_Report.md       | ⬜   | `pipeline/3_review/Audit_Report.md`        |
+| Stage 6   | Integration_Report.md | ⬜   | `pipeline/3_review/Integration_Report.md`  |
+
+---
+
+## 风险与拒绝日志 (Risk & Rejection Log)
+
+> 每次 Gate 被拒绝时，必须在此留痕。连续 3 次拒绝同一 Gate 触发 Escalation。
+
+| 日期 | Gate | 0   |     | ✅  |
+| ---- | ---- | --- | --- | --- |
+| —    | —    | —   | —   | —   |
+
+---
+
+## 使用范例 (How to Update)
+
+### ✅ 当 Gate 0 通过时
+
+```diff
+- | Stage 0 | 需求深度解构 | ⬜ | — | — | — |
+- | Gate 0 | Commander 签字 | ⬜ | — | — | — |
++ | Stage 0 | 需求深度解构 | ✅ | — | — | — |
++ | Gate 0 | Commander 签字 | ✅ | Commander | 2026-03-01 | LGTM |
+```
+
+### ❌ 当 Gate 1 被拒绝时
+
+```diff
+- | Gate 1 | Commander 签字 | ⬜ | — | — | — |
++ | Gate 1 | Commander 签字 | ❌ | Commander | 2026-03-01 | 缺少并发锁机制 |
+```
+
+同时必须在「风险与拒绝日志」中追加一行:
+
+```diff
++ | 2026-03-01 | Gate 1 | 1/3 | 缺少并发锁机制 | 打回 Lead 重设计 |
+```
