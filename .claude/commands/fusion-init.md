@@ -1,3 +1,9 @@
+---
+description: 【初始化】Fusion-Core 纯净环境初始化
+argument-hint: ''
+allowed-tools: Bash, Read, Glob, Grep, Write, Edit
+---
+
 # Fusion Init
 
 > Initialize a new Fusion-Core pipeline project

@@ -1,3 +1,9 @@
+---
+description: 【物理路由】根据需求自动分流到对应阶段和兵种
+argument-hint: ''
+allowed-tools: Bash, Read, Glob, Grep, Write, Edit
+---
+
 # Fusion Router
 
 > Dispatch tasks to specific Fusion-Core roles

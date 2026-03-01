@@ -1,3 +1,9 @@
+---
+description: 【启动项目】引导 Commander 启动新项目
+argument-hint: ''
+allowed-tools: Bash, Read, Glob, Grep, Write, Edit
+---
+
 # /fusion-start — 启动新项目
 
 你现在接到了 Commander 的新项目启动指令。严格按以下步骤执行：

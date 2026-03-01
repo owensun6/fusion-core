@@ -1,3 +1,9 @@
+---
+description: 【基因萃取】从战役中提取可复用经验写入 Gene Bank
+argument-hint: ''
+allowed-tools: Bash, Read, Glob, Grep, Write, Edit
+---
+
 # /fusion-extract-genes — 兵种基因萃取
 
 从当前战役的 git 历史和 review 记录中提取可复用的经验模式。

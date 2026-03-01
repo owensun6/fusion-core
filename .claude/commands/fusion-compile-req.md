@@ -1,3 +1,9 @@
+---
+description: 【零介入编译器】将自然语言需求一步编译为 PRD + BDD
+argument-hint: ''
+allowed-tools: Bash, Read, Glob, Grep, Write, Edit
+---
+
 # /fusion-compile-req — 零介入需求编译器
 
 将自然语言需求直接编译为 PRD + BDD 契约文件。
