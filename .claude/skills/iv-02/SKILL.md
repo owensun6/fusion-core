@@ -28,13 +28,13 @@ IV-01 契约匹配通过后触发。
 
 ### 核心技能
 
-- [iv-02-dataflow-tracer (实现)](../rules/skills/04_role_reviewer/iv-02-dataflow-tracer/SKILL.md)
+- [iv-02-dataflow-tracer (实现)](../skills_reference/04_role_reviewer/iv-02-dataflow-tracer/SKILL.md)
 
 ### 共享资源
 
-- [调试手册](../rules/skills/00_shared/debugging/SKILL.md)
-- [Git 工作流](../rules/skills/00_shared/git-workflow/SKILL.md)
-- [验证规章](../rules/skills/00_shared/verification/SKILL.md)
+- [调试手册](../skills_reference/00_shared/debugging/SKILL.md)
+- [Git 工作流](../skills_reference/00_shared/git-workflow/SKILL.md)
+- [验证规章](../skills_reference/00_shared/verification/SKILL.md)
 
 ---
 

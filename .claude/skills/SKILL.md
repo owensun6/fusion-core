@@ -18,7 +18,7 @@ description: 'Fusion-Core 13-Soldier AI Development Framework. Use this when wor
 │   ├── lead/         → 架构规划
 │   ├── fe-ui-builder/    → 前端 UI
 │   └── ...
-└── rules/skills/    # 技能实现
+└── skills_reference/    # 技能实现
     ├── 01_role_pm/
     ├── 02_role_lead/
     └── ...
@@ -27,7 +27,7 @@ description: 'Fusion-Core 13-Soldier AI Development Framework. Use this when wor
 **使用方式**：
 
 1. 通过 `/fusion-router` 分发任务到指定角色
-2. 角色对应的 `SKILL.md` 会链接到具体的 `rules/skills/` 实现
+2. 角色对应的 `SKILL.md` 会链接到具体的 `skills_reference/` 实现
 3. 职责边界由物理路由器强制校验
 
 ---
@@ -85,13 +85,13 @@ description: 'Fusion-Core 13-Soldier AI Development Framework. Use this when wor
 
 ### 调试与验证
 
-- [调试手册](../rules/skills/00_shared/debugging/SKILL.md)
-- [Git 工作流](../rules/skills/00_shared/git-workflow/SKILL.md)
-- [验证规章](../rules/skills/00_shared/verification/SKILL.md)
+- [调试手册](../skills_reference/00_shared/debugging/SKILL.md)
+- [Git 工作流](../skills_reference/00_shared/git-workflow/SKILL.md)
+- [验证规章](../skills_reference/00_shared/verification/SKILL.md)
 
 ### 开发工具箱
 
-- [Dev 百宝箱](../rules/skills/03_role_dev/toolbox/SKILL.md)
+- [Dev 百宝箱](../skills_reference/03_role_dev/toolbox/SKILL.md)
 
 ---
 

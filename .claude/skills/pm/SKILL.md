@@ -28,13 +28,13 @@ description: 'Product Manager - 需求分析与 PRD 产出。Stage 0 唯一角�
 
 ### 核心技能
 
-- [fusion-pm-interview (防幻觉路由器)](../rules/skills/01_role_pm/fusion-pm-interview/SKILL.md)
-- [brainstorming (头脑风暴)](../rules/skills/01_role_pm/brainstorming/SKILL.md)
+- [fusion-pm-interview (防幻觉路由器)](../skills_reference/01_role_pm/fusion-pm-interview/SKILL.md)
+- [brainstorming (头脑风暴)](../skills_reference/01_role_pm/brainstorming/SKILL.md)
 
 ### 共享资源
 
-- [调试手册](../rules/skills/00_shared/debugging/SKILL.md)
-- [验证规章](../rules/skills/00_shared/verification/SKILL.md)
+- [调试手册](../skills_reference/00_shared/debugging/SKILL.md)
+- [验证规章](../skills_reference/00_shared/verification/SKILL.md)
 
 ---
 

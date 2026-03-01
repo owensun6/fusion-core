@@ -17,7 +17,7 @@ allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 ## 执行流程
 
 1. 运行 `npx fusion-core extract-genes` 收集原材料（git log + review 记录）
-2. 读取技能手册: `.claude/rules/skills/05_evolution/gene-extractor/SKILL.md`
+2. 读取技能手册: `.claude/skills_reference/05_evolution/gene-extractor/SKILL.md`
 3. 分析原材料，按 5 种模式类型提取 Gene
 4. 将 Gene 文件写入 `memory/gene-bank/personal/`
 5. 报告萃取结果摘要

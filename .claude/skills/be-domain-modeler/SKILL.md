@@ -28,14 +28,14 @@ description: 'Backend Domain Modeler - 后端领域建模。业务逻辑核心�
 
 ### 核心技能
 
-- [be-domain-modeler (实现)](../rules/skills/03_role_dev/be-domain-modeler/SKILL.md)
+- [be-domain-modeler (实现)](../skills_reference/03_role_dev/be-domain-modeler/SKILL.md)
 
 ### 共享资源
 
-- [调试手册](../rules/skills/00_shared/debugging/SKILL.md)
-- [Git 工作流](../rules/skills/00_shared/git-workflow/SKILL.md)
-- [验证规章](../rules/skills/00_shared/verification/SKILL.md)
-- [Dev 百宝箱 (toolbox)](../rules/skills/03_role_dev/toolbox/SKILL.md)
+- [调试手册](../skills_reference/00_shared/debugging/SKILL.md)
+- [Git 工作流](../skills_reference/00_shared/git-workflow/SKILL.md)
+- [验证规章](../skills_reference/00_shared/verification/SKILL.md)
+- [Dev 百宝箱 (toolbox)](../skills_reference/03_role_dev/toolbox/SKILL.md)
 
 ---
 

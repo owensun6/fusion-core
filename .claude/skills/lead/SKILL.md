@@ -28,17 +28,17 @@ PM 完成 Gate 0 签字后，进入 Stage 1 时触发。
 
 ### 核心技能
 
-- [fusion-arch-blueprint (架构蓝图)](../rules/skills/02_role_lead/fusion-arch-blueprint/SKILL.md)
-- [fusion-dag-builder (DAG 任务构建)](../rules/skills/02_role_lead/fusion-dag-builder/SKILL.md)
-- [planning (任务规划)](../rules/skills/02_role_lead/planning/SKILL.md)
-- [worktree (Git Worktree 隔离)](../rules/skills/02_role_lead/worktree/SKILL.md)
-- [parallel-dispatch (并行调度)](../rules/skills/02_role_lead/parallel-dispatch/SKILL.md)
+- [fusion-arch-blueprint (架构蓝图)](../skills_reference/02_role_lead/fusion-arch-blueprint/SKILL.md)
+- [fusion-dag-builder (DAG 任务构建)](../skills_reference/02_role_lead/fusion-dag-builder/SKILL.md)
+- [planning (任务规划)](../skills_reference/02_role_lead/planning/SKILL.md)
+- [worktree (Git Worktree 隔离)](../skills_reference/02_role_lead/worktree/SKILL.md)
+- [parallel-dispatch (并行调度)](../skills_reference/02_role_lead/parallel-dispatch/SKILL.md)
 
 ### 共享资源
 
-- [调试手册](../rules/skills/00_shared/debugging/SKILL.md)
-- [Git 工作流](../rules/skills/00_shared/git-workflow/SKILL.md)
-- [验证规章](../rules/skills/00_shared/verification/SKILL.md)
+- [调试手册](../skills_reference/00_shared/debugging/SKILL.md)
+- [Git 工作流](../skills_reference/00_shared/git-workflow/SKILL.md)
+- [验证规章](../skills_reference/00_shared/verification/SKILL.md)
 
 ---
 

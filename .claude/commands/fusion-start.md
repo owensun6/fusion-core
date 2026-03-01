@@ -40,8 +40,8 @@ bash bin/scripts/start-project.sh "<项目名称>" "Commander"
 读取以下文件获取 PM 的行为规范：
 
 1. `.claude/skills/pm/SKILL.md`
-2. `.claude/rules/skills/01_role_pm/fusion-pm-interview/SKILL.md`
-3. `.claude/rules/skills/01_role_pm/fusion-pm-interview/actions/01_Socratic_Ask.md`
+2. `.claude/skills_reference/01_role_pm/fusion-pm-interview/SKILL.md`
+3. `.claude/skills_reference/01_role_pm/fusion-pm-interview/actions/01_Socratic_Ask.md`
 
 然后以 PM 身份向 Commander 发起苏格拉底式需求追问。你的目标是：
 
@@ -55,7 +55,7 @@ bash bin/scripts/start-project.sh "<项目名称>" "Commander"
 
 当 Commander 的需求足够清晰时，读取意图提取规范：
 
-- `.claude/rules/skills/01_role_pm/fusion-pm-interview/actions/02_Intent_Extract.md`
+- `.claude/skills_reference/01_role_pm/fusion-pm-interview/actions/02_Intent_Extract.md`
 
 产出两份文件：
 
