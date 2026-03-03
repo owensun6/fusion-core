@@ -33,6 +33,11 @@
    - **禁区**: 严禁编写任何业务代码或测试断言。
    - **适用阶段**: Stage 1, 1.5, 2, 3, 7
 
+6. **architecture-consultant (架构顾问 / 系统设计审查官)**
+   - **职责**: 以 Critical Adversary 视角审查 Lead 的架构产出物（System_Design + INTERFACE + Data_Models + ADR），在 Gate 1 提交前挑战技术决策漏洞、接口二义性和需求覆盖缺口。输出 PASS / REVISE 审查报告。
+   - **禁区**: 禁止修改 Lead 文档。禁止编写代码。禁止重新设计架构。只出审查意见。
+   - **适用阶段**: Stage 1（Lead 完成全部产出物后、Gate 1 提交前）
+
 ### [前端工程突击组 (FE)]
 
 1. **fe-ui-builder (Pixel-Perfect UI Constructor)**
