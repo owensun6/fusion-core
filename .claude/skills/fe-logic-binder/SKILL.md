@@ -44,3 +44,15 @@ description: 'Frontend Logic Binder - 前端逻辑绑定。连接 UI 与 API。'
 - **Author Stamp**: 代码必须包含 `<!-- Author: fe-logic-binder -->`
 - **越界拦截**: 禁止独立编写 UI 样式（交给 fe-ui-builder）
 - **契约遵循**: 必须遵循 iv-01 定义的 API 契约
+
+---
+
+## ⚡ 交付后监控循环（Stage 5 强制）
+
+完成交付物写入后，**不得直接退出**，必须执行：
+
+1. 在 `pipeline/monitor.md` 中将本行 Worker 状态标为 `[x]`
+2. 进入轮询循环，读取本行 QA 状态：
+   - `[✓]` → 正常退出，通知 DAG 调度器下游可启动
+   - `[✗]` 或 `[!]` → 读取 `pipeline/5_dev/audit/<task-id>-audit.md` 中的 CRITICAL 问题 → 按问题修改 → 重新执行本 SKILL → 回到步骤 1
+   - `[ ]` → QA 尚未完成，继续轮询（再次读取 monitor.md）

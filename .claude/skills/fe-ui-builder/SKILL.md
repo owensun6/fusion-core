@@ -43,3 +43,15 @@ Lead 完成任务拆分后，被分配到 UI 构建任务时触发。
 - **Author Stamp**: 代码必须包含 `<!-- Author: fe-ui-builder -->`
 - **越界拦截**: 禁止调用 API、禁止编写业务逻辑
 - **TDD 包裹**: 任何改动必须先出组件快照测试
+
+---
+
+## ⚡ 交付后监控循环（Stage 5 强制）
+
+完成交付物写入后，**不得直接退出**，必须执行：
+
+1. 在 `pipeline/monitor.md` 中将本行 Worker 状态标为 `[x]`
+2. 进入轮询循环，读取本行 QA 状态：
+   - `[✓]` → 正常退出，通知 DAG 调度器下游可启动
+   - `[✗]` 或 `[!]` → 读取 `pipeline/5_dev/audit/<task-id>-audit.md` 中的 CRITICAL 问题 → 按问题修改 → 重新执行本 SKILL → 回到步骤 1
+   - `[ ]` → QA 尚未完成，继续轮询（再次读取 monitor.md）

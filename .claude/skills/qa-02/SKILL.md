@@ -44,3 +44,15 @@ QA-01 语法检查通过后触发。
 - **Author Stamp**: 报告必须包含 `<!-- Author: qa-02 -->`
 - **越界拦截**: 禁止修改代码
 - **阻塞机制**: 规范问题未修复不可进入 QA-03
+
+---
+
+## ⚡ 审计后状态写入（Stage 6 强制）
+
+完成审计后，**不得直接退出**，必须执行：
+
+1. 将完整审计报告写入 `pipeline/5_dev/audit/<task-id>-audit.md`（格式：CRITICAL / HIGH / MEDIUM + 整体结论 PASS/FAIL）
+2. 在 `pipeline/monitor.md` 中将对应任务行 QA 状态标为：
+   - `[✓]` → 审计通过，Worker 可正常退出，通知 DAG 调度器下游可启动
+   - `[✗]` → 审计不通过，Worker 须读取审计报告返工，monitor.md 该行 Worker 状态回滚为 `[!]`
+3. 串行管道约束：本道审查结论为 PASS 后，方可通知下一道 QA/IV 启动；FAIL 时后续道次不得启动
