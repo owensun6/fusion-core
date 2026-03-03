@@ -85,9 +85,18 @@
 
 ---
 
-## Phase E: Gate 0.5 提交
+## Phase E: UX Consultant 审查
 
-- [ ] 0.5.18 产出物完整性自检:
+- [ ] 0.5.18 移交 UX-Consultant: 将全套产出物（User_Flow.md + Wireframes/）移交 UX-Consultant 进行独立审查 → 验证：UX-Consultant 开始执行
+- [ ] 0.5.19 处理审查结论:
+  - 结论为 **PASS** → 直接进入 Phase F
+  - 结论为 **REVISE** → 读取 `pipeline/0_5_prototype/audit/UX-Consultant-audit.md` 中的 CRITICAL 问题 → 按问题修改对应产出物 → 回到步骤 0.5.18 重新提交审查
+
+---
+
+## Phase F: Gate 0.5 提交
+
+- [ ] 0.5.20 产出物完整性自检:
 
   ```
   - [ ] User_Flow.md 已创建，包含所有角色的正常流 + 异常流
@@ -97,9 +106,10 @@
   - [ ] F-ID 覆盖率 100% (或例外已确认)
   - [ ] BDD 场景覆盖率 100%
   - [ ] 所有线框图无技术术语
+  - [ ] UX-Consultant-audit.md 存在，结论为 PASS
   ```
 
-- [ ] 0.5.19 向 Commander 提交审批: 展示所有产出物，请 Commander 确认"这就是我想要的"
+- [ ] 0.5.21 向 Commander 提交审批: 展示所有产出物，请 Commander 确认"这就是我想要的"
   - **通过标准**: Commander 说出"这就是我想要的"或等效确认
   - **拒绝处理**: 记录 Commander 反馈 → 返回对应 Phase 修改 → 重新提交
 
