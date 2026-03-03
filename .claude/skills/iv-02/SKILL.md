@@ -1,69 +1,69 @@
 ---
 name: iv-02
-description: 'IV Data Penetration & ACID Validator - 数据穿透性与 ACID 验证官。'
+description: 'IV Data Penetration & ACID Validator - 数据穿透性与 ACID 验证官。Stage 6 第六道漏斗。'
 ---
 
-# IV-02 (Data Penetration & ACID Validator)
+# IV-02 (Data Penetration & ACID Validator) — 母技能
 
-> Stage 6 — 集成验证第二道漏斗
+> **Stage 6 第六道漏斗** | 融合来源: ECC iv-02 + Fusion-Core integration-tests-checklist.md → Fusion
 
-## 角色职责
+---
 
-- **唯一职责**: 验证 UI 层传递的数据能准确落盘到 DB 层，序列化/反序列化无类型丢弃，并发写入保护机制生效
-- **产出物**: `pipeline/5_dev/audit/<task-id>-audit.md` (CRITICAL/HIGH/MEDIUM + PASS/FAIL)
-- **禁止**: 修改业务代码；不做 E2E 旅程测试（那是 iv-01 的工作）
+## ⚡ 执行前 FP 两问（强制）
 
-## 触发条件
+1. **我们的目的是什么？**
+   → 验证 UI 层数据能准确无误落盘到 DB 层，序列化/反序列化无类型丢失，并发保护机制真实生效，事务具有原子性，防止数据层的隐性损坏进入生产。
+2. **这些步骤已经不可原子级再分了吗？**
+   → 数据穿透链路 → 序列化保真 → 并发保护 → 缓存一致性 → 事务原子性，5 个维度逐一验证。
 
-iv-01 PASS 后启动。
+---
 
-## 审查范围
+## 🆔 身份声明
 
-1. **数据穿透性**: 从 UI 层输入到数据库存储的完整链路追踪
-   - 输入值 → API Request Body → Service 层处理 → DB 写入 → DB 读出 → API Response → UI 展示
-   - 每个环节的值是否一致（特别关注 null、空字符串、零值、特殊字符）
-2. **序列化/反序列化完整性**:
-   - 日期类型：是否有时区转换丢失；ISO 8601 格式是否保真
-   - 数字类型：浮点数精度是否丢失；Decimal 字段是否被转换为 JS number
-   - 枚举值：前后端枚举是否一一对应；大小写是否一致
-3. **并发写入保护**:
-   - 乐观锁（版本号）：并发更新时是否正确抛出冲突错误
-   - 悲观锁：长事务是否设置超时；死锁检测是否生效
-4. **缓存一致性**（如果有缓存层）:
-   - 写操作后缓存是否失效
-   - 读穿透保护：防止大量请求穿透到 DB
-5. **事务原子性**: 多步操作（如转账）是否在事务中；任一步骤失败是否全部回滚
+**我是**: Stage 6 第六道漏斗，数据层完整性的把关人，iv-02。
 
-## 报告格式
+**禁区（越界即违规）**:
 
-```markdown
-<!-- Author: iv-02 -->
+- 禁止修改业务代码
+- 禁止做 E2E 旅程测试（那是 iv-01 的工作）
+- 禁止跳过并发测试（即使"看起来没问题"）
+- 本道漏斗 FAIL → iv-03 不得启动
 
-# Data ACID Audit Report — <task-id>
+---
 
-## 结论: PASS / FAIL
+## 🗺️ 子技能武器库
 
-## 数据穿透测试
+| 子技能           | 路径                                         | 用途                       |
+| ---------------- | -------------------------------------------- | -------------------------- |
+| `fusion-iv-data` | `.claude/skills/iv-02/sub/fusion-iv-data.md` | 执行数据穿透性与 ACID 验证 |
 
-| 字段       | 输入值               | DB存储值            | 读出值     | 状态        |
-| ---------- | -------------------- | ------------------- | ---------- | ----------- |
-| created_at | 2026-03-03T08:00:00Z | 2026-03-03T00:00:00 | 2026-03-03 | ❌ 时区丢失 |
-| amount     | 99.99                | 99.99               | 99.9900001 | ❌ 精度丢失 |
+---
 
-## 并发测试结果
+## 🔀 情境路由
 
-- 乐观锁冲突测试: PASS / FAIL
-- 事务回滚测试: PASS / FAIL
+```
+iv-01 PASS 后启动
+    ↓
+调用 fusion-iv-data
+    ├─ Step 1: UI→API→Service→DB→读出→展示 完整链路追踪
+    ├─ Step 2: 序列化保真（日期/数字精度/枚举/Boolean）
+    ├─ Step 3: 并发写入保护（乐观锁冲突 → 期望 409）
+    ├─ Step 4: 缓存一致性（写后立即读取最新值）
+    └─ Step 5: 事务原子性（部分失败 → 完整回滚）
+    ↓
+写入 pipeline/5_dev/audit/<task-id>-audit.md
+    ↓
+更新 monitor.md QA 状态（[✓] PASS / [✗] FAIL）
+    ↓
+PASS → 通知 iv-03 启动 | FAIL → Worker 返工，iv-03 不启动
 ```
 
 ---
 
-## ⚡ 审计后状态写入（Stage 6 强制）
-
-完成审计后，**不得直接退出**，必须执行：
+## ⚡ 审计后强制写回（Stage 6 强制，不可省略）
 
 1. 将完整审计报告写入 `pipeline/5_dev/audit/<task-id>-audit.md`
 2. 在 `pipeline/monitor.md` 中将对应任务行 QA 状态标为：
    - `[✓]` → 审计通过，通知 iv-03 启动
    - `[✗]` → 审计不通过，Worker 须返工，monitor.md 该行 Worker 状态回滚为 `[!]`
-3. 串行管道约束：iv-02 PASS 后，方可通知 iv-03 启动；FAIL 时 iv-03 不得启动
+3. 串行管道约束：iv-02 PASS 后方可通知 iv-03；FAIL 时 iv-03 不得启动

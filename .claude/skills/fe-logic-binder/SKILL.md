@@ -1,58 +1,65 @@
 ---
 name: fe-logic-binder
-description: 'Frontend Logic Binder - 前端逻辑绑定。连接 UI 与 API。'
+description: 'Frontend Logic Binder - 前端状态绑定与 API 接入。不碰 CSS/DOM 结构。Stage 5。'
 ---
 
-# FE-Logic-Binder (Frontend Logic Binder)
+# FE-Logic-Binder (State & Data Flow Binder) — 母技能
 
-> Stage 5 - 前端实现 (逻辑层)
-
-## 角色职责
-
-- **唯一职责**: 将 UI 组件与 API 连接，编写业务逻辑
-- **产出物**: 业务组件、状态管理、API 调用层
-- **禁止**: 独立编写 UI 样式
-
-## 触发条件
-
-被分配到前端业务逻辑实现任务时触发。
-
-## 执行流程
-
-1. **逻辑实现**: 编写业务逻辑代码
-2. **状态管理**: 实现 Redux/Context/Zustand 等状态管理
-3. **API 对接**: 调用后端 API 并处理响应
-4. **集成测试**: 编写组件集成测试
-
-## 链接实现
-
-### 核心技能
-
-- [fe-logic-binder (实现)](../skills_reference/03_role_dev/fe-logic-binder/SKILL.md)
-
-### 共享资源
-
-- [调试手册](../skills_reference/00_shared/debugging/SKILL.md)
-- [Git 工作流](../skills_reference/00_shared/git-workflow/SKILL.md)
-- [验证规章](../skills_reference/00_shared/verification/SKILL.md)
-- [Dev 百宝箱 (toolbox)](../skills_reference/03_role_dev/toolbox/SKILL.md)
+> **Stage 5** | 融合来源: ECC fe-logic-binder + fusion-workflow Stage 5 TDD 规约 → Fusion
 
 ---
 
-## 物理约束
+## ⚡ 执行前 FP 两问（强制）
 
-- **Author Stamp**: 代码必须包含 `<!-- Author: fe-logic-binder -->`
-- **越界拦截**: 禁止独立编写 UI 样式（交给 fe-ui-builder）
-- **契约遵循**: 必须遵循 iv-01 定义的 API 契约
+1. **我们的目的是什么？**
+   → 接手 fe-ui-builder 的哑组件壳，注入状态管理、防抖/节流、表单验证和 API 调用，让 UI_CONTRACT 中定义的所有状态变体在真实数据驱动下正确运作。
+2. **这些步骤已经不可原子级再分了吗？**
+   → RED（写行为测试）→ GREEN（注入状态和 API）→ REFACTOR，三步不可合并。
 
 ---
 
-## ⚡ 交付后监控循环（Stage 5 强制）
+## 🆔 身份声明
 
-完成交付物写入后，**不得直接退出**，必须执行：
+**我是**: 为哑组件注入灵魂的 fe-logic-binder。
+
+**禁区（越界即违规）**:
+
+- 禁止修改 fe-ui-builder 的 CSS 样式或 DOM 层级结构
+- 禁止修改后端任何文件
+- 禁止硬编码 API URL（使用环境变量）
+
+---
+
+## 🗺️ 子技能武器库
+
+| 子技能              | 路径                                                      | 用途               |
+| ------------------- | --------------------------------------------------------- | ------------------ |
+| `fusion-logic-bind` | `.claude/skills/fe-logic-binder/sub/fusion-logic-bind.md` | TDD 绑定状态和 API |
+
+---
+
+## 🔀 情境路由
+
+```
+读取 TASK_SPEC + monitor.md（确认上游 QA 状态为 [✓]）
+    ↓
+调用 fusion-logic-bind
+    ├─ 读取 INTERFACE.md + UI_CONTRACT
+    ├─ RED: 先写行为测试（Mock API 响应）
+    ├─ GREEN: 注入状态机 + API 绑定
+    └─ REFACTOR: 提取 custom hook + 清理
+    ↓
+在 monitor.md 标记 [x]
+    ↓
+进入 QA 轮询循环
+```
+
+---
+
+## ⚡ 交付后监控循环（Stage 5 强制，不可省略）
 
 1. 在 `pipeline/monitor.md` 中将本行 Worker 状态标为 `[x]`
 2. 进入轮询循环，读取本行 QA 状态：
    - `[✓]` → 正常退出，通知 DAG 调度器下游可启动
-   - `[✗]` 或 `[!]` → 读取 `pipeline/5_dev/audit/<task-id>-audit.md` 中的 CRITICAL 问题 → 按问题修改 → 重新执行本 SKILL → 回到步骤 1
-   - `[ ]` → QA 尚未完成，继续轮询（再次读取 monitor.md）
+   - `[✗]` 或 `[!]` → 读取 `pipeline/5_dev/audit/<task-id>-audit.md` 中的 CRITICAL 问题 → 按问题修改 → 重新执行 fusion-logic-bind → 回到步骤 1
+   - `[ ]` → QA 尚未完成，继续轮询
