@@ -92,6 +92,7 @@
 | Stage 1   | System_Design.md      | `pipeline/1_architecture/System_Design.md`     | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
 | Stage 1   | INTERFACE.md          | `pipeline/1_architecture/INTERFACE.md`         | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
 | Stage 1   | Data_Models.md        | `pipeline/1_architecture/Data_Models.md`       | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
+| Stage 1   | ADR/                  | `pipeline/1_architecture/ADR/`                 | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
 | Stage 1.5 | Revised_Mockups/      | `pipeline/1_5_prototype/Revised_Mockups/`      | [ ]    | [ ] | UX-Consultant → `pipeline/1_5_prototype/audit/UX-Consultant-audit.md`      |
 | Stage 1.5 | State_Flow.md         | `pipeline/1_5_prototype/State_Flow.md`         | [ ]    | [ ] | UX-Consultant → `pipeline/1_5_prototype/audit/UX-Consultant-audit.md`      |
 | Stage 2   | 设计文档              | `docs/plans/YYYY-MM-DD-<topic>-design.md`      | [ ]    | [ ] | 待定 → `docs/plans/audit/<topic>-design-audit.md`                          |
