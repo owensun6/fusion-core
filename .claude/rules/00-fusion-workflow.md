@@ -281,14 +281,30 @@ Dev 全军 (6 名专职特种兵按 DAG 并发作业)
 
 ### 执行动作
 
-每名特种兵的工作循环:
+每名特种兵的完整生命周期（不可省略任何步骤）:
 
 ```
-1. 调用 fusion-tdd-engine → 01_Red_Fail_Test (先写失败测试)
-2. 调用 fusion-tdd-engine → 02_Green_Minimum (最简且抠门地修复)
-3. 调用各自专职 SKILL.md (fe-ui-builder / be-api-router / ...)
-4. 重复直至该兵种负责的 Task 全部亮绿
+⚡ 前置两问（First Principles Pre-flight）:
+   问题一：我的任务目的是什么？
+   问题二：我准备执行的步骤已经不可再分了吗？
+
+执行循环:
+1. 读取 monitor.md 上游行 QA 状态，确认为 [✓] 后方可启动
+2. 调用 fusion-tdd-engine → 01_Red_Fail_Test (先写失败测试)
+3. 调用 fusion-tdd-engine → 02_Green_Minimum (最简实现)
+4. 调用各自专职 SKILL.md (fe-ui-builder / be-api-router / ...)
+5. 重复直至该兵种负责的 Task 全部亮绿
+
+交付与监控（⚠️ 不得跳过）:
+6. 将交付物写入指定路径
+7. 在 monitor.md 本行将 Worker 状态标为 [x]
+8. ⟳ 进入监控循环，轮询本行 QA 状态:
+   → [✓] 正常退出，通知 DAG 调度器下游可启动
+   → [✗]/[!] 读取 audit/<task-id>-audit.md → 修改 → 回到步骤 1
+   → [ ]  QA 尚未完成，继续轮询
 ```
+
+**[!] 强制规则**: 步骤 6-8 在 Stage 5 不可省略。交付后直接退出 = 监控链断裂 = 整个并发开发卡死。
 
 ### ❌ DON'T — 跳过红灯直接写业务码
 

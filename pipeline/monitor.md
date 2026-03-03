@@ -61,23 +61,42 @@
 
 ## 产出物清单 (Deliverables Checklist)
 
-> 每完成一份产出物，Agent 必须在此勾选并填写路径。
+> **双 Check 机制**: 每个产出物有两个独立状态。
+>
+> | Worker 状态 | 含义                                      |
+> | ----------- | ----------------------------------------- |
+> | `[ ]`       | 未开始                                    |
+> | `[x]`       | 执行角色已完成交付，等待 QA               |
+> | `[!]`       | QA 打回，执行角色须读审计报告修改后重递归 |
+>
+> | QA 状态 | 含义                           |
+> | ------- | ------------------------------ |
+> | `[ ]`   | 未审计                         |
+> | `[✓]`   | 审计通过，下游可启动           |
+> | `[✗]`   | 不通过 → Worker 状态改为 `[!]` |
+>
+> **⚠️ 下游角色启动前置检查**: 读取上游行 QA 状态，非 `[✓]` 不得启动。
+>
+> **⚠️ Worker 监控义务（Stage 5 强制）**: 交付后不得退出，轮询本行 QA 状态直到 `[✓]` 或处理 `[✗]`。
 
-| 阶段      | 产出物                | 完成 | 文件路径                                   |
-| --------- | --------------------- | ---- | ------------------------------------------ |
-| Stage 0   | PRD.md                | ⬜   | `pipeline/0_requirements/PRD.md`           |
-| Stage 0   | BDD_Scenarios.md      | ⬜   | `pipeline/0_requirements/BDD_Scenarios.md` |
-| Stage 1   | System_Design.md      | ⬜   | `pipeline/1_architecture/System_Design.md` |
-| Stage 1   | INTERFACE.md          | ⬜   | `pipeline/1_architecture/INTERFACE.md`     |
-| Stage 1   | Data_Models.md        | ⬜   | `pipeline/1_architecture/Data_Models.md`   |
-| Stage 1.5 | UI_Mockups/           | ⬜   | `pipeline/1_5_prototype/UI_Mockups/`       |
-| Stage 1.5 | State_Flow.md         | ⬜   | `pipeline/1_5_prototype/State_Flow.md`     |
-| Stage 1.5 | VLM_Report.md         | ⬜   | `pipeline/1_5_prototype/VLM_Report.md`     |
-| Stage 2   | 设计文档              | ⬜   | `docs/plans/YYYY-MM-DD-<topic>-design.md`  |
-| Stage 3   | task.md               | ⬜   | `pipeline/2_planning/task.md`              |
-| Stage 3   | dependency_graph.md   | ⬜   | `pipeline/2_planning/dependency_graph.md`  |
-| Stage 6   | Audit_Report.md       | ⬜   | `pipeline/3_review/Audit_Report.md`        |
-| Stage 6   | Integration_Report.md | ⬜   | `pipeline/3_review/Integration_Report.md`  |
+| 阶段      | 产出物                | 文件路径                                      | Worker | QA  | 审计报告路径                                               |
+| --------- | --------------------- | --------------------------------------------- | ------ | --- | ---------------------------------------------------------- |
+| Stage 0   | RAW_CONVERSATION.md   | `pipeline/0_requirements/RAW_CONVERSATION.md` | [ ]    | [ ] | `pipeline/0_requirements/audit/RAW_CONVERSATION-audit.md`  |
+| Stage 0   | PRD.md                | `pipeline/0_requirements/PRD.md`              | [ ]    | [ ] | `pipeline/0_requirements/audit/PRD-audit.md`               |
+| Stage 0   | FEATURE_LIST.md       | `pipeline/0_requirements/FEATURE_LIST.md`     | [ ]    | [ ] | `pipeline/0_requirements/audit/FEATURE_LIST-audit.md`      |
+| Stage 0   | BDD_Scenarios.md      | `pipeline/0_requirements/BDD_Scenarios.md`    | [ ]    | [ ] | `pipeline/0_requirements/audit/BDD-audit.md`               |
+| Stage 1   | System_Design.md      | `pipeline/1_architecture/System_Design.md`    | [ ]    | [ ] | `pipeline/1_architecture/audit/System_Design-audit.md`     |
+| Stage 1   | INTERFACE.md          | `pipeline/1_architecture/INTERFACE.md`        | [ ]    | [ ] | `pipeline/1_architecture/audit/INTERFACE-audit.md`         |
+| Stage 1   | Data_Models.md        | `pipeline/1_architecture/Data_Models.md`      | [ ]    | [ ] | `pipeline/1_architecture/audit/Data_Models-audit.md`       |
+| Stage 1.5 | UI_CONTRACT.md        | `pipeline/0_5_prototype/UI_CONTRACT.md`       | [ ]    | [ ] | `pipeline/0_5_prototype/audit/UI_CONTRACT-audit.md`        |
+| Stage 1.5 | UI_Mockups/           | `pipeline/1_5_prototype/UI_Mockups/`          | [ ]    | [ ] | `pipeline/1_5_prototype/audit/UI_Mockups-audit.md`         |
+| Stage 1.5 | State_Flow.md         | `pipeline/1_5_prototype/State_Flow.md`        | [ ]    | [ ] | `pipeline/1_5_prototype/audit/State_Flow-audit.md`         |
+| Stage 2   | 设计文档              | `docs/plans/YYYY-MM-DD-<topic>-design.md`     | [ ]    | [ ] | `docs/plans/audit/<topic>-design-audit.md`                 |
+| Stage 3   | task.md               | `pipeline/2_planning/task.md`                 | [ ]    | [ ] | `pipeline/2_planning/audit/task-audit.md`                  |
+| Stage 3   | dependency_graph.md   | `pipeline/2_planning/dependency_graph.md`     | [ ]    | [ ] | `pipeline/2_planning/audit/dependency_graph-audit.md`      |
+| Stage 5   | [各兵种代码+测试]     | `src/` + `tests/`                             | [ ]    | [ ] | `pipeline/5_dev/audit/<task-id>-audit.md`                  |
+| Stage 6   | Audit_Report.md       | `pipeline/3_review/Audit_Report.md`           | [ ]    | [ ] | `pipeline/3_review/audit/Audit_Report-meta-audit.md`       |
+| Stage 6   | Integration_Report.md | `pipeline/3_review/Integration_Report.md`     | [ ]    | [ ] | `pipeline/3_review/audit/Integration_Report-meta-audit.md` |
 
 ---
 
