@@ -1,220 +1,120 @@
-# Fusion-Core 13 兵种技能清单
+# Fusion 技能清单 (Skill Catalog)
 
-> 按分工阶段排序，展示每个兵种的职责、技能和状态
-
----
-
-## Stage 0: 需求分析
-
-### PM (Product Manager)
-
-| 项目         | 内容                                                                                             |
-| ------------ | ------------------------------------------------------------------------------------------------ |
-| **角色代号** | `pm`                                                                                             |
-| **职责**     | 需求分析、PRD 产出、BDD 场景定义                                                                 |
-| **产出物**   | `pipeline/0_requirements/PRD.md`                                                                 |
-| **技能**     | `fusion-pm-interview` (防幻觉路由器), `brainstorming` (头脑风暴)                                 |
-| **规则文件** | [`01_role_pm/fusion-pm-interview/`](../skills_reference/01_role_pm/fusion-pm-interview/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                          |
+> **版本**: Fusion Method v0.1（融合后统一版本）
+> **融合来源**: Superpowers + CC-Best + ECC + BMAD → Fusion
+> **更新日期**: 2026-03-03
+>
+> 本文档是所有可用技能的 Only Source of Truth。
 
 ---
 
-## Stage 1: 架构设计
+## 一、内建角色技能（Fusion-Core Skills）
 
-### Lead (Tech Lead)
+### 需求与审查组（Stage 0）
 
-| 项目         | 内容                                                                                                            |
-| ------------ | --------------------------------------------------------------------------------------------------------------- |
-| **角色代号** | `lead`                                                                                                          |
-| **职责**     | 系统架构设计、技术选型、任务拆分                                                                                |
-| **产出物**   | `pipeline/1_architecture/System_Design.md`, `pipeline/2_planning/task.md`                                       |
-| **技能**     | `fusion-arch-blueprint` (架构蓝图), `fusion-dag-builder` (DAG构建), `planning`, `worktree`, `parallel-dispatch` |
-| **规则文件** | [`02_role_lead/`](../skills_reference/02_role_lead/)                                                            |
-| **状态**     | ✅ 完整                                                                                                         |
+| 角色代号        | 职责                                   | SKILL.md                                         |
+| --------------- | -------------------------------------- | ------------------------------------------------ |
+| `pm`            | 需求深度解构，PRD + FEATURE_LIST + BDD | [pm/SKILL.md](pm/SKILL.md)                       |
+| `pm-consultant` | 批判对手视角审查 PM 产出物             | [pm-consultant/SKILL.md](pm-consultant/SKILL.md) |
 
----
+### UX 原型组（Stage 0.5）
 
-## Stage 3: 任务执行 (并行)
+| 角色代号        | 职责                              | SKILL.md                                         |
+| --------------- | --------------------------------- | ------------------------------------------------ |
+| `ux-designer`   | 低保真原型，Stitch MCP 必须出初稿 | [ux-designer/SKILL.md](ux-designer/SKILL.md)     |
+| `ux-consultant` | 批判对手视角审查原型              | [ux-consultant/SKILL.md](ux-consultant/SKILL.md) |
 
-### 前端兵种
+### 架构与规划组（Stage 1-3）
 
-#### FE-UI-Builder
+| 角色代号                  | 职责                               | SKILL.md                                                             |
+| ------------------------- | ---------------------------------- | -------------------------------------------------------------------- |
+| `lead`                    | 系统架构 + INTERFACE.md + DAG 规划 | [lead/SKILL.md](lead/SKILL.md)                                       |
+| `architecture-consultant` | 批判对手视角审查架构产出           | [architecture-consultant/SKILL.md](architecture-consultant/SKILL.md) |
 
-| 项目         | 内容                                                                                   |
-| ------------ | -------------------------------------------------------------------------------------- |
-| **角色代号** | `fe-ui-builder`                                                                        |
-| **职责**     | UI 组件构建、Tailwind 样式实现                                                         |
-| **产出物**   | React/Vue 组件、样式文件                                                               |
-| **禁止**     | 调用 API、编写业务逻辑                                                                 |
-| **规则文件** | [`03_role_dev/fe-ui-builder/`](../skills_reference/03_role_dev/fe-ui-builder/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                |
+### 前端开发组（Stage 5）
 
-#### FE-Logic-Binder
+| 角色代号          | 职责                       | SKILL.md                                             |
+| ----------------- | -------------------------- | ---------------------------------------------------- |
+| `fe-ui-builder`   | 哑组件构建（只有壳没有魂） | [fe-ui-builder/SKILL.md](fe-ui-builder/SKILL.md)     |
+| `fe-logic-binder` | 状态绑定、API 接入         | [fe-logic-binder/SKILL.md](fe-logic-binder/SKILL.md) |
 
-| 项目         | 内容                                                                                       |
-| ------------ | ------------------------------------------------------------------------------------------ |
-| **角色代号** | `fe-logic-binder`                                                                          |
-| **职责**     | 业务逻辑绑定、API 调用、状态管理                                                           |
-| **产出物**   | 业务组件、API 层、状态管理代码                                                             |
-| **禁止**     | 独立编写 UI 样式                                                                           |
-| **规则文件** | [`03_role_dev/fe-logic-binder/`](../skills_reference/03_role_dev/fe-logic-binder/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                    |
+### 后端开发组（Stage 5）
 
----
+| 角色代号             | 职责                             | SKILL.md                                                   |
+| -------------------- | -------------------------------- | ---------------------------------------------------------- |
+| `be-api-router`      | REST/GraphQL 路由 + Zod/Joi 验证 | [be-api-router/SKILL.md](be-api-router/SKILL.md)           |
+| `be-domain-modeler`  | 领域服务 + 业务逻辑核心          | [be-domain-modeler/SKILL.md](be-domain-modeler/SKILL.md)   |
+| `be-ai-integrator`   | LLM/MCP 子系统接入               | [be-ai-integrator/SKILL.md](be-ai-integrator/SKILL.md)     |
+| `db-schema-designer` | 数据库 Schema + 迁移脚本         | [db-schema-designer/SKILL.md](db-schema-designer/SKILL.md) |
 
-### 后端兵种
-
-#### BE-API-Router
-
-| 项目         | 内容                                                                                   |
-| ------------ | -------------------------------------------------------------------------------------- |
-| **角色代号** | `be-api-router`                                                                        |
-| **职责**     | REST/GraphQL API 路由定义、请求验证                                                    |
-| **产出物**   | API 端点、中间件、验证逻辑                                                             |
-| **禁止**     | 直接操作数据库                                                                         |
-| **规则文件** | [`03_role_dev/be-api-router/`](../skills_reference/03_role_dev/be-api-router/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                |
-
-#### BE-Domain-Modeler
-
-| 项目         | 内容                                                                                           |
-| ------------ | ---------------------------------------------------------------------------------------------- |
-| **角色代号** | `be-domain-modeler`                                                                            |
-| **职责**     | 业务逻辑、领域模型、实体定义                                                                   |
-| **产出物**   | Service 层、Entity 类、业务规则                                                                |
-| **禁止**     | 编写数据库表结构                                                                               |
-| **规则文件** | [`03_role_dev/be-domain-modeler/`](../skills_reference/03_role_dev/be-domain-modeler/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                        |
-
-#### BE-AI-Integrator
-
-| 项目         | 内容                                                                                         |
-| ------------ | -------------------------------------------------------------------------------------------- |
-| **角色代号** | `be-ai-integrator`                                                                           |
-| **职责**     | AI 能力集成（LLM、OCR、向量搜索）                                                            |
-| **产出物**   | AI 服务封装、Prompt 工程                                                                     |
-| **禁止**     | 直接编写 UI                                                                                  |
-| **规则文件** | [`03_role_dev/be-ai-integrator/`](../skills_reference/03_role_dev/be-ai-integrator/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                      |
-
----
-
-### 数据兵种
-
-#### DB-Schema-Designer
-
-| 项目         | 内容                                                                                             |
-| ------------ | ------------------------------------------------------------------------------------------------ |
-| **角色代号** | `db-schema-designer`                                                                             |
-| **职责**     | 数据库表结构设计、索引优化                                                                       |
-| **产出物**   | DDL 脚本、ER 图、迁移文件                                                                        |
-| **禁止**     | 编写业务逻辑                                                                                     |
-| **规则文件** | [`03_role_dev/db-schema-designer/`](../skills_reference/03_role_dev/db-schema-designer/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                          |
-
----
-
-## Stage 6: 质量验证
-
-### QA 兵种
-
-#### QA-01 (Code Syntax)
-
-| 项目         | 内容                                                                                                     |
-| ------------ | -------------------------------------------------------------------------------------------------------- |
-| **角色代号** | `qa-01`                                                                                                  |
-| **职责**     | 代码语法检查、类型检查、格式化                                                                           |
-| **工具**     | ESLint, TypeScript, Prettier                                                                             |
-| **规则文件** | [`04_role_reviewer/qa-01-code-syntax/`](../skills_reference/04_role_reviewer/qa-01-code-syntax/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                                  |
-
-#### QA-02 (Spec Compliance)
-
-| 项目         | 内容                                                                                                             |
-| ------------ | ---------------------------------------------------------------------------------------------------------------- |
-| **角色代号** | `qa-02`                                                                                                          |
-| **职责**     | 架构规范检查、编码标准核对                                                                                       |
-| **规则文件** | [`04_role_reviewer/qa-02-spec-compliance/`](../skills_reference/04_role_reviewer/qa-02-spec-compliance/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                                          |
-
-#### QA-03 (Security Audit)
-
-| 项目         | 内容                                                                                                                                                                                            |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **角色代号** | `qa-03`                                                                                                                                                                                         |
-| **职责**     | 安全漏洞扫描、OWASP Top 10                                                                                                                                                                      |
-| **规则文件** | [`04_role_reviewer/qa-03-security-audit/`](../skills_reference/04_role_reviewer/qa-03-security-audit/SKILL.md), [`security-deep/`](../skills_reference/04_role_reviewer/security-deep/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                                                                                                                         |
-
----
-
-### IV 集成验证兵种
-
-#### IV-01 (Contract Matcher)
-
-| 项目         | 内容                                                                                                               |
-| ------------ | ------------------------------------------------------------------------------------------------------------------ |
-| **角色代号** | `iv-01`                                                                                                            |
-| **职责**     | API 契约匹配验证                                                                                                   |
-| **规则文件** | [`04_role_reviewer/iv-01-contract-matcher/`](../skills_reference/04_role_reviewer/iv-01-contract-matcher/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                                            |
-
-#### IV-02 (Dataflow Tracer)
-
-| 项目         | 内容                                                                                                             |
-| ------------ | ---------------------------------------------------------------------------------------------------------------- |
-| **角色代号** | `iv-02`                                                                                                          |
-| **职责**     | 端到端数据流追踪                                                                                                 |
-| **规则文件** | [`04_role_reviewer/iv-02-dataflow-tracer/`](../skills_reference/04_role_reviewer/iv-02-dataflow-tracer/SKILL.md) |
-| **状态**     | ✅ 完整                                                                                                          |
-
----
-
-## 技能状态总览
-
-| 阶段    | 角色               | 代码                 | 状态 |
-| ------- | ------------------ | -------------------- | ---- |
-| Stage 0 | PM                 | `pm`                 | ✅   |
-| Stage 1 | Lead               | `lead`               | ✅   |
-| Stage 3 | FE-UI-Builder      | `fe-ui-builder`      | ✅   |
-| Stage 3 | FE-Logic-Binder    | `fe-logic-binder`    | ✅   |
-| Stage 3 | BE-API-Router      | `be-api-router`      | ✅   |
-| Stage 3 | BE-Domain-Modeler  | `be-domain-modeler`  | ✅   |
-| Stage 3 | BE-AI-Integrator   | `be-ai-integrator`   | ✅   |
-| Stage 3 | DB-Schema-Designer | `db-schema-designer` | ✅   |
-| Stage 6 | QA-01              | `qa-01`              | ✅   |
-| Stage 6 | QA-02              | `qa-02`              | ✅   |
-| Stage 6 | QA-03              | `qa-03`              | ✅   |
-| Stage 6 | IV-01              | `iv-01`              | ✅   |
-| Stage 6 | IV-02              | `iv-02`              | ✅   |
-
-**13/13 兵种全部完整** ✅
-
----
-
-## 共享资源
-
-| 资源       | 位置                                                                                           |
-| ---------- | ---------------------------------------------------------------------------------------------- |
-| 调试手册   | [`00_shared/debugging/`](../skills_reference/00_shared/debugging/SKILL.md)                     |
-| Git 工作流 | [`00_shared/git-workflow/`](../skills_reference/00_shared/git-workflow/SKILL.md)               |
-| 验证规章   | [`00_shared/verification/`](../skills_reference/00_shared/verification/SKILL.md)               |
-| Dev 百宝箱 | [`03_role_dev/toolbox/`](../skills_reference/03_role_dev/toolbox/SKILL.md)                     |
-| TDD 引擎   | [`03_role_dev/fusion-tdd-engine/`](../skills_reference/03_role_dev/fusion-tdd-engine/SKILL.md) |
-
----
-
-## 使用方式
-
-### CLI 路由
-
-```bash
-npx fusion-router --role pm --task pipeline/0_requirements/PRD.md
-npx fusion-router --role fe-ui-builder --task pipeline/2_planning/task.md
-```
-
-### 斜杠命令
+### 质量审计组（Stage 6）— 串行管道
 
 ```
-/fusion-router --role <role> --task <task_file>
+qa-01 → qa-02 → qa-03 → qa-04 → iv-01 → iv-02 → iv-03
+前一道 FAIL，后续道次不得启动
 ```
+
+| 角色代号 | 职责                                                             | SKILL.md                         |
+| -------- | ---------------------------------------------------------------- | -------------------------------- |
+| `qa-01`  | **功能逻辑审查**：单元测试、分支覆盖率、空指针/死循环/业务 BUG   | [qa-01/SKILL.md](qa-01/SKILL.md) |
+| `qa-02`  | **性能 + UI/UX 批判**：N+1查询、过量重绘、UI_CONTRACT 一致性     | [qa-02/SKILL.md](qa-02/SKILL.md) |
+| `qa-03`  | **安全零信任审计**：IDOR、SQL 注入、CSRF/XSS、Token 过期         | [qa-03/SKILL.md](qa-03/SKILL.md) |
+| `qa-04`  | **领域法务验证**：业务不变量、医疗规范合规、PRD 验收对齐         | [qa-04/SKILL.md](qa-04/SKILL.md) |
+| `iv-01`  | **E2E 连通性验证**：Playwright 端到端旅程，HTTP 状态码全绿       | [iv-01/SKILL.md](iv-01/SKILL.md) |
+| `iv-02`  | **数据穿透 + ACID 验证**：序列化完整性、并发写入保护、事务原子性 | [iv-02/SKILL.md](iv-02/SKILL.md) |
+| `iv-03`  | **混沌极限破坏测试**：边界值注入、超时降级、极限负载、重复提交   | [iv-03/SKILL.md](iv-03/SKILL.md) |
+
+### 辅助角色
+
+| 角色代号         | 职责                                            | SKILL.md                                           |
+| ---------------- | ----------------------------------------------- | -------------------------------------------------- |
+| `gene-extractor` | 跨项目经验提取写入 Gene Bank（每 2-3 轮可触发） | [gene-extractor/SKILL.md](gene-extractor/SKILL.md) |
+
+---
+
+## 二、外部技能（Superpowers Plugin）
+
+这些技能来自 Superpowers 插件，在 Fusion 中直接引用，无需重写。
+
+| 技能名                           | 用途                            | 在 Fusion 中的阶段 |
+| -------------------------------- | ------------------------------- | ------------------ |
+| `brainstorming`                  | 探索 2-3 种实现路径 + 权衡分析  | Stage 2            |
+| `using-git-worktrees`            | 物理隔离开发环境 + 基线验证     | Stage 4            |
+| `fusion-tdd`                     | TDD Red-Green-Refactor 完整流程 | Stage 5            |
+| `finishing-a-development-branch` | 清理收尾 + 合并选项             | Stage 7            |
+| `receiving-code-review`          | 接收审查意见时的技术严谨性纪律  | Stage 6            |
+
+**⚠️ 废弃通知**:
+
+| 废弃技能                      | 替代           | 原因                                        |
+| ----------------------------- | -------------- | ------------------------------------------- |
+| `dispatching-parallel-agents` | `fusion-swarm` | fusion-swarm 是更完整的 Fusion 并行调度方案 |
+
+---
+
+## 三、技能总览（角色数量统计）
+
+| 类别                  | 角色数 |
+| --------------------- | ------ |
+| 需求与审查组          | 2      |
+| UX 原型组             | 2      |
+| 架构与规划组          | 2      |
+| 前端开发组            | 2      |
+| 后端开发组            | 4      |
+| 质量审计组（QA + IV） | 7      |
+| 辅助角色              | 1      |
+| **合计**              | **20** |
+
+Commander（人类）不计入 AI 角色体系。
+
+---
+
+## 四、共享资源
+
+| 资源       | 位置                                                      | 说明                           |
+| ---------- | --------------------------------------------------------- | ------------------------------ |
+| 调试手册   | `skills_reference/00_shared/debugging/SKILL.md`           | 通用调试技术                   |
+| Git 工作流 | `skills_reference/00_shared/git-workflow/SKILL.md`        | Semantic Commit + PR 规范      |
+| 验证规章   | `skills_reference/00_shared/verification/SKILL.md`        | 完成前强制验证                 |
+| TDD 引擎   | `skills_reference/03_role_dev/fusion-tdd-engine/SKILL.md` | 红绿重构原子动作               |
+| 按需技术栈 | `skills_reference/06_on_demand/`                          | Go/Rust/Java/Vue/Svelte 等参考 |
