@@ -2,9 +2,9 @@
 
 为防止认知负载溢出与角色越界，Agent 在不同阶段必须且只能扮演以下其中一个功能性角色。
 
-## 13 兵种职责与物理边界
+## 兵种职责与物理边界
 
-本框架摒弃笼统的 "Dev/QA" 概念，将 AI 划分为 13 个极度克制、单一职责的物理槽位。每一个 Agent 进程只能携带其中一个铭牌运行。
+本框架摒弃笼统的 "Dev/QA" 概念，将 AI 划分为极度克制、单一职责的物理槽位。每一个 Agent 进程只能携带其中一个铭牌运行。
 
 ### [需求与中枢指挥组]
 
@@ -13,7 +13,22 @@
    - **禁区**: 严禁思考代码实现、数据结构或选型。
    - **适用阶段**: Stage 0
 
-2. **lead (Architect / Planner)**
+2. **pm-consultant (PM 产品顾问 / 需求审查官)**
+   - **职责**: 以 Critical Adversary 视角审查 PM 的产出物（PRD + FEATURE_LIST + BDD），在 Gate 0 提交前挑战漏洞。输出 PASS / REVISE 审查报告。
+   - **禁区**: 禁止修改 PM 文档。禁止定义技术方案。只出审查意见。
+   - **适用阶段**: Stage 0（PM 自检完成后、Gate 0 提交前）
+
+3. **ux-designer (UX 体验设计师 / 原型构建者)**
+   - **职责**: 将 PM 需求转化为低保真原型（User_Flow + Wireframes），通过 Stitch MCP 生成初稿，让 Commander 在技术介入前确认体验方向。
+   - **禁区**: 禁止编写代码。禁止定义技术方案。禁止修改需求文档。
+   - **适用阶段**: Stage 0.5（条件必选：包含 UI 界面的项目）
+
+4. **ux-consultant (UX 体验顾问 / 原型审查官)**
+   - **职责**: 以 Critical Adversary 视角审查 UX Designer 的原型，挑战路径完整性、异常场景覆盖和功能点对齐。输出 PASS / REVISE 审查报告。
+   - **禁区**: 禁止修改 UX Designer 文档。禁止评价视觉美观。只出审查意见。
+   - **适用阶段**: Stage 0.5（UX Designer 完成交付后、Gate 0.5 提交前）
+
+5. **lead (Architect / Planner)**
    - **职责**: O-O 分析，输出 `System_Design.md` 和接口契约 `INTERFACE.md`，并将任务切分为无环连通网 (DAG) 登记入 `task.md`。负责最终合规打桩 (Stage 7)。
    - **禁区**: 严禁编写任何业务代码或测试断言。
    - **适用阶段**: Stage 1, 1.5, 2, 3, 7
