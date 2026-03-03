@@ -95,9 +95,10 @@
 | Stage 1   | ADR/                  | `pipeline/1_architecture/ADR/`                 | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
 | Stage 1.5 | Revised_Mockups/      | `pipeline/1_5_prototype/Revised_Mockups/`      | [ ]    | [ ] | UX-Consultant → `pipeline/1_5_prototype/audit/UX-Consultant-audit.md`      |
 | Stage 1.5 | State_Flow.md         | `pipeline/1_5_prototype/State_Flow.md`         | [ ]    | [ ] | UX-Consultant → `pipeline/1_5_prototype/audit/UX-Consultant-audit.md`      |
-| Stage 2   | 设计文档              | `docs/plans/YYYY-MM-DD-<topic>-design.md`      | [ ]    | [ ] | 待定 → `docs/plans/audit/<topic>-design-audit.md`                          |
-| Stage 3   | task.md               | `pipeline/2_planning/task.md`                  | [ ]    | [ ] | 待定 → `pipeline/2_planning/audit/task-audit.md`                           |
-| Stage 3   | dependency_graph.md   | `pipeline/2_planning/dependency_graph.md`      | [ ]    | [ ] | 待定 → `pipeline/2_planning/audit/dependency_graph-audit.md`               |
+| Stage 2   | 设计文档              | `docs/plans/YYYY-MM-DD-<topic>-design.md`      | [ ]    | [ ] | Commander → Gate 2 审批                                                    |
+| Stage 3   | task.md               | `pipeline/2_planning/task.md`                  | [ ]    | [ ] | Commander → Gate 2 审批                                                    |
+| Stage 3   | dependency_graph.md   | `pipeline/2_planning/dependency_graph.md`      | [ ]    | [ ] | Commander → Gate 2 审批                                                    |
+| Stage 3   | TASK_SPEC_T-{ID}.md   | `pipeline/2_planning/specs/TASK_SPEC_T-*.md`   | [ ]    | [ ] | Commander → Gate 2 审批                                                    |
 | Stage 5   | [各兵种代码+测试]     | `src/` + `tests/`                              | [ ]    | [ ] | qa-01~qa-04 → `pipeline/5_dev/audit/<task-id>-audit.md`                    |
 | Stage 6   | Audit_Report.md       | `pipeline/3_review/Audit_Report.md`            | [ ]    | [ ] | meta-QA → `pipeline/3_review/audit/Audit_Report-meta-audit.md`             |
 | Stage 6   | Integration_Report.md | `pipeline/3_review/Integration_Report.md`      | [ ]    | [ ] | meta-QA → `pipeline/3_review/audit/Integration_Report-meta-audit.md`       |
