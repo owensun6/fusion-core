@@ -48,15 +48,21 @@
 
 ## 兵力部署追踪 (Troop Deployment Tracker)
 
-> 此表在 Stage 5 启动后由 DAG 调度器自动填写，用于追踪每名特种兵的作战状态。
+> 此表在 Stage 5 启动后由 DAG 调度器填写，是 Worker↔QA 轮询机制的物理载体。
+> **TDD 状态**: ⬜ 未开始 | ✅ 完成
+> **Worker 状态**: `[ ]` 未开始 | `[x]` 已交付待审 | `[!]` QA 打回须返工
+> **QA / IV 状态**: `[ ]` 未审计 | `[✓]` 通过 | `[✗]` 不通过 → Worker 状态回滚为 `[!]`
+> **⚡ Worker 轮询义务**: 标为 `[x]` 后不得退出，轮询 QA 列直到 `[✓]`（退出通知下游）或 `[✗]`（读 audit 返工）
+> **⚡ QA 写回义务**: 审计完成后必须更新本列状态 + 写入 `pipeline/5_dev/audit/<task-id>-audit.md`
+> **⚡ 串行管道**: QA `[✓]` 后方可启动 IV；IV `[✓]` 后方可提交 Gate 3
 
-| 任务编号 | 分配兵种             | 描述 | TDD 红灯 | TDD 绿灯 | QA 通过 | IV 通过 |
-| -------- | -------------------- | ---- | -------- | -------- | ------- | ------- |
-| 1.1      | `db-schema-designer` | —    | ⬜       | ⬜       | ⬜      | ⬜      |
-| 1.2      | `be-domain-modeler`  | —    | ⬜       | ⬜       | ⬜      | ⬜      |
-| 1.3      | `fe-ui-builder`      | —    | ⬜       | ⬜       | ⬜      | ⬜      |
-| 2.1      | `fe-logic-binder`    | —    | ⬜       | ⬜       | ⬜      | ⬜      |
-| 2.2      | `be-api-router`      | —    | ⬜       | ⬜       | ⬜      | ⬜      |
+| 任务编号 | 分配兵种             | 描述 | TDD 红 | TDD 绿 | Worker | QA  | IV  | 审计报告路径                          |
+| -------- | -------------------- | ---- | ------ | ------ | ------ | --- | --- | ------------------------------------- |
+| 1.1      | `db-schema-designer` | —    | ⬜     | ⬜     | [ ]    | [ ] | [ ] | `pipeline/5_dev/audit/T-1.1-audit.md` |
+| 1.2      | `be-domain-modeler`  | —    | ⬜     | ⬜     | [ ]    | [ ] | [ ] | `pipeline/5_dev/audit/T-1.2-audit.md` |
+| 1.3      | `fe-ui-builder`      | —    | ⬜     | ⬜     | [ ]    | [ ] | [ ] | `pipeline/5_dev/audit/T-1.3-audit.md` |
+| 2.1      | `fe-logic-binder`    | —    | ⬜     | ⬜     | [ ]    | [ ] | [ ] | `pipeline/5_dev/audit/T-2.1-audit.md` |
+| 2.2      | `be-api-router`      | —    | ⬜     | ⬜     | [ ]    | [ ] | [ ] | `pipeline/5_dev/audit/T-2.2-audit.md` |
 
 ---
 
@@ -80,28 +86,28 @@
 >
 > **⚠️ Worker 监控义务（Stage 5 强制）**: 交付后不得退出，轮询本行 QA 状态直到 `[✓]` 或处理 `[✗]`。
 
-| 阶段      | 产出物                | 文件路径                                       | Worker | QA  | 审计角色 → 审计报告路径                                                    |
-| --------- | --------------------- | ---------------------------------------------- | ------ | --- | -------------------------------------------------------------------------- |
-| Stage 0   | RAW_CONVERSATION.md   | `pipeline/0_requirements/RAW_CONVERSATION.md`  | [ ]    | [ ] | PM-Consultant → `pipeline/0_requirements/audit/PM-Consultant-audit.md`     |
-| Stage 0   | PRD.md                | `pipeline/0_requirements/PRD.md`               | [ ]    | [ ] | PM-Consultant → `pipeline/0_requirements/audit/PM-Consultant-audit.md`     |
-| Stage 0   | FEATURE_LIST.md       | `pipeline/0_requirements/FEATURE_LIST.md`      | [ ]    | [ ] | PM-Consultant → `pipeline/0_requirements/audit/PM-Consultant-audit.md`     |
-| Stage 0   | BDD_Scenarios.md      | `pipeline/0_requirements/BDD_Scenarios.md`     | [ ]    | [ ] | PM-Consultant → `pipeline/0_requirements/audit/PM-Consultant-audit.md`     |
-| Stage 0.5 | Feature_Screen_Map.md | `pipeline/0_5_prototype/Feature_Screen_Map.md` | [ ]    | [ ] | UX-Consultant → `pipeline/0_5_prototype/audit/UX-Consultant-audit.md`      |
-| Stage 0.5 | User_Flow.md          | `pipeline/0_5_prototype/User_Flow.md`          | [ ]    | [ ] | UX-Consultant → `pipeline/0_5_prototype/audit/UX-Consultant-audit.md`      |
-| Stage 0.5 | Wireframes/           | `pipeline/0_5_prototype/Wireframes/`           | [ ]    | [ ] | UX-Consultant → `pipeline/0_5_prototype/audit/UX-Consultant-audit.md`      |
-| Stage 1   | System_Design.md      | `pipeline/1_architecture/System_Design.md`     | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
-| Stage 1   | INTERFACE.md          | `pipeline/1_architecture/INTERFACE.md`         | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
-| Stage 1   | Data_Models.md        | `pipeline/1_architecture/Data_Models.md`       | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
-| Stage 1   | ADR/                  | `pipeline/1_architecture/ADR/`                 | [ ]    | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
-| Stage 1.5 | Revised_Mockups/      | `pipeline/1_5_prototype/Revised_Mockups/`      | [ ]    | [ ] | UX-Consultant → `pipeline/1_5_prototype/audit/UX-Consultant-audit.md`      |
-| Stage 1.5 | State_Flow.md         | `pipeline/1_5_prototype/State_Flow.md`         | [ ]    | [ ] | UX-Consultant → `pipeline/1_5_prototype/audit/UX-Consultant-audit.md`      |
-| Stage 2   | 设计文档              | `docs/plans/YYYY-MM-DD-<topic>-design.md`      | [ ]    | [ ] | Commander → Gate 2 审批                                                    |
-| Stage 3   | task.md               | `pipeline/2_planning/task.md`                  | [ ]    | [ ] | Commander → Gate 2 审批                                                    |
-| Stage 3   | dependency_graph.md   | `pipeline/2_planning/dependency_graph.md`      | [ ]    | [ ] | Commander → Gate 2 审批                                                    |
-| Stage 3   | TASK_SPEC_T-{ID}.md   | `pipeline/2_planning/specs/TASK_SPEC_T-*.md`   | [ ]    | [ ] | Commander → Gate 2 审批                                                    |
-| Stage 5   | [各兵种代码+测试]     | `src/` + `tests/`                              | [ ]    | [ ] | qa-01~qa-04 → `pipeline/5_dev/audit/<task-id>-audit.md`                    |
-| Stage 6   | Audit_Report.md       | `pipeline/3_review/Audit_Report.md`            | [ ]    | [ ] | meta-QA → `pipeline/3_review/audit/Audit_Report-meta-audit.md`             |
-| Stage 6   | Integration_Report.md | `pipeline/3_review/Integration_Report.md`      | [ ]    | [ ] | meta-QA → `pipeline/3_review/audit/Integration_Report-meta-audit.md`       |
+| 阶段      | 产出物                 | 文件路径                                       | Worker           | QA  | 审计角色 → 审计报告路径                                                    |
+| --------- | ---------------------- | ---------------------------------------------- | ---------------- | --- | -------------------------------------------------------------------------- |
+| Stage 0   | RAW_CONVERSATION.md    | `pipeline/0_requirements/RAW_CONVERSATION.md`  | [ ]              | [ ] | PM-Consultant → `pipeline/0_requirements/audit/PM-Consultant-audit.md`     |
+| Stage 0   | PRD.md                 | `pipeline/0_requirements/PRD.md`               | [ ]              | [ ] | PM-Consultant → `pipeline/0_requirements/audit/PM-Consultant-audit.md`     |
+| Stage 0   | FEATURE_LIST.md        | `pipeline/0_requirements/FEATURE_LIST.md`      | [ ]              | [ ] | PM-Consultant → `pipeline/0_requirements/audit/PM-Consultant-audit.md`     |
+| Stage 0   | BDD_Scenarios.md       | `pipeline/0_requirements/BDD_Scenarios.md`     | [ ]              | [ ] | PM-Consultant → `pipeline/0_requirements/audit/PM-Consultant-audit.md`     |
+| Stage 0.5 | Feature_Screen_Map.md  | `pipeline/0_5_prototype/Feature_Screen_Map.md` | [ ]              | [ ] | UX-Consultant → `pipeline/0_5_prototype/audit/UX-Consultant-audit.md`      |
+| Stage 0.5 | User_Flow.md           | `pipeline/0_5_prototype/User_Flow.md`          | [ ]              | [ ] | UX-Consultant → `pipeline/0_5_prototype/audit/UX-Consultant-audit.md`      |
+| Stage 0.5 | Wireframes/            | `pipeline/0_5_prototype/Wireframes/`           | [ ]              | [ ] | UX-Consultant → `pipeline/0_5_prototype/audit/UX-Consultant-audit.md`      |
+| Stage 1   | System_Design.md       | `pipeline/1_architecture/System_Design.md`     | [ ]              | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
+| Stage 1   | INTERFACE.md           | `pipeline/1_architecture/INTERFACE.md`         | [ ]              | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
+| Stage 1   | Data_Models.md         | `pipeline/1_architecture/Data_Models.md`       | [ ]              | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
+| Stage 1   | ADR/                   | `pipeline/1_architecture/ADR/`                 | [ ]              | [ ] | Arch-Consultant → `pipeline/1_architecture/audit/Arch-Consultant-audit.md` |
+| Stage 1.5 | Revised_Mockups/       | `pipeline/1_5_prototype/Revised_Mockups/`      | [ ]              | [ ] | UX-Consultant → `pipeline/1_5_prototype/audit/UX-Consultant-audit.md`      |
+| Stage 1.5 | State_Flow.md          | `pipeline/1_5_prototype/State_Flow.md`         | [ ]              | [ ] | UX-Consultant → `pipeline/1_5_prototype/audit/UX-Consultant-audit.md`      |
+| Stage 2   | 设计文档               | `docs/plans/YYYY-MM-DD-<topic>-design.md`      | [ ]              | [ ] | Commander → Gate 2 审批                                                    |
+| Stage 3   | task.md                | `pipeline/2_planning/task.md`                  | [ ]              | [ ] | Commander → Gate 2 审批                                                    |
+| Stage 3   | dependency_graph.md    | `pipeline/2_planning/dependency_graph.md`      | [ ]              | [ ] | Commander → Gate 2 审批                                                    |
+| Stage 3   | TASK_SPEC_T-{ID}.md    | `pipeline/2_planning/specs/TASK_SPEC_T-*.md`   | [ ]              | [ ] | Commander → Gate 2 审批                                                    |
+| Stage 5   | 代码 + 测试 (per task) | `src/` + `tests/`                              | 见兵力部署追踪表 | —   | qa-01→qa-02→qa-03→iv-01→iv-02 → `pipeline/5_dev/audit/T-{ID}-audit.md`     |
+| Stage 6   | Audit_Report.md        | `pipeline/3_review/Audit_Report.md`            | [ ]              | [ ] | meta-QA → `pipeline/3_review/audit/Audit_Report-meta-audit.md`             |
+| Stage 6   | Integration_Report.md  | `pipeline/3_review/Integration_Report.md`      | [ ]              | [ ] | meta-QA → `pipeline/3_review/audit/Integration_Report-meta-audit.md`       |
 
 ---
 
