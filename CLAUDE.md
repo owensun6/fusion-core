@@ -46,17 +46,18 @@
 
 **步骤 2: 执行当前阶段**
 
-| 当前 Stage | 角色 (Role) | 产出物 (必须写入 pipeline/)                                      | 下一阶段             |
-| ---------- | ----------- | ---------------------------------------------------------------- | -------------------- |
-| Stage 0    | PM          | `0_requirements/PRD.md`, `0_requirements/BDD_Scenarios.md`       | Stage 1              |
-| Stage 1    | Lead        | `1_architecture/System_Design.md`, `1_architecture/INTERFACE.md` | Stage 1.5 或 Stage 2 |
-| Stage 1.5  | Lead        | `1_5_prototype/UI_Mockups/`, `1_5_prototype/State_Flow.md`       | Stage 2              |
-| Stage 2    | Lead        | `docs/plans/YYYY-MM-DD-*-design.md`                              | Stage 3              |
-| Stage 3    | Lead        | `2_planning/task.md`, `2_planning/dependency_graph.md`           | Stage 4              |
-| Stage 4    | Dev         | 创建 Git Worktree，验证基线                                      | Stage 5              |
-| Stage 5    | Dev         | `src/` 代码文件 + `tests/` 测试文件                              | Stage 6              |
-| Stage 6    | Reviewer    | `3_review/Audit_Report.md`, `3_review/Integration_Report.md`     | Stage 7              |
-| Stage 7    | Lead        | 合并分支，清理 Worktree                                          | 新任务 → Stage 0     |
+| 当前 Stage        | 角色 (Role)   | 产出物 (必须写入 pipeline/)                                                     | 下一阶段             |
+| ----------------- | ------------- | ------------------------------------------------------------------------------- | -------------------- |
+| Stage 0           | PM            | `0_requirements/PRD.md`, `FEATURE_LIST.md`, `BDD_Scenarios.md`                  | Stage 0.5 或 Stage 1 |
+| Stage 0.5（条件） | UX Designer   | `0_5_ux/Feature_Screen_Map.md`, `User_Flow.md`, `Wireframes/`, `UI_CONTRACT.md` | Stage 1              |
+| Stage 1           | Lead          | `1_architecture/System_Design.md`, `INTERFACE.md`, `Data_Models.md`, `ADR/`     | Stage 1.5 或 Stage 2 |
+| Stage 1.5（条件） | Lead          | `1_5_prototype/Revised_Mockups/`, `State_Flow.md`                               | Stage 2              |
+| Stage 2           | Lead          | `docs/plans/YYYY-MM-DD-*-design.md`                                             | Stage 3              |
+| Stage 3           | Lead          | `2_planning/task.md`, `dependency_graph.md`, `specs/TASK_SPEC_T-{ID}.md`        | Stage 4              |
+| Stage 4           | Lead          | 创建 Git Worktree，验证基线                                                     | Stage 5              |
+| Stage 5           | Dev（各兵种） | `src/` 代码文件 + `tests/` 测试文件                                             | Stage 6              |
+| Stage 6           | Reviewer      | `3_review/Audit_Report.md`, `Integration_Report.md`                             | Stage 7              |
+| Stage 7           | Lead          | 合并分支，清理 Worktree                                                         | 新任务 → Stage 0     |
 
 **步骤 3: 更新状态**
 
