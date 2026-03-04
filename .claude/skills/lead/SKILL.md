@@ -46,6 +46,7 @@ description: 'Tech Lead - 架构设计、技术选型、任务规划。Stage 1/2
 | `fusion-brainstorm`     | `.claude/skills/lead/sub/fusion-brainstorm.md`     | Stage 2: 技术头脑风暴 |
 | `fusion-dag-builder`    | `.claude/skills/lead/sub/fusion-dag-builder.md`    | Stage 3: 任务规划     |
 | `fusion-worktree`       | `.claude/skills/lead/sub/fusion-worktree.md`       | Stage 4: 隔离环境     |
+| `fusion-finish-branch`  | `.claude/skills/lead/sub/fusion-finish-branch.md`  | Stage 7: 完成分支     |
 
 ---
 
@@ -87,6 +88,14 @@ Stage 4: 调用 fusion-worktree
     └─ 验证基线测试（必须全绿）
     ↓
 Dev 特种兵按 task.md 进入 Stage 5
+    ↓
+Stage 5-6 完成，Gate 3 通过
+    ↓
+Stage 7: 调用 fusion-finish-branch
+    ├─ 验收最终测试状态（全绿才继续）
+    ├─ 清理脏代码（console.log / TODO / 临时文件）
+    ├─ 提供三种合并选项（本地合并 / PR / 保留待审）
+    └─ 清理 Worktree + 更新 monitor.md
 ```
 
 ---
@@ -108,6 +117,7 @@ Stage 1: System_Design.md + INTERFACE.md + Data_Models.md + ADR/
 Stage 2: docs/plans/YYYY-MM-DD-[功能名]-design.md
 Stage 3: task.md + dependency_graph.md + specs/TASK_SPEC_T-{ID}.md
 Stage 4: .worktrees/feature-[功能名]/（验证基线）
+Stage 7: 合并记录（本地 merge / PR URL / 分支保留说明）
 ```
 
 所有文件首行: `<!-- Author: Lead -->`
@@ -133,6 +143,16 @@ Stage 4: .worktrees/feature-[功能名]/（验证基线）
 [x] dependency_graph.md 无循环依赖
 [x] TASK_SPEC 数量 = task.md 任务数
 [x] Commander 签字
+```
+
+### Stage 7 完成条件
+
+```
+[x] 所有测试在最终 commit 状态下通过
+[x] 无 console.log / debugger 残留
+[x] 无未解决 CRITICAL 问题
+[x] Commander 已选择合并方式并执行
+[x] monitor.md Stage 7 状态更新为 ✅
 ```
 
 ---
