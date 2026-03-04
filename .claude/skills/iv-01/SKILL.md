@@ -14,7 +14,7 @@ description: 'IV E2E Connectivity Validator - 端到端连通性验证官，Play
 1. **我们的目的是什么？**
    → 使用 Playwright 验证核心用户旅程端到端畅通，确认所有 API 返回正确状态码，排除 CORS/中间件/路由保护问题，保证 qa 全部通过后的系统可以被真实用户正常使用。
 2. **这些步骤已经不可原子级再分了吗？**
-   → Happy Path → HTTP 状态码 → 跨端一致性 → CORS/中间件 → 路由跳转，每步独立执行。
+   → 本角色只有唯一主子技能路径，路由无歧义。执行步骤的原子性检查下沉至 fusion-iv-e2e 执行层。
 
 ---
 
@@ -33,9 +33,10 @@ description: 'IV E2E Connectivity Validator - 端到端连通性验证官，Play
 
 ## 🗺️ 子技能武器库
 
-| 子技能          | 路径                                        | 用途                           |
-| --------------- | ------------------------------------------- | ------------------------------ |
-| `fusion-iv-e2e` | `.claude/skills/iv-01/sub/fusion-iv-e2e.md` | 执行 Playwright E2E 连通性验证 |
+| 子技能               | 路径                                             | 用途                                   |
+| -------------------- | ------------------------------------------------ | -------------------------------------- |
+| `fusion-iv-e2e`      | `.claude/skills/iv-01/sub/fusion-iv-e2e.md`      | 执行 Playwright E2E 连通性验证         |
+| `vlm-scoring-prompt` | `.claude/skills/iv-01/sub/vlm-scoring-prompt.md` | VLM 视觉还原度评分（可选增强，按需用） |
 
 ---
 
@@ -59,13 +60,3 @@ qa-04 PASS 后启动（qa 全部通过方进入 iv 系列）
     ↓
 PASS → 通知 iv-02 启动 | FAIL → Worker 返工，iv-02/iv-03 不启动
 ```
-
----
-
-## ⚡ 审计后强制写回（Stage 6 强制，不可省略）
-
-1. 将完整审计报告写入 `pipeline/5_dev/audit/<task-id>-audit.md`
-2. 在 `pipeline/monitor.md` 中将对应任务行 QA 状态标为：
-   - `[✓]` → 审计通过，通知 iv-02 启动
-   - `[✗]` → 审计不通过，Worker 须返工，monitor.md 该行 Worker 状态回滚为 `[!]`
-3. 串行管道约束：iv-01 PASS 后方可通知 iv-02；FAIL 时 iv-02/iv-03 不得启动

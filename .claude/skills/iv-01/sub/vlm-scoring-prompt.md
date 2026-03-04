@@ -2,8 +2,9 @@
 
 # VLM 截图还原度打分 Prompt
 
-> 协议依赖: docs/v3_specs/vlm_protocol.md
-> 用途: 发送给 Vision Language Model (如 Claude Sonnet) 进行 UI 还原度评分
+> **用途**: 可选增强验证 — 发送给 Vision Language Model 进行 UI 视觉还原度评分
+> **适用场景**: iv-01 E2E 验证中，对关键屏幕执行"实现截图 vs 原型设计"的量化比对
+> **触发条件**: UI_CONTRACT 定义了具体视觉规格，或 Commander 要求视觉保真度验证时使用
 
 ---
 
@@ -73,7 +74,7 @@
 
 ```javascript
 const response = await anthropic.messages.create({
-  model: 'claude-sonnet-4-20250514',
+  model: 'claude-sonnet-4-6',
   max_tokens: 2000,
   messages: [
     {
@@ -96,4 +97,4 @@ const response = await anthropic.messages.create({
 
 ---
 
-_此 Prompt 由 iv-01 兵种维护，仅用于 Gate 1.5a 视觉验收_
+_此 Prompt 由 iv-01 兵种维护，用于 Stage 6 E2E 视觉还原度可选增强验证_

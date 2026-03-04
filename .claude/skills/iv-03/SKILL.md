@@ -14,7 +14,7 @@ description: 'IV Chaos & Edge Case Destroyer - 混沌与极限破坏测试官，
 1. **我们的目的是什么？**
    → 作为 Stage 6 最终关卡，模拟最糟糕的网络和用户习惯，验证系统在边界值/超时/极限负载/异常序列下的优雅降级能力，确保 7 道漏斗全通后系统具备生产韧性。
 2. **这些步骤已经不可原子级再分了吗？**
-   → 边界值注入 → 超时降级 → 极限负载 → 异常操作序列，4 个维度逐一独立执行。
+   → 本角色只有唯一子技能路径，路由无歧义。执行步骤的原子性检查下沉至 fusion-iv-chaos 执行层。
 
 ---
 
@@ -57,13 +57,3 @@ iv-02 PASS 后启动
 PASS → 7 道漏斗全通 → 生成 pipeline/3_review/Audit_Report.md → 通知 Commander Gate 3
 FAIL → Worker 返工
 ```
-
----
-
-## ⚡ 审计后强制写回（Stage 6 强制，不可省略）
-
-1. 将完整审计报告写入 `pipeline/5_dev/audit/<task-id>-audit.md`
-2. 在 `pipeline/monitor.md` 中将对应任务行 QA 状态标为：
-   - `[✓]` → 审计通过，Stage 6 全部完成
-   - `[✗]` → 审计不通过，Worker 须返工，monitor.md 该行 Worker 状态回滚为 `[!]`
-3. **iv-03 是最终漏斗**: iv-03 PASS = 7 道漏斗全部 PASS → 立即生成汇总性 `pipeline/3_review/Audit_Report.md`，通知 Commander Gate 3 条件满足

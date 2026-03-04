@@ -119,11 +119,3 @@ PRD.md  →  FEATURE_LIST.md  →  BDD_Scenarios.md
 [x] PM Consultant 使用 fusion-validate-req 审查通过（PASS 或 Commander 知情下的 HIGH/MEDIUM）
 [x] Commander 签字
 ```
-
----
-
-## 🔗 共享资源
-
-- 规则参考: `.claude/rules/00-fusion-workflow.md`（Stage 0 详细规约）
-- 角色定义: `.claude/rules/01-fusion-roles.md`（PM 完整定义）
-- Checklist 规范: `.claude/rules/atomic-checklist-standard.md`

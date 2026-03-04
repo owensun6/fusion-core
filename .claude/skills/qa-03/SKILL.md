@@ -14,7 +14,7 @@ description: 'QA Security & Zero-Trust Auditor - 安全零信任审计官，OWAS
 1. **我们的目的是什么？**
    → 使用 OWASP Top 10 全覆盖方法论发现安全漏洞，防止越权/注入/XSS/CSRF 等攻击向量进入生产，发现 CRITICAL 安全问题立即停工上报。
 2. **这些步骤已经不可原子级再分了吗？**
-   → 8 项 OWASP 检查逐一独立执行，不合并，不跳过，每项独立记录结果。
+   → 本角色只有唯一子技能路径，路由无歧义。执行步骤的原子性检查下沉至 fusion-qa-security 执行层。
 
 ---
 
@@ -62,14 +62,3 @@ qa-02 PASS 后启动
     ↓
 PASS → 通知 qa-04 启动 | FAIL → Worker 返工，后续漏斗不启动
 ```
-
----
-
-## ⚡ 审计后强制写回（Stage 6 强制，不可省略）
-
-1. 将完整审计报告写入 `pipeline/5_dev/audit/<task-id>-audit.md`
-2. 在 `pipeline/monitor.md` 中将对应任务行 QA 状态标为：
-   - `[✓]` → 审计通过，通知 qa-04 启动
-   - `[✗]` → 审计不通过，Worker 须返工，monitor.md 该行 Worker 状态回滚为 `[!]`
-3. 串行管道约束：本道 PASS 后方可通知 qa-04；FAIL 时后续道次不得启动
-4. 发现 CRITICAL 安全漏洞 → **立即停工上报 Commander**，不等后续漏斗

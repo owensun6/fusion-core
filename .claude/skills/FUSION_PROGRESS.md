@@ -72,9 +72,9 @@
 ## 最终收尾
 
 - [x] 全量验证目录结构
-- [ ] git commit（message: feat: 20-role fusion skill system）
-- [ ] git push → owensun6/fusion-core
+- [x] git commit（commit: `286950b` — feat: 20 角色融合技能体系完整交付）
+- [x] git push → owensun6/fusion-core
 
 ---
 
-_最后更新: 2026-03-04 — 所有 20 个角色融合完成，待 commit & push_
+_最后更新: 2026-03-04 — 所有 20 个角色融合完成，已 commit & push ✅_

@@ -37,7 +37,7 @@ description: 'PM Consultant - 以批判对手视角审查 PM 产出。Gate 0 提
 | --------------------------- | --------------------------------------------------------------- | -------------------- |
 | `fusion-adversarial-review` | `.claude/skills/pm-consultant/sub/fusion-adversarial-review.md` | 批判对手完整审查流程 |
 
-> 内部调用 PM 子技能: `.claude/skills/pm/sub/fusion-validate-req.md`
+> **审查维度来源**: fusion-adversarial-review 的六维度审查标准参照 `fusion-validate-req.md`，但由 PM Consultant 以批判视角独立执行，**不是调用 PM 角色代劳**。
 
 ---
 

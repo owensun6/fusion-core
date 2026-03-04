@@ -137,8 +137,4 @@ Stage 4: .worktrees/feature-[功能名]/（验证基线）
 
 ---
 
-## 🔗 共享资源
-
-- 工作流规约: `.claude/rules/00-fusion-workflow.md`（Stage 1-4 详细规约）
-- 角色定义: `.claude/rules/01-fusion-roles.md`（Lead 完整定义）
-- DAG 规划: `.claude/rules/dag-task-planning.md`（task.md 模板与示例）
+> **DAG 规划参考**: `.claude/rules/dag-task-planning.md`（task.md 三问过滤 + 模板）

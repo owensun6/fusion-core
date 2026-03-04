@@ -62,5 +62,8 @@ description: 'Backend AI Integrator - LLM/MCP 子系统接入，Prompt 工程，
 1. 在 `pipeline/monitor.md` 中将本行 Worker 状态标为 `[x]`
 2. 进入轮询循环，读取本行 QA 状态：
    - `[✓]` → 正常退出，通知 DAG 调度器下游可启动
-   - `[✗]` 或 `[!]` → 读取 `pipeline/5_dev/audit/<task-id>-audit.md` 中的 CRITICAL 问题 → 按问题修改 → 重新执行 fusion-ai-integrate → 回到步骤 1
+   - `[✗]` 或 `[!]` →
+     a. 读取 audit/<task-id>-audit.md，逐条列出 CRITICAL 问题（含文件名和行号）
+     b. 对每个 CRITICAL 问题：定位代码位置 → REFACTOR 修改 → 重跑受影响的测试（确认变绿）
+     c. 在 monitor.md 重置 Worker 状态为 `[x]`，回到步骤 2
    - `[ ]` → QA 尚未完成，继续轮询
