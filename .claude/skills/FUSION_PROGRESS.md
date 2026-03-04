@@ -35,7 +35,7 @@
 
 ### 架构组 (Stage 1-3 / 7)
 
-- [x] **Lead** — 母技能 ✅ | 子技能: fusion-arch-blueprint ✅ fusion-dag-builder ✅ fusion-brainstorm ✅ fusion-worktree ✅
+- [x] **Lead** — 母技能 ✅ | 子技能: fusion-arch-blueprint ✅ fusion-dag-builder ✅ fusion-brainstorm ✅ fusion-worktree ✅ fusion-finish-branch ✅
 - [x] **Architecture Consultant** — 母技能 ✅ | 子技能: fusion-arch-adversarial-review ✅
 
 ### 前端组 (Stage 5)

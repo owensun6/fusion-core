@@ -76,19 +76,23 @@ qa-01 → qa-02 → qa-03 → qa-04 → iv-01 → iv-02 → iv-03
 
 这些技能来自 Superpowers 插件，在 Fusion 中直接引用，无需重写。
 
-| 技能名                           | 用途                            | 在 Fusion 中的阶段 |
-| -------------------------------- | ------------------------------- | ------------------ |
-| `brainstorming`                  | 探索 2-3 种实现路径 + 权衡分析  | Stage 2            |
-| `using-git-worktrees`            | 物理隔离开发环境 + 基线验证     | Stage 4            |
-| `fusion-tdd`                     | TDD Red-Green-Refactor 完整流程 | Stage 5            |
-| `finishing-a-development-branch` | 清理收尾 + 合并选项             | Stage 7            |
-| `receiving-code-review`          | 接收审查意见时的技术严谨性纪律  | Stage 6            |
+| 技能名                  | 用途                            | 在 Fusion 中的阶段 |
+| ----------------------- | ------------------------------- | ------------------ |
+| `brainstorming`         | 探索 2-3 种实现路径 + 权衡分析  | Stage 2（备选）    |
+| `using-git-worktrees`   | 物理隔离开发环境 + 基线验证     | Stage 4（备选）    |
+| `fusion-tdd`            | TDD Red-Green-Refactor 完整流程 | Stage 5            |
+| `receiving-code-review` | 接收审查意见时的技术严谨性纪律  | Stage 6            |
+
+> **Stage 2 主路径**: `lead/sub/fusion-brainstorm.md`（内置，优先使用）
+> **Stage 4 主路径**: `lead/sub/fusion-worktree.md`（内置，优先使用）
+> **Stage 7 主路径**: `lead/sub/fusion-finish-branch.md`（内置，已替代外部 `finishing-a-development-branch`）
 
 **⚠️ 废弃通知**:
 
-| 废弃技能                      | 替代           | 原因                                        |
-| ----------------------------- | -------------- | ------------------------------------------- |
-| `dispatching-parallel-agents` | `fusion-swarm` | fusion-swarm 是更完整的 Fusion 并行调度方案 |
+| 废弃技能                         | 替代                            | 原因                                        |
+| -------------------------------- | ------------------------------- | ------------------------------------------- |
+| `dispatching-parallel-agents`    | `fusion-swarm`                  | fusion-swarm 是更完整的 Fusion 并行调度方案 |
+| `finishing-a-development-branch` | `lead/sub/fusion-finish-branch` | Stage 7 已内置，路径更明确，与 Fusion 一致  |
 
 ---
 
@@ -109,12 +113,18 @@ Commander（人类）不计入 AI 角色体系。
 
 ---
 
-## 四、共享资源
+## 四、共享规则（Auto-Loaded）
 
-| 资源       | 位置                                                      | 说明                           |
-| ---------- | --------------------------------------------------------- | ------------------------------ |
-| 调试手册   | `skills_reference/00_shared/debugging/SKILL.md`           | 通用调试技术                   |
-| Git 工作流 | `skills_reference/00_shared/git-workflow/SKILL.md`        | Semantic Commit + PR 规范      |
-| 验证规章   | `skills_reference/00_shared/verification/SKILL.md`        | 完成前强制验证                 |
-| TDD 引擎   | `skills_reference/03_role_dev/fusion-tdd-engine/SKILL.md` | 红绿重构原子动作               |
-| 按需技术栈 | `skills_reference/06_on_demand/`                          | Go/Rust/Java/Vue/Svelte 等参考 |
+以下规则由 CLAUDE.md 自动加载，无需在技能中重复引用。
+
+| 资源           | 位置                                         | 说明                         |
+| -------------- | -------------------------------------------- | ---------------------------- |
+| 工作流规范     | `.claude/rules/00-fusion-workflow.md`        | 8 阶段管道 + Gate 协议       |
+| 角色定义       | `.claude/rules/01-fusion-roles.md`           | 20 角色职责与禁区            |
+| 代码规范       | `.claude/rules/coding-style.md`              | 不变性 + 文件大小 + 错误处理 |
+| 安全红线       | `.claude/rules/security.md`                  | OWASP Top 8 检查             |
+| DAG 规划       | `.claude/rules/dag-task-planning.md`         | task.md 三问过滤 + 模板      |
+| Checklist 规范 | `.claude/rules/atomic-checklist-standard.md` | 原子步骤定义标准             |
+
+> **`skills_reference/`** 是融合前的原材料归档目录（旧结构 `01_role_pm/`, `02_role_lead/` 等），
+> 融合已完成，生产环境请使用 `.claude/skills/` 下的新技能，不依赖 skills_reference。

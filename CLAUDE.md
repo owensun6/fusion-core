@@ -81,8 +81,8 @@
 ## 核心地图静默索引 (Auto-Loaded Maps)
 
 `1[Fusion Docs]|root: .claude/rules 2|01-roles:{01-fusion-roles.md} 3|02-workflow:{00-fusion-workflow.md}`
-`4[Role Skills]|root: .claude/skills 5|01-pm:{fusion-pm-interview} 6|02-lead:{fusion-arch-blueprint,fusion-dag-builder} 7|03-dev:{fe-ui-builder,be-api-router,...} 8|04-reviewer:{qa-01,qa-02,qa-03,...}`
-`9[Core Rules]|root: .claude/rules 10|01-gates:{hooks.md,agents.md,gate-approval-protocol.md} 11|02-coding:{coding-style.md,security.md} 12|03-process:{document-standards.md,testing.md}`
+`4[Role Skills]|root: .claude/skills 5|01-pm:{pm,pm-consultant,ux-designer,ux-consultant} 6|02-lead:{lead,architecture-consultant} 7|03-dev:{fe-ui-builder,fe-logic-binder,be-api-router,be-domain-modeler,be-ai-integrator,db-schema-designer} 8|04-reviewer:{qa-01,qa-02,qa-03,qa-04,iv-01,iv-02,iv-03} 9|05-aux:{gene-extractor}`
+`10[Core Rules]|root: .claude/rules 11|01-gates:{hooks.md,agents.md,gate-approval-protocol.md} 12|02-coding:{coding-style.md,security.md} 13|03-process:{document-standards.md,testing.md}`
 
 ---
 
@@ -118,10 +118,11 @@
 
 ## 角色与技能映射
 
-| Stage        | 角色     | Skill 入口                       |
-| ------------ | -------- | -------------------------------- |
-| 0            | PM       | `.claude/skills/pm/SKILL.md`     |
-| 1, 1.5, 2, 3 | Lead     | `.claude/skills/lead/SKILL.md`   |
-| 4, 5         | Dev      | `.claude/skills/[兵种]/SKILL.md` |
-| 6            | Reviewer | `.claude/skills/qa-01/SKILL.md`  |
-| 7            | Lead     | 同上                             |
+| Stage        | 角色            | Skill 入口                              |
+| ------------ | --------------- | --------------------------------------- |
+| 0            | PM              | `.claude/skills/pm/SKILL.md`            |
+| 0.5（条件）  | UX Designer     | `.claude/skills/ux-designer/SKILL.md`   |
+| 1, 1.5, 2, 3 | Lead            | `.claude/skills/lead/SKILL.md`          |
+| 4, 5         | Dev（各兵种）   | `.claude/skills/[兵种]/SKILL.md`        |
+| 6            | Reviewer（7道） | `.claude/skills/qa-01/SKILL.md` 起      |
+| 7            | Lead            | 子技能: `lead/sub/fusion-finish-branch` |
