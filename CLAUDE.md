@@ -4,6 +4,36 @@
 
 ---
 
+## ⚡ 硬路由表 (HARD ROUTING — 立即执行，无需读后续内容)
+
+**用法**: 匹配第一列触发信号 → 立即读取第二列 SKILL.md → 开始执行
+
+| 触发信号（Stage / 关键词）                                         | 立即加载                                                                               |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| Stage 0 \| 需求 \| PRD \| BDD \| FEATURE_LIST \| 功能清单          | `.claude/skills/pm/SKILL.md`                                                           |
+| Stage 0 PM自检后 \| pm-consultant \| 需求审查官                    | `.claude/skills/pm-consultant/SKILL.md`                                                |
+| Stage 0.5 \| 原型 \| Wireframe \| UI线框 \| Stitch                 | `.claude/skills/ux-designer/SKILL.md`                                                  |
+| Stage 0.5 UX审查 \| ux-consultant \| 原型审查官                    | `.claude/skills/ux-consultant/SKILL.md`                                                |
+| Stage 1 \| 架构 \| INTERFACE \| ADR \| System_Design \| Data_Model | `.claude/skills/lead/SKILL.md` → sub: `fusion-arch-blueprint`                          |
+| Stage 1 架构审查 \| architecture-consultant                        | `.claude/skills/architecture-consultant/SKILL.md`                                      |
+| Stage 1.5 \| 原型冲突 \| Revised_Mockups \| 架构修订               | `.claude/skills/lead/SKILL.md` → sub: `fusion-arch-blueprint`                          |
+| Stage 2 \| 头脑风暴 \| 技术方案 \| design.md                       | `.claude/skills/lead/SKILL.md` → sub: `fusion-brainstorm`                              |
+| Stage 3 \| DAG \| task.md \| 任务规划 \| dependency_graph          | `.claude/skills/lead/SKILL.md` → sub: `fusion-dag-builder`                             |
+| Stage 4 \| worktree \| 隔离环境 \| 基线验证                        | `.claude/skills/lead/SKILL.md` → sub: `fusion-worktree`                                |
+| Stage 5 \| fe-ui-builder \| 哑组件 \| Tailwind \| React UI         | `.claude/skills/fe-ui-builder/SKILL.md`                                                |
+| Stage 5 \| fe-logic-binder \| 状态绑定 \| SWR \| API接入           | `.claude/skills/fe-logic-binder/SKILL.md`                                              |
+| Stage 5 \| be-api-router \| REST路由 \| Zod \| 入参校验            | `.claude/skills/be-api-router/SKILL.md`                                                |
+| Stage 5 \| be-domain-modeler \| 领域服务 \| 业务逻辑               | `.claude/skills/be-domain-modeler/SKILL.md`                                            |
+| Stage 5 \| be-ai-integrator \| LLM \| MCP \| Prompt                | `.claude/skills/be-ai-integrator/SKILL.md`                                             |
+| Stage 5 \| db-schema-designer \| Schema \| 迁移脚本                | `.claude/skills/db-schema-designer/SKILL.md`                                           |
+| Stage 6 \| 审查 \| QA \| Reviewer \| 漏斗                          | `.claude/skills/qa-01/SKILL.md`（串行管道: qa-01→qa-02→qa-03→qa-04→iv-01→iv-02→iv-03） |
+| Stage 7 \| 合并 \| PR \| finish \| 收尾                            | `.claude/skills/lead/sub/fusion-finish-branch.md`                                      |
+| gene \| 经验提取 \| Gene Bank                                      | `.claude/skills/gene-extractor/SKILL.md`                                               |
+
+> **无匹配？** → 读 `pipeline/monitor.md` 查当前 Stage → 返回上表路由 → 加载对应 SKILL.md
+
+---
+
 ## 🚀 自动工作流引擎 (Workflow Engine)
 
 **核心原则**: 本 AI Agent 是工作流引擎的自动驾驶仪。你不需要手动选择角色或阶段——一切由 `pipeline/monitor.md` 驱动。
