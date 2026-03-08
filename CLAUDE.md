@@ -157,3 +157,153 @@
 | 4, 5         | Dev（各兵种）   | `.claude/skills/[兵种]/SKILL.md`        |
 | 6            | Reviewer（7道） | `.claude/skills/qa-01/SKILL.md` 起      |
 | 7            | Lead            | 子技能: `lead/sub/fusion-finish-branch` |
+
+---
+
+## Codebase Overview
+
+Fusion-Core is a first-principles-driven AI agent orchestration framework (v4.1.0). It enforces extreme role isolation across 13 specialized AI roles via physical hooks, gate approvals, and an 8-stage pipeline. The framework is designed for medical-grade and enterprise-scale software engineering where "LLM self-determination" is unacceptable.
+
+**Architecture**: 1 human Commander + 4 stage groups + 13 atomic AI roles, coordinated through `pipeline/monitor.md`.
+
+### Tech Stack
+
+- **Runtime**: Node.js (18.x, 20.x) — CommonJS modules
+- **Testing**: Jest 30 (80% minimum coverage enforced in CI)
+- **Linting**: ESLint 10 + Prettier 3.8 + markdownlint
+- **Git Hooks**: Husky 9 + lint-staged
+- **Docs Site**: Astro 5 + Starlight
+- **E2E**: Playwright 1.52
+- **Coverage**: c8
+
+### Development Commands
+
+```bash
+npm test                # Run Jest test suite
+npm run test:coverage   # Run tests with coverage report
+npm run lint            # ESLint on .js/.ts files
+npm run lint:md         # Markdown linting
+npm run format          # Prettier auto-format
+npm run docs:dev        # Local Astro docs server
+npm run docs:build      # Build docs site
+```
+
+### CLI Entry Points (bin/)
+
+| Command        | File                       | Purpose                                           |
+| -------------- | -------------------------- | ------------------------------------------------- |
+| `fusion-core`  | `bin/fusion-core.js`       | Main CLI dispatcher (start, init, monitor, dispatch, finish, extract-genes) |
+| `fusion-router` | `bin/fusion-core-router.js` | Context assembler — routes `--role`/`--task` to the correct specialist via env injection |
+| `fusion-init`  | `bin/fusion-init.js`       | Initializes `.claude/` in a target project, backs up conflicts to `~/.fusion_backups/` |
+
+### Directory Structure
+
+```
+fusion-core/
+├── bin/                          # CLI entry points (3 files)
+├── lib/
+│   └── model-routing.js          # Role matching engine (getRoute, matchByCapabilities, discoverRoles)
+├── tests/                        # Jest test suite (5 files, ~1300 lines)
+│   ├── model-routing.test.js     # Role matching & capability tagging
+│   ├── fusion-tdd-fixer.test.js  # TDD red/green auto-healing
+│   ├── fusion-tdd-fixer-io.test.js # File I/O & error log parsing
+│   ├── hook.test.js              # Pre/post-use guard validation
+│   └── vlm-acceptance.test.js    # Vision Language Model prototype testing
+├── .claude/
+│   ├── rules/                    # 17 constraint files (coding-style, security, testing, etc.)
+│   ├── skills/                   # 22 specialist role definitions (SKILL.md + sub/ actions)
+│   ├── commands/                 # 25 tactical slash commands
+│   ├── hooks/                    # pre-tool-use.js + post-tool-use.js (physical enforcement)
+│   └── scripts/                  # Bash automation scripts
+├── pipeline/                     # Stage artifacts directory (created per-project)
+│   ├── 0_requirements/           # Stage 0: PRD, FEATURE_LIST, BDD
+│   ├── 0_5_ux/                   # Stage 0.5: Wireframes, UI_CONTRACT
+│   ├── 1_architecture/           # Stage 1: System_Design, INTERFACE, ADR/
+│   ├── 1_5_prototype/            # Stage 1.5: Revised_Mockups
+│   ├── 2_planning/               # Stage 2-3: task.md, dependency_graph, specs/
+│   ├── 3_review/                 # Stage 6: Audit_Report, Integration_Report
+│   └── monitor.md                # Central status board (auto-updated)
+├── memory/                       # Experience bank
+│   ├── gene-bank/                # Extracted cross-project patterns
+│   ├── experience/               # Lessons learned registry
+│   └── observations.jsonl        # Continuous telemetry
+├── examples/
+│   └── medical-record-system/    # Full pipeline reference implementation
+├── docs/                         # Astro documentation site source
+├── .github/workflows/
+│   ├── ci.yml                    # Test matrix (Node 18/20), lint, coverage, docs build
+│   └── publish.yml               # Package publishing
+├── CLAUDE.md                     # THIS FILE — AI agent entry point & hard routing
+├── FUSION_INDEX.md               # Navigation map for all 22 roles
+├── README.md                     # Project philosophy & quick start
+├── CHANGELOG.md                  # v2.x → v3.x → v4.1.0 evolution
+├── ROADMAP.md                    # Future milestones
+└── package.json                  # v4.1.0, CommonJS, ISC license
+```
+
+### Core Library: `lib/model-routing.js`
+
+The intelligence core of the framework. Key exports:
+
+- `getRoute(role)` — Fetch role → model tier/capabilities mapping
+- `isValidRole(role)` — Validate against 13 canonical roles
+- `matchByCapabilities(requiredCaps)` — Find best-matching roles by capability tags
+- `discoverRoles(skillsDir)` — Dynamically scan `SKILL.md` files in `.claude/skills/`
+- `parseFrontmatter(content)` — Extract YAML metadata from role definitions
+- `matchRoles(descriptor)` — Combined keyword + capability matching
+
+**Model Tier Distribution**:
+
+| Tier   | Model   | Assigned Roles                          |
+| ------ | ------- | --------------------------------------- |
+| Heavy  | Opus    | PM, Lead (architecture, planning)       |
+| Medium | Sonnet  | All BE roles, QA/IV reviewers           |
+| Light  | Haiku   | fe-ui-builder, fe-logic-binder          |
+
+### Physical Enforcement Hooks
+
+**`.claude/hooks/pre-tool-use.js`**: Runs before any tool execution
+
+- Secret scanning (API keys, hardcoded passwords)
+- Role-based tool permission stripping (QA/PM cannot write code)
+- Stage skipping guard (requires INTERFACE.md before business code)
+
+**`.claude/hooks/post-tool-use.js`**: Runs after tool execution
+
+- Author stamp validation (`<!-- Author: Role -->`)
+- Dead code detection (`console.log`, `TODO`, `debugger`)
+- Enforced for all `pipeline/` markdown outputs
+
+### CI/CD Pipeline
+
+GitHub Actions (`ci.yml`) runs on every push/PR to `main`:
+
+1. Node 18.x + 20.x matrix
+2. `npm ci` dependency install
+3. ESLint check
+4. Markdown lint
+5. Jest + coverage (80% minimum threshold)
+6. Astro docs build
+
+### Coding Standards (Enforced)
+
+- **Immutability**: No `let` variables (except performance-critical loops). Pure functions only.
+- **File size**: Max 300 lines per file, max 40 lines per function.
+- **Input validation**: All API endpoints require Zod/Joi schema validation.
+- **Error handling**: All external I/O wrapped in `try-catch` with unified error format.
+- **Commit format**: Semantic commits (`feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`).
+- **Author stamps**: All pipeline documents require `<!-- Author: [Role] -->` on line 1.
+- **API responses**: Standardized `{ success, data/error, metadata }` envelope.
+
+### Key References
+
+| Document                              | Purpose                                    |
+| ------------------------------------- | ------------------------------------------ |
+| `FUSION_INDEX.md`                     | Role navigation map (all 22 roles)         |
+| `.claude/rules/00-fusion-workflow.md` | Full 8-stage pipeline specification        |
+| `.claude/rules/01-fusion-roles.md`    | All role definitions and boundaries        |
+| `.claude/rules/coding-style.md`       | Code standards (immutability, file limits) |
+| `.claude/rules/security.md`           | OWASP Top 8 security checklist             |
+| `.claude/rules/testing.md`            | TDD red/green/refactor protocol            |
+| `.claude/rules/hooks.md`              | Pre/post/stop interception rules           |
+| `.claude/rules/gate-approval-protocol.md` | Approve/reject/escalation procedures   |
