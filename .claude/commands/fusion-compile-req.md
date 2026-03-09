@@ -16,7 +16,7 @@ allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 
 ## 执行流程
 
-1. 读取技能手册: `.claude/skills_reference/01_role_pm/zero-shot-compiler/SKILL.md`
+1. 读取技能手册: `.claude/skills/pm/sub/fusion-compile-req.md`
 2. 以 PM (Zero-Shot Compiler) 身份执行编译
 3. 输出两个文件到 `pipeline/0_requirements/`:
    - `PRD.md` — 含编译器自动推断的边界假设
@@ -25,4 +25,4 @@ allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 
 ## 退回条件
 
-如果需求过于模糊（无法推断出至少 1 个 Success + 1 个 Error 场景），自动退回 `01_Socratic_Ask` 传统路径。
+如果需求过于模糊（无法推断出至少 1 个 Success + 1 个 Error 场景），自动退回 `fusion-pm-interview` 多轮逼问路径。

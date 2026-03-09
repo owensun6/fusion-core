@@ -5,14 +5,13 @@ description: qa-03 专用。OWASP Top 10 安全零信任审计：越权/注入/X
 
 # fusion-qa-security — 安全零信任审计
 
-> **融合来源**: ECC qa-03 + Fusion-Core security.md OWASP 8 项 + fusion-workflow Stage 6
 
 ---
 
 ## ⚡ 执行前 FP 两问（强制）
 
 1. **我们的目的是什么？**
-   → 在代码进入生产前，使用 OWASP Top 10 全覆盖方法论发现安全漏洞，防止越权、注入、XSS 等攻击向量，发现 CRITICAL 安全问题立即停工上报。
+   → OWASP Top 10 全覆盖安全审计
 2. **这些步骤已经不可原子级再分了吗？**
    → 8 项 OWASP 检查逐一独立执行，不合并，不跳过。每项检查结果独立记录。
 

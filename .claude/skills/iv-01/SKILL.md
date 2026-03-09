@@ -5,7 +5,6 @@ description: 'IV E2E Connectivity Validator - 端到端连通性验证官，Play
 
 # IV-01 (End-to-End Connectivity Validator) — 母技能
 
-> **Stage 6 第五道漏斗** | 融合来源: ECC iv-01 + Fusion-Core integration-tests-checklist.md → Fusion
 
 ---
 
@@ -46,7 +45,7 @@ description: 'IV E2E Connectivity Validator - 端到端连通性验证官，Play
 qa-04 PASS 后启动（qa 全部通过方进入 iv 系列）
     ↓
 调用 fusion-iv-e2e
-    ├─ Step 1: 核心用户旅程（BDD_Scenarios Happy Path）
+    ├─ Step 1: 核心用户旅程（BDD_Scenarios Happy Path + User_Flow.md 异常路径）
     ├─ Step 2: HTTP 状态码全绿（无意外 5xx）
     ├─ Step 3: 跨端一致性（桌面/移动端）
     ├─ Step 4: CORS 与 Auth 中间件

@@ -8,7 +8,8 @@
 - **后置执行**:
   1. Agent 立即将当前阶段的核心产出物加上 `<!-- status: APPROVED -->` 的元数据标签。
   2. Hook 自动更新 `pipeline/monitor.md` 对应的 Gate 槽位状态为 `✅`。
-  3. 全局 Agent 将被授权进入下一个预设的 Stage。
+  3. **自动触发 Gene Extractor**: 加载 `.claude/skills/gene-extractor/SKILL.md`，提取本阶段的跨项目可复用经验写入 Gene Bank。
+  4. 全局 Agent 将被授权进入下一个预设的 Stage。
 
 ## 2. 拒绝与返工流 (Reject & Rework Loop)
 
@@ -17,7 +18,7 @@
 - **触发条件**: 任何维度的不过关（需求模糊、架构错乱、检查亮红灯）。
 - **强制闭环执行路线**:
   1. **Reject 签收**: 立即冻结当前进程。将 Commander 的拒绝理由（哪怕是一句话）原样记录至 `pipeline/monitor.md` 尾部的“风险日志列”。
-  2. **Rework 物理回退**: 负责该阶段的 Agent 必须重新拉起其核心动作（若是 Stage 0，必须重新呼叫 `01_Socratic_Ask`；若是 Stage 5，必须重新运行 TDD 的 Red 阶段）。
+  2. **Rework 物理回退**: 负责该阶段的 Agent 必须重新拉起其核心动作（若是 Stage 0，必须重新呼叫 `fusion-pm-interview`；若是 Stage 5，必须重新运行 TDD 的 Red 阶段）。
   3. **Re-submit 重新递交**: 将修改后的完整文件作为新的交付物，打上 `<!-- status: RE-SUBMITTED -->` 标签，再次叩关求过。
 
 ## 3. 熔断与升级处置 (Escalation)

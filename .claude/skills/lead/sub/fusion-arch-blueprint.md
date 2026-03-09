@@ -5,14 +5,13 @@ description: Lead 专用。Stage 1 架构设计：System_Design + INTERFACE + Da
 
 # fusion-arch-blueprint — 系统架构蓝图
 
-> **融合来源**: ECC fusion-arch-blueprint（System Design 示例）+ fusion-workflow Stage 1 规约
 
 ---
 
 ## ⚡ 执行前 FP 两问（强制）
 
 1. **我们的目的是什么？**
-   → 产出一套让 FE/BE 特种兵各自独立开发、互不等待的技术契约（System_Design + INTERFACE + Data_Models + ADR），不包含任何业务代码。
+   → 产出 FE/BE 独立开发的技术契约
 2. **这些步骤已经不可原子级再分了吗？**
    → 系统设计 → 接口契约 → 数据模型 → ADR，顺序不可颠倒，不可合并。
 
@@ -220,12 +219,43 @@ erDiagram
 
 ---
 
+### Step 6: 更新 FEATURE_LIST.md 追踪总表"接口"列
+
+打开 `pipeline/0_requirements/FEATURE_LIST.md`，在追踪总表中为每个 F-ID 填入对应的接口编号：
+
+```
+| F1.1 | 用户登录 | ✅ | S-01 | POST /api/auth/login | ...
+| F1.2 | 密码找回 | ✅ | S-01 | POST /api/auth/forgot-password, POST /api/auth/reset-password | ...
+```
+
+接口编号来自 INTERFACE.md 的 F-ID 覆盖矩阵。覆盖率必须 100%。
+
+---
+
 ## 质量闸门
 
 - [ ] System_Design.md 包含组件图 + 核心业务时序图
 - [ ] INTERFACE.md 中每个 F-ID 至少有 1 个接口（F-ID 覆盖率 100%）
+- [ ] FEATURE_LIST.md 追踪总表"接口"列已全部填入（覆盖率 100%）
 - [ ] Data_Models.md 包含所有核心实体 + 并发保护方案
 - [ ] 每个重大技术决策有对应 ADR（至少 1 份）
 - [ ] 零业务代码（无 class / function / const 等编程语法）
 
 **自检通过 → 通知 Architecture Consultant 启动对抗审查。**
+
+---
+
+## Stage 1.5: 冲突屏幕修订（条件触发）
+
+**触发条件**: Stage 1 发现 Stage 0.5 原型中有技术不可行的交互时执行。无冲突 → Commander 标记 SKIP。
+
+**铁律**: 只修改有架构冲突的屏幕，禁止借机重新设计无关交互。
+
+**产出物**:
+
+| 产出物 | 路径 | 数量约束 |
+|--------|------|---------|
+| 修订原型 | `pipeline/1_5_prototype/Revised_Mockups/` | = 冲突屏幕数（不多不少），文件名加 `-revised` 后缀 |
+| 状态流 | `pipeline/1_5_prototype/State_Flow.md` | 仅受影响屏幕（若有状态转换变更） |
+
+> State_Flow.md Mermaid 状态图模板 → `.claude/rules/prototype-state-flow.md`

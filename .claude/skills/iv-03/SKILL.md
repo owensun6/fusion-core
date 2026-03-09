@@ -5,7 +5,6 @@ description: 'IV Chaos & Edge Case Destroyer - 混沌与极限破坏测试官，
 
 # IV-03 (Chaos & Edge Case Destroyer) — 母技能
 
-> **Stage 6 第七道漏斗（最终关卡）** | 融合来源: ECC iv-03 + Fusion-Core integration-tests-checklist.md → Fusion
 
 ---
 

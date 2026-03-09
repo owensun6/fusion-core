@@ -23,13 +23,22 @@ allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 bash bin/scripts/start-project.sh "<项目名称>" "Commander"
 ```
 
-如果 `bin/scripts/start-project.sh` 不存在，手动创建以下目录结构：
+如果 `bin/scripts/start-project.sh` 不存在，运行 pipeline 初始化脚本：
 
-- `pipeline/0_requirements/`
-- `pipeline/1_architecture/ADR/`
-- `pipeline/1_5_prototype/UI_Mockups/`
-- `pipeline/2_planning/`
-- `pipeline/3_review/`
+```bash
+bash .claude/scripts/init_pipeline.sh "$(pwd)/pipeline"
+```
+
+如果该脚本也不存在，手动创建以下目录结构：
+
+- `pipeline/0_requirements/audit/`
+- `pipeline/0_5_prototype/Wireframes/stitch-raw/` + `audit/`
+- `pipeline/1_architecture/ADR/` + `audit/`
+- `pipeline/1_5_prototype/UI_Mockups/` + `Revised_Mockups/`
+- `pipeline/2_planning/specs/`
+- `pipeline/5_dev/audit/`
+- `pipeline/3_review/e2e-screenshots/`
+- `pipeline/4_delivery/`
 
 并在 `pipeline/monitor.md` 中填入项目名称、当前日期，将 Stage 0 标记为 🟡 进行中。
 
@@ -40,8 +49,7 @@ bash bin/scripts/start-project.sh "<项目名称>" "Commander"
 读取以下文件获取 PM 的行为规范：
 
 1. `.claude/skills/pm/SKILL.md`
-2. `.claude/skills_reference/01_role_pm/fusion-pm-interview/SKILL.md`
-3. `.claude/skills_reference/01_role_pm/fusion-pm-interview/actions/01_Socratic_Ask.md`
+2. `.claude/skills/pm/sub/fusion-pm-interview.md`
 
 然后以 PM 身份向 Commander 发起苏格拉底式需求追问。你的目标是：
 
@@ -55,7 +63,7 @@ bash bin/scripts/start-project.sh "<项目名称>" "Commander"
 
 当 Commander 的需求足够清晰时，读取意图提取规范：
 
-- `.claude/skills_reference/01_role_pm/fusion-pm-interview/actions/02_Intent_Extract.md`
+- `.claude/skills/pm/sub/fusion-compile-req.md`
 
 产出两份文件：
 

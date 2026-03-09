@@ -1,6 +1,8 @@
 # Fusion-Core 特种兵兵法写作规范 (Skill Authoring Standard)
 
 > **[!] CRITICAL (造兵法则)**: 在 Fusion-Core 系统中，无论是官方提供的 13 个角色，还是后续项目中自定义的临时兵种，如果要为其分配专门的领域知识，必须遵守统一的 `SKILL.md` 编写标准。
+>
+> 文档写作通用规范（零噪声原则、Diátaxis 框架、Markdown 格式）→ `_STYLE_GUIDE.md`
 
 ## 0. 第一性原理强制嵌入（所有 SKILL.md 必须遵守）
 
@@ -42,7 +44,7 @@
 
 ## 1. 原则 (Core Philosophy)
 
-1. **单一技能，一个入口**: 每个军团或独立特种兵兵种只能拥有一个 `SKILL.md`（例如 `.claude/skills/03_role_dev/fe-ui-builder/SKILL.md`），它是代理理解该角色的第一入口。
+1. **单一技能，一个入口**: 每个军团或独立特种兵兵种只能拥有一个 `SKILL.md`（例如 `.claude/skills/fe-ui-builder/SKILL.md`），它是代理理解该角色的第一入口。
 2. **强制使用原子能力 (Actions)**: 长篇大论的教导会被大模型遗忘。对于复杂的业务流，应该将它们拆分成独立的动作文件（例如 `actions/01_Red_Fail_Test.md`），并在 `SKILL.md` 里进行引用。
 
 ## 2. 目录结构标准
@@ -60,7 +62,7 @@ skills/
 
 ## 3. `SKILL.md` 官方标准模板
 
-任何特种兵的 `SKILL.md` 必须包含以下 4 个段落，且第一段落必须引入 `00_shared`。
+任何特种兵的 `SKILL.md` 必须包含以下 4 个段落，且第一段落必须引入共享资源（`.claude/rules/hooks.md` 和 `.claude/rules/document-standards.md`）。
 
 ```markdown
 # [特种兵全写，例如：Frontend UI Builder (UI特种兵)]
@@ -69,8 +71,8 @@ skills/
 
 在执行任何具体任务前，你**必须**了解并挂载以下通用法则：
 
-- `fusion-core/.claude/rules/hooks.md` (前置与后置拦截)
-- `fusion-core/.claude/rules/document-standards.md` (文档与签名拦截)
+- `.claude/rules/hooks.md` (前置与后置拦截)
+- `.claude/rules/document-standards.md` (文档与签名拦截)
 
 ## 1. 兵种识别 (Identity & Scope)
 

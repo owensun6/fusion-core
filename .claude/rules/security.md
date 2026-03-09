@@ -1,6 +1,6 @@
 # 安全渗透红线 (Security Constraints)
 
-> **[!] CRITICAL (生死存亡)**: 在此防线被击穿，无需打回，直接清退。安全是 `qa-03-security-audit` 的武器，也是每一个 Dev 的紧箍咒。
+> **[!] CRITICAL (生死存亡)**: 在此防线被击穿，无需打回，直接清退。安全是 `qa-03` 的武器，也是每一个 Dev 的紧箍咒。
 
 ## 高危 8 项清点法 (OWASP Top 8 Check)
 
@@ -21,4 +21,4 @@
 
 1. **立刻挂起并报警 (`STOP`)**。
 2. 将责任代码片段贴到 `pipeline/monitor.md` 对应的异常槽位。
-3. 转交给 `qa-03-security-audit` 特种兵接管重制。
+3. 转交给 `qa-03` 特种兵接管重制。

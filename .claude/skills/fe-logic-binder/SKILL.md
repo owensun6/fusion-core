@@ -5,7 +5,6 @@ description: 'Frontend Logic Binder - 前端状态绑定与 API 接入。不碰 
 
 # FE-Logic-Binder (State & Data Flow Binder) — 母技能
 
-> **Stage 5** | 融合来源: ECC fe-logic-binder + fusion-workflow Stage 5 TDD 规约 → Fusion
 
 ---
 

@@ -5,14 +5,13 @@ description: be-domain-modeler 专用。编写纯函数型领域服务逻辑和 
 
 # fusion-domain-model — 领域服务与业务逻辑
 
-> **融合来源**: ECC be-domain-modeler + fusion-workflow Stage 5 TDD 规约 + patterns.md Repository Pattern
 
 ---
 
 ## ⚡ 执行前 FP 两问（强制）
 
 1. **我们的目的是什么？**
-   → 实现核心业务逻辑（计算规则、状态转换、约束验证），通过 Repository 抽象访问数据，保持业务逻辑与基础设施的完全解耦，让业务逻辑可以独立单元测试。
+   → 实现解耦的纯函数领域逻辑
 2. **这些步骤已经不可原子级再分了吗？**
    → 先写单元测试（Mock Repository）→ 实现领域服务 → 实现 Repository → 验证集成。
 
@@ -30,7 +29,16 @@ description: be-domain-modeler 专用。编写纯函数型领域服务逻辑和 
 
 ## TDD 执行循环
 
-### 🔴 RED: 先写单元测试（Mock Repository）
+### 🔴 RED: 从 BDD 生成单元测试（Mock Repository）
+
+**⚠️ TDD 证据链（铁律）**:
+
+1. 读取 TASK_SPEC 中的 BDD 验收标准（Given-When-Then），逐条转化为测试断言
+2. 运行测试 → **必须全部 FAIL**（若有 PASS = 实现已存在，上报 Lead）
+3. `git commit -m "test(red): T-{ID} [简述]"` — 此 commit 是 RED 的物理证据
+4. QA-01 将验证 git log 中 `test(red)` commit 早于 `feat(green)` commit
+
+**未提交 RED commit 就写实现代码 = 违反 TDD 纪律，QA-01 将直接 FAIL。**
 
 ```ts
 // 领域服务测试: 完全隔离数据库，使用 Mock Repository
@@ -72,7 +80,7 @@ describe('AuthService.login', () => {
 });
 ```
 
-### 🟢 GREEN: 实现领域服务（纯函数型）
+### 🟢 GREEN: 实现领域服务（纯函数型） → `git commit -m "feat(green): T-{ID} [简述]"`
 
 ```ts
 // 领域服务规则:
@@ -122,14 +130,6 @@ export class PrismaUserRepository implements UserRepository {
   }
 }
 ```
-
----
-
-## 禁区（越界即违规）
-
-- ❌ 禁止直接调用 `prisma` / 数据库连接（通过 Repository 接口）
-- ❌ 禁止处理 HTTP Request/Response/JWT 解析（属于路由层）
-- ❌ 禁止在业务逻辑中写 SQL 字符串
 
 ---
 

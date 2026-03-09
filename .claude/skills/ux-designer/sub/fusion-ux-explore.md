@@ -5,14 +5,13 @@ description: UX Designer 专用。解读需求文档，建立 Feature_Screen_Map
 
 # fusion-ux-explore — 需求解读与功能屏幕映射
 
-> **融合来源**: fusion-workflow Stage 0.5 规约（Feature_Screen_Map 强制产出）
 
 ---
 
 ## ⚡ 执行前 FP 两问（强制）
 
 1. **我们的目的是什么？**
-   → 将 PM 的文字需求转化为「功能 → 屏幕」映射表，让每一个 F-ID 都有一个具体的界面容器，让后续线框图有迹可循。
+   → 建立 F-ID 到屏幕的映射表
 2. **这些步骤已经不可原子级再分了吗？**
    → 每次只处理一个文档，逐条 F-ID 分析，不跳跃、不合并。
 
@@ -88,11 +87,25 @@ description: UX Designer 专用。解读需求文档，建立 Feature_Screen_Map
 
 ---
 
+### Step 5: 更新 FEATURE_LIST.md 追踪总表"原型"列
+
+打开 `pipeline/0_requirements/FEATURE_LIST.md`，在追踪总表中为每个 F-ID 填入对应的屏幕编号：
+
+```
+| F1.1 | 用户登录 | ✅ | S-01 | ...
+| F1.2 | 密码找回 | ✅ | S-01 | ...
+```
+
+屏幕编号来自 Feature_Screen_Map.md 中的屏幕目录。覆盖率必须 100%。
+
+---
+
 ## 质量闸门
 
-完成 Step 4 后，自检：
+完成 Step 5 后，自检：
 
 - [ ] FEATURE_LIST 中所有 F-ID 均在映射表中有对应记录
+- [ ] FEATURE_LIST 追踪总表"原型"列已全部填入屏幕编号
 - [ ] 每条映射均有屏幕名称（不是"待定"）
 - [ ] 屏幕目录已汇总（后续线框图的完整清单）
 - [ ] 缺口报告已写入（空缺口也要写"无"）

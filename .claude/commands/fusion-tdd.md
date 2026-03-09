@@ -15,7 +15,7 @@ allowed-tools: Bash, Editor
 
 ## 执行极刑三部曲 (RED - GREEN - REFACTOR)
 
-收到指令后，挂载 `fusion-tdd-engine` (位于 `03_role_dev/fusion-tdd-engine/SKILL.md`) 特种兵的灵魂。并按照以下步骤严格作业：
+收到指令后，按照 fusion-workflow Stage 5 的 TDD 纪律（`NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST`）以及各 Dev 兵种 SKILL.md 中的红绿重构循环严格作业：
 
 ### 1. RED (写必须挂掉的针对性单测)
 

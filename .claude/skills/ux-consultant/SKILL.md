@@ -5,7 +5,6 @@ description: 'UX 顾问 - Gate 0.5 提交前以批判对手视角审查原型。
 
 # UX Consultant (体验顾问 / 原型审查官) — 母技能
 
-> **Stage 0.5（Gate 0.5 前）** | 融合来源: pm-consultant 对抗审查结构 → 适配 UX 维度 → Fusion
 
 ---
 

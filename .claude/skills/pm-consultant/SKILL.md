@@ -5,7 +5,6 @@ description: 'PM Consultant - 以批判对手视角审查 PM 产出。Gate 0 提
 
 # PM Consultant (产品顾问 / 需求审查官) — 母技能
 
-> **Stage 0（Gate 0 前）** | 融合来源: ECC pm-consultant + CC-Best second-opinion → Fusion
 
 ---
 

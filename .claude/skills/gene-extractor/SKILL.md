@@ -8,7 +8,6 @@ model: haiku
 
 # Gene-Extractor (战役基因提取器) — 母技能
 
-> **任意阶段** | 融合来源: ECC gene-extractor + fusion-workflow Gene Extractor 规约 → Fusion
 
 ---
 
@@ -80,6 +79,10 @@ Gene 存储: memory/gene-bank/personal/campaign-<id>.md
                                                    ↓
                                             演化为 SKILL.md 补丁
 ```
+
+当 Gene 达到 0.9 置信度，准备演化为 SKILL.md 补丁时：
+
+- SKILL.md 结构模板 + FP 两问嵌入规范 → `.claude/rules/skill-authoring-standard.md`
 
 ## 物理路径
 

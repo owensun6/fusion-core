@@ -47,23 +47,25 @@ Lead 在规划任务前，必须输出一份 `pipeline/2_planning/dependency_gra
 
 使用以下格式生成 `pipeline/2_planning/task.md`。使用 GitHub Checkbox 语法与我们专用的兵种标签。
 
+**调度铁律**: 每个 Task 的 `Blocker` 字段是唯一的依赖声明。任务的启动条件 = 所有 Blocker 已完成，无需等待同 Phase 内其他无关任务。Phase 分组仅用于视觉组织，不构成执行约束。
+
 ```markdown
 # 实施计划与并发检查单 (Execution Plan)
 
 <!-- Author: Lead -->
 
-## [Phase 1] 完全并发区 (无依赖，多 Agent 同时进场)
+> **调度依据**: 每个 Task 的 Blocker 字段即为唯一依赖声明，无额外 Phase 闸门约束。
 
-- [ ] Task 1.1 `[Assignee: db-schema-designer]`: 在 `schema.prisma` 新增 `Cart` 和 `CartItem` 模型 (Blocker: None)
-- [ ] Task 1.2 `[Assignee: fe-ui-builder]`: 创建 `components/CartIcon.tsx` (Blocker: None)
-- [ ] Task 1.3 `[Assignee: be-domain-modeler]`: 编写购物车价格计算引擎的核心业务逻辑 (Blocker: None)
+## [Phase 1] 基础骨架 (无依赖，完全并行)
 
---- 闸门: Phase 1 全部亮绿后，钩子解封 Phase 2 ---
+- [ ] T-01 `[Assignee: db-schema-designer]`: 在 `schema.prisma` 新增 `Cart` 和 `CartItem` 模型 (Blocker: None)
+- [ ] T-02 `[Assignee: fe-ui-builder]`: 创建 `components/CartIcon.tsx` (Blocker: None)
+- [ ] T-03 `[Assignee: be-domain-modeler]`: 编写购物车价格计算引擎的核心业务逻辑 (Blocker: None)
 
-## [Phase 2] 拼合强依赖区 (单线串行或弱并发)
+## [Phase 2] 集成区 (按 Blocker 自然解锁)
 
-- [ ] Task 2.1 `[Assignee: be-api-router]`: 将 1.3 的引擎包裹为 RESTful 接口 (Blocker: 1.1, 1.3)
-- [ ] Task 2.2 `[Assignee: fe-logic-binder]`: 前端通过 SWR 挂载接口，完成组件状态绑定 (Blocker: 1.2, 2.1)
+- [ ] T-04 `[Assignee: be-api-router]`: 将 T-03 的引擎包裹为 RESTful 接口 (Blocker: T-01, T-03)
+- [ ] T-05 `[Assignee: fe-logic-binder]`: 前端通过 SWR 挂载接口，完成组件状态绑定 (Blocker: T-02, T-04)
 ```
 
 ## 4. 特种兵认领规则

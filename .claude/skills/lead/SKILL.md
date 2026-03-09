@@ -5,7 +5,6 @@ description: 'Tech Lead - 架构设计、技术选型、任务规划。Stage 1/2
 
 # Lead (Tech Lead / Architect / Planner) — 母技能
 
-> **Stage 1, 2, 3, 4, 7** | 融合来源: ECC fusion-arch-blueprint + fusion-dag-builder + Superpowers worktree → Fusion
 
 ---
 
@@ -62,14 +61,17 @@ Stage 1: 调用 fusion-arch-blueprint
     ├─ 产出 Data_Models.md（实体+并发保护）
     └─ 产出 ADR/（每重大决策一份）
     ↓
-Architecture Consultant 审查（PASS）
+自动加载 Architecture Consultant SKILL.md（无需 Commander 手动触发）
+    ├─ Architecture Consultant 执行对抗审查
+    ├─ REVISE → 按意见修改 → 重新触发审查（最多3次，否则熔断）
+    └─ PASS
     ↓
 Gate 1：Commander 签字
     ↓
 Stage 2: 调用 fusion-brainstorm（或跳过直接进 Stage 3）
     ├─ 构造 2-3 种实现路径
     ├─ 权衡矩阵分析
-    └─ 产出 docs/plans/YYYY-MM-DD-[功能名]-design.md
+    └─ 产出 pipeline/1_architecture/YYYY-MM-DD-[功能名]-design.md
     ↓
 Commander 确认设计文档
     ↓
@@ -114,7 +116,7 @@ FE 和 BE 读完 INTERFACE.md 可独立开发，互不等待。
 
 ```
 Stage 1: System_Design.md + INTERFACE.md + Data_Models.md + ADR/
-Stage 2: docs/plans/YYYY-MM-DD-[功能名]-design.md
+Stage 2: pipeline/1_architecture/YYYY-MM-DD-[功能名]-design.md
 Stage 3: task.md + dependency_graph.md + specs/TASK_SPEC_T-{ID}.md
 Stage 4: .worktrees/feature-[功能名]/（验证基线）
 Stage 7: 合并记录（本地 merge / PR URL / 分支保留说明）
@@ -139,7 +141,7 @@ Stage 7: 合并记录（本地 merge / PR URL / 分支保留说明）
 
 ```
 [x] task.md 中每任务有具体 Assignee + Blocker
-[x] Phase 1 所有任务互相无依赖
+[x] 无 Phase 闸门语法（调度完全由 Blocker 字段驱动，Phase 仅为视觉分组）
 [x] dependency_graph.md 无循环依赖
 [x] TASK_SPEC 数量 = task.md 任务数
 [x] Commander 签字

@@ -5,14 +5,13 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
 
 # fusion-dag-builder — DAG 任务规划
 
-> **融合来源**: ECC fusion-dag-builder（DAG 并发图）+ fusion-workflow Stage 3 规约 + atomic-checklist-standard Task 三问过滤
 
 ---
 
 ## ⚡ 执行前 FP 两问（强制）
 
 1. **我们的目的是什么？**
-   → 将设计方案切碎为「2-5 分钟可完成、指定具体特种兵、明确依赖关系」的最小任务单元，让 Stage 5 并发作战成为可能。
+   → 切分设计为可并发的原子任务
 2. **这些步骤已经不可原子级再分了吗？**
    → 每个 Task 条目必须过三问过滤才能写入。不过滤就写入 = 违反执行纪律。
 
@@ -39,9 +38,18 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
 
 ## 执行序列
 
+### Step 0: 复用审计（fe-ui-builder Task 写入前强制）
+
+扫描 `pipeline/0_5_prototype/stitch-code/` 目录，检查是否已有对应屏幕的 HTML 代码：
+
+- **有代码** → 该 Task 定义为"复制 + 微调"（输入栏注明 Stitch 屏幕编号），禁止从零构建
+- **无代码** → 正常定义为从零构建
+
+此步骤仅针对 `fe-ui-builder` 类 Task。其他兵种不受影响。
+
 ### Step 1: 分析设计文档，识别独立任务边界
 
-从 `fusion-brainstorm` 的设计文档中提取所有需要开发的功能点，按以下维度分组：
+从 `pipeline/1_architecture/` 下的设计文档（含 Stage 2 brainstorm 产出 `*-design.md`）中提取所有需要开发的功能点，按以下维度分组：
 
 - **无依赖项**: 可以立刻并发执行的任务
 - **有依赖项**: 需要等待上游完成才能开始的任务
@@ -72,14 +80,10 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
 - T-002 `[be-domain-modeler]`: 实现登录鉴权领域逻辑 (Blocker: None)
 - T-003 `[fe-ui-builder]`: 构建登录页哑组件 (Blocker: None)
 
---- ⛔ Phase 1 全部绿灯后，闸门解封 Phase 2 ---
-
-## Phase 2 — 拼合依赖区
+## Phase 2 — 集成区（按 Blocker 自然解锁）
 
 - T-004 `[be-api-router]`: 封装登录接口（调用 T-002 领域服务）(Blocker: T-001, T-002)
 - T-005 `[fe-logic-binder]`: 绑定登录表单状态 + API 调用（接手 T-003）(Blocker: T-003, T-004)
-
---- ⛔ Phase 2 全部绿灯后，闸门解封 Phase 3 ---
 ```
 
 **死锁检查**: 确认图中无循环依赖（A 等 B，B 等 A = 死锁）。
@@ -97,9 +101,7 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
 - [ ] T-002 `[Assignee: be-domain-modeler]`: [任务描述] (Blocker: None)
 - [ ] T-003 `[Assignee: fe-ui-builder]`: [任务描述] (Blocker: None)
 
---- 闸门: Phase 1 全部 ✅ 后方可进入 Phase 2 ---
-
-## [Phase 2] 拼合依赖区
+## [Phase 2] 集成区（按 Blocker 自然解锁）
 
 - [ ] T-004 `[Assignee: be-api-router]`: [任务描述] (Blocker: T-001, T-002)
 - [ ] T-005 `[Assignee: fe-logic-binder]`: [任务描述] (Blocker: T-003, T-004)
@@ -129,11 +131,19 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
 - `prisma/schema.prisma` 中 User 模型
 - 对应的数据库迁移脚本
 
-## 验收标准
+## 验收标准（BDD 格式 — Dev 必须逐条转化为测试断言）
 
-- [ ] User 表包含所有在 Data_Models.md 中定义的字段
-- [ ] 迁移脚本可成功执行（`prisma migrate dev` 无报错）
-- [ ] email 字段有 UNIQUE 索引
+- Given: 数据库迁移已执行
+  When: 查询 User 表结构
+  Then: 包含 Data_Models.md 中定义的所有字段
+
+- Given: 一条合法的 User 记录已插入
+  When: 用相同 email 再次插入
+  Then: 抛出 Unique constraint 错误
+
+- Given: 有效的 Prisma Schema
+  When: 执行 `prisma migrate dev`
+  Then: 迁移成功，无报错
 
 ## 禁止事项
 
@@ -141,15 +151,32 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
 - 禁止修改路由或 HTTP 层代码
 ```
 
+> **BDD 格式铁律**: 验收标准必须写为 Given-When-Then，禁止使用模糊的 checkbox 格式。Dev 将从 BDD 逐条生成测试断言，模糊的标准 = 模糊的测试 = 无效的 TDD。
+
+---
+
+### Step 6: 更新 FEATURE_LIST.md 追踪总表"Task"列
+
+打开 `pipeline/0_requirements/FEATURE_LIST.md`，在追踪总表中为每个 F-ID 填入对应的 T-ID：
+
+```
+| F1.1 | 用户登录 | ✅ | S-01 | POST /api/auth/login | T-01,T-02,T-04 | ...
+```
+
+T-ID 来自 TASK_SPEC 中的"来源 F-ID"字段，反向填入。一个 F-ID 可能对应多个 T-ID。
+
 ---
 
 ## 质量闸门
 
 - [ ] 所有 Task 条目已过三问过滤（无冗余条目）
 - [ ] 所有 Task 指定了具体特种兵（无"Dev"等笼统分配）
-- [ ] Phase 1 中所有任务互相无依赖（真正可并发）
+- [ ] 无 Phase 闸门语法（调度完全由 Blocker 字段驱动，Phase 仅为视觉分组）
 - [ ] dependency_graph.md 无循环依赖
 - [ ] TASK_SPEC 数量 = task.md 中的 Task 数量
+- [ ] 每个 TASK_SPEC 的验收标准为 BDD Given-When-Then 格式（无模糊 checkbox）
+- [ ] FEATURE_LIST.md 追踪总表"Task"列已全部填入对应 T-ID
+- [ ] **Harness 就绪检查**: 测试运行命令已在 package.json/Makefile 中定义，测试套件可在隔离环境独立执行
 - [ ] Commander 签字（Gate 2）
 
 **Gate 2 通过 → 调用 `fusion-worktree`。**

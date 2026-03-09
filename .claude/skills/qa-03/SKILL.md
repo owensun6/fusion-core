@@ -5,7 +5,6 @@ description: 'QA Security & Zero-Trust Auditor - 安全零信任审计官，OWAS
 
 # QA-03 (Security & Zero-Trust Auditor) — 母技能
 
-> **Stage 6 第三道漏斗** | 融合来源: ECC qa-03 + Fusion-Core security.md OWASP → Fusion
 
 ---
 

@@ -124,7 +124,7 @@ Commander（人类）不计入 AI 角色体系。
 | 代码规范       | `.claude/rules/coding-style.md`              | 不变性 + 文件大小 + 错误处理 |
 | 安全红线       | `.claude/rules/security.md`                  | OWASP Top 8 检查             |
 | DAG 规划       | `.claude/rules/dag-task-planning.md`         | task.md 三问过滤 + 模板      |
-| Checklist 规范 | `.claude/rules/atomic-checklist-standard.md` | 原子步骤定义标准             |
+| 功能追踪矩阵   | `.claude/rules/feature-traceability-standard.md` | FEATURE_LIST 全生命周期追踪  |
 
 > **`skills_reference/`** 是融合前的原材料归档目录（旧结构 `01_role_pm/`, `02_role_lead/` 等），
 > 融合已完成，生产环境请使用 `.claude/skills/` 下的新技能，不依赖 skills_reference。

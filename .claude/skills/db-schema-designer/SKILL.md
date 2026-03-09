@@ -5,7 +5,6 @@ description: 'Database Schema Designer - ORM Schema、迁移脚本、高性能�
 
 # DB-Schema-Designer (Database & Migration Engineer) — 母技能
 
-> **Stage 5** | 融合来源: ECC db-schema-designer + fusion-workflow Stage 5 TDD 规约 + Data_Models.md 规约 → Fusion
 
 ---
 

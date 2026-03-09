@@ -5,14 +5,13 @@ description: fe-ui-builder 专用。按 UI_CONTRACT 构建展示型哑组件，T
 
 # fusion-ui-build — 前端 UI 哑组件构建
 
-> **融合来源**: ECC fe-ui-builder + fusion-workflow Stage 5 TDD 规约
 
 ---
 
 ## ⚡ 执行前 FP 两问（强制）
 
 1. **我们的目的是什么？**
-   → 将 UI_CONTRACT.md 中定义的屏幕和组件，转化为"只有壳、没有魂"的展示型 React 组件。fe-logic-binder 之后会为这些壳注入灵魂。
+   → 构建 UI 哑组件壳子
 2. **这些步骤已经不可原子级再分了吗？**
    → RED（先写测试）→ GREEN（最简实现）→ REFACTOR（清理代码），三步不可合并，不可颠倒。
 
@@ -20,17 +19,27 @@ description: fe-ui-builder 专用。按 UI_CONTRACT 构建展示型哑组件，T
 
 ## 输入文件
 
-| 文件                                            | 用途                           |
-| ----------------------------------------------- | ------------------------------ |
-| `pipeline/2_planning/specs/TASK_SPEC_T-{ID}.md` | 本任务的验收标准               |
-| `pipeline/0_5_prototype/UI_CONTRACT.md`         | 组件规格（状态/布局/交互规则） |
-| `pipeline/0_5_prototype/Wireframes/`            | 视觉参考                       |
+| 文件                                            | 用途                                           |
+| ----------------------------------------------- | ---------------------------------------------- |
+| `pipeline/2_planning/specs/TASK_SPEC_T-{ID}.md` | 本任务的验收标准                               |
+| `pipeline/0_5_prototype/UI_CONTRACT.md`         | 组件规格（状态/布局/交互规则）+ Design Token   |
+| `pipeline/0_5_prototype/Wireframes/`            | 视觉参考                                       |
+| `pipeline/0_5_prototype/stitch-code/` (可选)    | Stitch 生成的 HTML+Tailwind 起点骨架，优先复用 |
 
 ---
 
 ## TDD 执行循环
 
-### 🔴 RED: 先写失败测试
+### 🔴 RED: 从 BDD 生成失败测试
+
+**⚠️ TDD 证据链（铁律）**:
+
+1. 读取 TASK_SPEC 中的 BDD 验收标准（Given-When-Then），逐条转化为测试断言
+2. 运行测试 → **必须全部 FAIL**（若有 PASS = 实现已存在，上报 Lead）
+3. `git commit -m "test(red): T-{ID} [简述]"` — 此 commit 是 RED 的物理证据
+4. QA-01 将验证 git log 中 `test(red)` commit 早于 `feat(green)` commit
+
+**未提交 RED commit 就写实现代码 = 违反 TDD 纪律，QA-01 将直接 FAIL。**
 
 ```tsx
 // 示例: 登录表单组件快照测试
@@ -49,7 +58,7 @@ test('renders login form with all required elements', () => {
 
 **确认测试失败（红灯）后才可写实现代码。**
 
-### 🟢 GREEN: 最简实现（哑组件）
+### 🟢 GREEN: 最简实现（哑组件） → `git commit -m "feat(green): T-{ID} [简述]"`
 
 ```tsx
 // 组件规则:
@@ -82,9 +91,6 @@ export default function LoginForm({ onSubmit, isLoading = false, errorMessage }:
 
 ## 禁区（越界即违规）
 
-- ❌ 禁止引入状态管理（Zustand/Redux/Context）
-- ❌ 禁止执行数据获取（fetch/axios/SWR/React Query）
-- ❌ 禁止修改任何后端文件
 - ❌ 禁止跳过测试直接写实现
 
 ---

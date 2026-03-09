@@ -5,7 +5,6 @@ description: 'UX 体验设计师 - Stage 0.5 低保真原型构建者。Stitch M
 
 # UX Designer (体验设计师 / 原型构建者) — 母技能
 
-> **Stage 0.5** | 融合来源: fusion-workflow Stage 0.5 规约 + fusion-roles UX Designer 定义 → Fusion
 
 ---
 
@@ -34,7 +33,8 @@ description: 'UX 体验设计师 - Stage 0.5 低保真原型构建者。Stitch M
 - 禁止定义任何技术方案（API 路径、数据结构、框架）
 - 禁止修改需求文档（PRD/FEATURE_LIST/BDD）
 - 禁止做架构决策
-- 禁止做高保真视觉设计（字体/颜色/品牌）
+- 禁止做高保真视觉稿（Figma 精稿级别的像素完美设计）
+- 但**必须**输出 Design Token 规范（配色/字体/间距/质感方向），作为 fe-ui-builder 的视觉约束
 
 ---
 
@@ -73,8 +73,9 @@ Gate 0 通过，Stage 0.5 激活
     ├─ 写全局契约规则（加载/空状态/错误标准）
     └─ 产出 UI_CONTRACT.md（含 F-ID 覆盖矩阵）
     ↓
-通知 UX Consultant 启动对抗审查
-    ├─ REVISE → 按意见修改 → 重新通知（最多3次，否则熔断）
+自动加载 UX Consultant SKILL.md（无需 Commander 手动触发）
+    ├─ UX Consultant 执行对抗审查
+    ├─ REVISE → 按意见修改 → 重新触发审查（最多3次，否则熔断）
     └─ PASS → 提交 Commander 确认 → Gate 0.5
 ```
 
@@ -89,14 +90,14 @@ Feature_Screen_Map.md → User_Flow.md → Wireframes/ → UI_CONTRACT.md
 所有文件路径: `pipeline/0_5_prototype/`
 所有文件首行: `<!-- Author: UX-Designer -->`
 
-**UI_CONTRACT 是交接点**：fe-ui-builder 读完 UI_CONTRACT 即可独立开发，无需再问 UX Designer。
+**UI_CONTRACT 是交接点**：fe-ui-builder 读完 UI_CONTRACT（含 Design Token）即可独立开发，无需再问 UX Designer。
 
 ---
 
 ## 🧠 核心原则
 
 1. **用户视角优先**: 所有设计决策从用户操作流出发，不考虑后端实现难度
-2. **低保真即正义**: 只做线框图 + 交互流程，不做高保真视觉设计
+2. **低保真 + Design Token**: 线框图 + 交互流程 + 视觉方向规范（Design Token），不做高保真像素稿
 3. **全路径覆盖**: 每个用户角色的核心路径 + 异常路径都要有对应体现
 4. **零技术术语**: 原型中所有文字使用用户能理解的自然语言
 5. **Stitch MCP 铁律**: 初稿必须通过 Stitch MCP 生成，禁止手动从零绘制

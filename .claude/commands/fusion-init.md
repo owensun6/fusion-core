@@ -52,15 +52,21 @@ bash ~/.claude/scripts/fusion-init-guard.sh "$(pwd)"
 
 - **如果 Commander 选择了 A (增量模式): 目标文件已存在则跳过，记录到日志**
 - `.claude/` 整个目录（rules, hooks, commands, skills, scripts）
-- `pipeline/` 骨架目录（含 .gitkeep）
+- `pipeline/` 整个目录（8 阶段骨架 + monitor.md 模板 + .gitkeep）
 - `_STYLE_GUIDE.md`
 - `.markdownlint.json`, `.markdownlintignore`
 - `.prettierrc`
 - `.coderabbit.yaml`
-- `CLAUDE.md`, `FUSION_INDEX.md`
+- `CLAUDE.md`
 - `.husky/` 目录
 - `eslint.config.mjs`, `jest.config.js`
 - `memory/` 骨架目录
+
+**复制 pipeline/ 时必须先 `mkdir -p` 目标目录再复制**。如果 fusion-core 中找不到 `pipeline/` 目录，运行 fallback 脚本：
+
+```bash
+bash .claude/scripts/init_pipeline.sh "$(pwd)/pipeline"
+```
 
 ## STEP 4: 安装依赖
 

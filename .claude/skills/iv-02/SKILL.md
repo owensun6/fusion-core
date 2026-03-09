@@ -5,7 +5,6 @@ description: 'IV Data Penetration & ACID Validator - 数据穿透性与 ACID 验
 
 # IV-02 (Data Penetration & ACID Validator) — 母技能
 
-> **Stage 6 第六道漏斗** | 融合来源: ECC iv-02 + Fusion-Core integration-tests-checklist.md → Fusion
 
 ---
 
@@ -43,6 +42,8 @@ description: 'IV Data Penetration & ACID Validator - 数据穿透性与 ACID 验
 
 ```
 iv-01 PASS 后启动
+    ↓
+读取 Data_Models.md（字段规格 + 并发保护方案）+ INTERFACE.md（序列化契约）
     ↓
 调用 fusion-iv-data
     ├─ Step 1: UI→API→Service→DB→读出→展示 完整链路追踪

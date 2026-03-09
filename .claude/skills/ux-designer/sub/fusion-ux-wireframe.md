@@ -5,14 +5,13 @@ description: UX Designer 专用。基于 Feature_Screen_Map，通过 Stitch MCP 
 
 # fusion-ux-wireframe — 用户流与低保真线框图生成
 
-> **融合来源**: fusion-workflow Stage 0.5（Stitch MCP 铁律）+ fusion-roles UX Designer 核心原则
 
 ---
 
 ## ⚡ 执行前 FP 两问（强制）
 
 1. **我们的目的是什么？**
-   → 将 Feature_Screen_Map 中的每个屏幕变成真实可见的线框图，让 Commander 可以"用眼睛确认"而非"靠想象猜测"。
+   → 功能映射转化为可视线框图
 2. **这些步骤已经不可原子级再分了吗？**
    → 先画流程（User_Flow），再画界面（Wireframe）。流程未确定前，不开始画界面。
 
@@ -83,18 +82,23 @@ description: UX Designer 专用。基于 Feature_Screen_Map，通过 Stitch MCP 
    必须包含的元素:
    - [来自 Feature_Screen_Map 的功能描述]
    - [异常/边界时的状态显示]
-   语言风格: 低保真线框，黑白灰，无真实图片，文字用占位符
+   视觉风格: 白色或浅色背景（禁止暗色/dark 主题），低保真线框，无真实图片，文字用占位符
    ```
 
 3. **提交 Stitch MCP，生成初稿**
    - 原始结果保存至 `pipeline/0_5_prototype/Wireframes/stitch-raw/[屏幕名].png`
 
-4. **人工审查调整**
+4. **导出 Stitch 生成的前端代码**
+   - 对每个屏幕调用 `get_screen`，检查返回结构中的 `htmlCode` 字段
+   - 将 HTML 代码文件保存至 `pipeline/0_5_prototype/stitch-code/[屏幕名].html`
+   - 此代码将作为 Stage 5 fe-ui-builder 的起点骨架，避免从零构建
+
+5. **人工审查调整**
    - 检查每个屏幕是否包含了对应 F-ID 的所有功能点
    - 检查异常状态（错误提示/空状态/加载中）是否有体现
    - 调整后版本保存至 `pipeline/0_5_prototype/Wireframes/[屏幕名].png`
 
-5. **逐屏标注**
+6. **逐屏标注**
    在每张线框图旁边写注释文件 `pipeline/0_5_prototype/Wireframes/[屏幕名]-notes.md`：
 
    ```markdown
@@ -129,12 +133,13 @@ description: UX Designer 专用。基于 Feature_Screen_Map，通过 Stitch MCP 
 
 ## 产出物清单
 
-| 产出物         | 路径                                                  | 说明                  |
-| -------------- | ----------------------------------------------------- | --------------------- |
-| `User_Flow.md` | `pipeline/0_5_prototype/User_Flow.md`                 | 所有角色核心+异常路径 |
-| 原始线框图     | `pipeline/0_5_prototype/Wireframes/stitch-raw/`       | Stitch MCP 直接输出   |
-| 审查后线框图   | `pipeline/0_5_prototype/Wireframes/`                  | 人工调整版本          |
-| 屏幕注释文件   | `pipeline/0_5_prototype/Wireframes/[屏幕名]-notes.md` | 每屏一份              |
+| 产出物         | 路径                                                  | 说明                              |
+| -------------- | ----------------------------------------------------- | --------------------------------- |
+| `User_Flow.md` | `pipeline/0_5_prototype/User_Flow.md`                 | 所有角色核心+异常路径             |
+| 原始线框图     | `pipeline/0_5_prototype/Wireframes/stitch-raw/`       | Stitch MCP 直接输出               |
+| Stitch 代码    | `pipeline/0_5_prototype/stitch-code/`                 | Stitch 生成的 HTML+Tailwind 代码  |
+| 审查后线框图   | `pipeline/0_5_prototype/Wireframes/`                  | 人工调整版本                      |
+| 屏幕注释文件   | `pipeline/0_5_prototype/Wireframes/[屏幕名]-notes.md` | 每屏一份                          |
 
 ---
 
@@ -142,6 +147,7 @@ description: UX Designer 专用。基于 Feature_Screen_Map，通过 Stitch MCP 
 
 - [ ] User_Flow 覆盖所有用户角色
 - [ ] 每个屏幕都有 stitch-raw 原始版 + 人工审查版
+- [ ] 每个屏幕的 HTML 代码已导出至 `stitch-code/`
 - [ ] 每个屏幕都有 notes.md 注释（含 F-ID 引用）
 - [ ] 零技术术语（全文扫描确认）
 - [ ] Feature_Screen_Map 中所有屏幕都有对应线框图（无遗漏）

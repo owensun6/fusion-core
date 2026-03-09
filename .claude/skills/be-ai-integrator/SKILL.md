@@ -5,7 +5,6 @@ description: 'Backend AI Integrator - LLM/MCP 子系统接入，Prompt 工程，
 
 # BE-AI-Integrator (LLM/MCP Subsystem Specialist) — 母技能
 
-> **Stage 5** | 融合来源: ECC be-ai-integrator + fusion-workflow Stage 5 TDD 规约 → Fusion
 
 ---
 
@@ -42,10 +41,10 @@ description: 'Backend AI Integrator - LLM/MCP 子系统接入，Prompt 工程，
 ## 🔀 情境路由
 
 ```
-读取 TASK_SPEC + monitor.md（确认上游 QA 状态为 [✓]）
+读取 TASK_SPEC + INTERFACE.md（AI 相关接口） + monitor.md（确认上游 QA 状态为 [✓]）
     ↓
 调用 fusion-ai-integrate
-    ├─ 读取 INTERFACE.md + ADR（AI 接口规格与技术选型）
+    ├─ 读取 ADR/（AI 技术选型决策）
     ├─ RED: 先写测试（Mock LLM 客户端 + 超时/失败降级测试）
     ├─ GREEN: AI 服务实现（Prompt 函数 + 超时保护 + 降级返回）
     └─ REFACTOR: Prompt 版本化 + 响应解析单元测试 + 缓存策略

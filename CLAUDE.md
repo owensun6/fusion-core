@@ -79,10 +79,10 @@
 | 当前 Stage        | 角色 (Role)   | 产出物 (必须写入 pipeline/)                                                     | 下一阶段             |
 | ----------------- | ------------- | ------------------------------------------------------------------------------- | -------------------- |
 | Stage 0           | PM            | `0_requirements/PRD.md`, `FEATURE_LIST.md`, `BDD_Scenarios.md`                  | Stage 0.5 或 Stage 1 |
-| Stage 0.5（条件） | UX Designer   | `0_5_ux/Feature_Screen_Map.md`, `User_Flow.md`, `Wireframes/`, `UI_CONTRACT.md` | Stage 1              |
+| Stage 0.5（条件） | UX Designer   | `0_5_prototype/Feature_Screen_Map.md`, `User_Flow.md`, `Wireframes/`, `UI_CONTRACT.md`, `stitch-code/*.html`（可执行代码） | Stage 1              |
 | Stage 1           | Lead          | `1_architecture/System_Design.md`, `INTERFACE.md`, `Data_Models.md`, `ADR/`     | Stage 1.5 或 Stage 2 |
 | Stage 1.5（条件） | Lead          | `1_5_prototype/Revised_Mockups/`, `State_Flow.md`                               | Stage 2              |
-| Stage 2           | Lead          | `docs/plans/YYYY-MM-DD-*-design.md`                                             | Stage 3              |
+| Stage 2           | Lead          | `pipeline/1_architecture/YYYY-MM-DD-*-design.md`                                | Stage 3              |
 | Stage 3           | Lead          | `2_planning/task.md`, `dependency_graph.md`, `specs/TASK_SPEC_T-{ID}.md`        | Stage 4              |
 | Stage 4           | Lead          | 创建 Git Worktree，验证基线                                                     | Stage 5              |
 | Stage 5           | Dev（各兵种） | `src/` 代码文件 + `tests/` 测试文件                                             | Stage 6              |
@@ -99,6 +99,14 @@
 → 写入更新后的 monitor.md
 ```
 
+**步骤 3.5: 自动触发 Gene Extractor**
+
+```
+→ 每次 Gate 通过后，自动加载 .claude/skills/gene-extractor/SKILL.md
+→ 提取本阶段跨项目可复用经验写入 Gene Bank
+→ 完成后继续步骤 4
+```
+
 **步骤 4: 加载下一阶段角色**
 
 ```
@@ -113,7 +121,7 @@
 
 `1[Fusion Docs]|root: .claude/rules 2|01-roles:{01-fusion-roles.md} 3|02-workflow:{00-fusion-workflow.md}`
 `4[Role Skills]|root: .claude/skills 5|01-pm:{pm,pm-consultant,ux-designer,ux-consultant} 6|02-lead:{lead,architecture-consultant} 7|03-dev:{fe-ui-builder,fe-logic-binder,be-api-router,be-domain-modeler,be-ai-integrator,db-schema-designer} 8|04-reviewer:{qa-01,qa-02,qa-03,qa-04,iv-01,iv-02,iv-03} 9|05-aux:{gene-extractor}`
-`10[Core Rules]|root: .claude/rules 11|01-gates:{hooks.md,agents.md,gate-approval-protocol.md} 12|02-coding:{coding-style.md,security.md} 13|03-process:{document-standards.md,testing.md}`
+`10[Core Rules]|root: .claude/rules 11|01-gates:{hooks.md,agents.md,gate-approval-protocol.md} 12|02-coding:{coding-style.md,security.md} 13|03-process:{document-standards.md,testing.md,feature-traceability-standard.md} 14|04-planning:{dag-task-planning.md}`
 
 ---
 
