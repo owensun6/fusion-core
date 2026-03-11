@@ -121,4 +121,4 @@ export default function LoginPage() {
 - [ ] API 调用严格遵循 INTERFACE.md 规格
 - [ ] UI_CONTRACT 中所有状态变体均有对应逻辑
 
-**完成后 → 在 monitor.md 标记 `[x]` → 进入 QA 轮询循环。**
+**完成后 → 在 monitor.md 标记 `[x]` → 调用 code-simplifier → 进入 QA 轮询循环。**

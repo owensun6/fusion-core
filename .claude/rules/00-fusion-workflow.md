@@ -25,7 +25,7 @@ Stage 0 ──Gate 0──> Stage 0.5 ──Gate 0.5──> Stage 1 ──Gate 1
 | 2 | Lead | `brainstorming` | - |
 | 3 | Lead | `fusion-task` -> `fusion-swarm` | Task（T-ID） |
 | 4 | Dev | `using-git-worktrees` | - |
-| 5 | Dev (各兵种) | `fusion-tdd` + 各兵种 SKILL.md | - |
+| 5 | Dev (各兵种) + code-simplifier | `fusion-tdd` + 各兵种 SKILL.md + code-simplifier | - |
 | 6 | Reviewer (7道漏斗) | qa-01->qa-02->qa-03->qa-04->iv-01->iv-02->iv-03 | - |
 | 7 | Lead | `finishing-a-development-branch` | 实现 + QA + 验收 |
 
@@ -43,6 +43,19 @@ Gate 1.5 条件:
 - Revised_Mockups/ 文件数 = 冲突屏幕数（不多不少）
 - UX Consultant 审查通过（PASS）
 - Commander 确认："调整后的体验仍可接受"
+
+---
+
+## Stage 5 → Stage 6 衔接：代码简化步骤
+
+Dev 兵种 Worker=[x] 后，由 Dev 兵种调用 code-simplifier：
+
+1. 范围：仅该 T-ID 涉及的生产代码文件（git diff 取变更列表，排除测试文件）
+2. 调用 CC 官方 code-simplifier agent 执行简化
+3. 运行测试确认绿灯不变 → `git commit -m "refactor(simplify): T-{ID}"`
+4. 标记 Simplify=[✓]，QA-01 可接手
+
+简化后测试变红 → 回滚 → Simplify=[SKIP]，QA-01 仍可接手（简化不阻断主流程）。
 
 ---
 
@@ -86,4 +99,4 @@ Stage 6 接收代码审查时须遵循技术严谨性纪律（`receiving-code-re
 1. **禁止盲目写码**: 收到"帮我写个 XX 功能"的模糊指令，必须退回 Stage 0，不得直接写代码
 2. **产出物签名**: 所有阶段产出物首行必须 `<!-- Author: [角色名] -->`，下游接手前必须验证
 3. **看板强制更新**: 每个 Gate 通过/拒绝后，立即更新 `pipeline/monitor.md` 对应槽位状态
-4. **Stage 5 监控链**: Dev 兵种交付后不得退出，必须轮询 QA 状态直到 `[✓]` 或处理 `[✗]`
+4. **Stage 5 监控链**: Dev 兵种交付后触发 code-simplifier → 轮询 QA 状态直到 `[✓]` 或处理 `[✗]`

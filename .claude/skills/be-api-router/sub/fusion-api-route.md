@@ -120,4 +120,4 @@ router.post('/auth/login', async (req, res) => {
 - [ ] 需要认证的接口已加权限守卫
 - [ ] 响应格式遵循统一 API Response Format
 
-**完成后 → 在 monitor.md 标记 `[x]` → 进入 QA 轮询循环。**
+**完成后 → 在 monitor.md 标记 `[x]` → 调用 code-simplifier → 进入 QA 轮询循环。**

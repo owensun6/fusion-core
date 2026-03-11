@@ -59,10 +59,11 @@ description: 'Backend AI Integrator - LLM/MCP 子系统接入，Prompt 工程，
 ## ⚡ 交付后监控循环（Stage 5 强制，不可省略）
 
 1. 在 `pipeline/monitor.md` 中将本行 Worker 状态标为 `[x]`
-2. 进入轮询循环，读取本行 QA 状态：
+2. 调用 code-simplifier（传入本 T-ID 文件列表），等待 Simplify 列变为 `[✓]` 或 `[SKIP]`
+3. 进入轮询循环，读取本行 QA 状态：
    - `[✓]` → 正常退出，通知 DAG 调度器下游可启动
    - `[✗]` 或 `[!]` →
      a. 读取 audit/<task-id>-audit.md，逐条列出 CRITICAL 问题（含文件名和行号）
      b. 对每个 CRITICAL 问题：定位代码位置 → REFACTOR 修改 → 重跑受影响的测试（确认变绿）
-     c. 在 monitor.md 重置 Worker 状态为 `[x]`，回到步骤 2
+     c. 在 monitor.md 重置 Worker 状态为 `[x]`，回到步骤 1
    - `[ ]` → QA 尚未完成，继续轮询

@@ -22,6 +22,7 @@
 | be-domain-modeler | Stage 5 | 领域服务、业务逻辑核心 |
 | be-ai-integrator | Stage 5 | LLM/MCP 子系统接入 |
 | db-schema-designer | Stage 5 | 数据库 Schema、迁移脚本 |
+| code-simplifier | Stage 5（Dev 交付后） | 代码简化，提升可读性/一致性/可维护性 |
 | qa-01 | Stage 6 | 功能逻辑审查、单元测试覆盖率 |
 | qa-02 | Stage 6 | 性能审计、UI/UX 一致性批判 |
 | qa-03 | Stage 6 | 安全零信任审计（OWASP Top 10） |

@@ -129,4 +129,4 @@ npx prisma migrate deploy
 - [ ] 并发保护字段已添加（如 version 乐观锁）
 - [ ] 高频查询字段有索引
 
-**完成后 → 在 monitor.md 标记 `[x]` → 进入 QA 轮询循环。**
+**完成后 → 在 monitor.md 标记 `[x]` → 调用 code-simplifier → 进入 QA 轮询循环。**

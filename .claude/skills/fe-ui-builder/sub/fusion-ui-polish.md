@@ -94,4 +94,4 @@ description: fe-ui-builder 专用。哑组件结构完成后，按 Design Token 
 - [ ] 零硬编码色值（全部引用 CSS 变量）
 - [ ] 视觉效果与 Design Token 描述的风格方向一致
 
-**完成后 -> 返回 fe-ui-builder 主流程（monitor.md 标记 + QA 轮询）。**
+**完成后 -> 返回 fe-ui-builder 主流程（monitor.md 标记 + 调用 code-simplifier + QA 轮询）。**

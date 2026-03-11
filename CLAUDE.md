@@ -26,9 +26,11 @@
 | Stage 5 \| be-domain-modeler \| 领域服务 \| 业务逻辑               | `.claude/skills/be-domain-modeler/SKILL.md`                                            |
 | Stage 5 \| be-ai-integrator \| LLM \| MCP \| Prompt                | `.claude/skills/be-ai-integrator/SKILL.md`                                             |
 | Stage 5 \| db-schema-designer \| Schema \| 迁移脚本                | `.claude/skills/db-schema-designer/SKILL.md`                                           |
+| Stage 5 Dev交付后 \| code-simplifier \| 代码简化                   | `.claude/skills/code-simplifier/SKILL.md`                                              |
 | Stage 6 \| 审查 \| QA \| Reviewer \| 漏斗                          | `.claude/skills/qa-01/SKILL.md`（串行管道: qa-01→qa-02→qa-03→qa-04→iv-01→iv-02→iv-03） |
 | Stage 7 \| 合并 \| PR \| finish \| 收尾                            | `.claude/skills/lead/sub/fusion-finish-branch.md`                                      |
 | gene \| 经验提取 \| Gene Bank                                      | `.claude/skills/gene-extractor/SKILL.md`                                               |
+| 创建技能 \| 编写技能 \| 改进技能 \| 技能评测 \| description优化    | 调用 `skill-creator` 技能（兵种规格另见 `.claude/rules/skill-authoring-standard.md`）   |
 
 > **无匹配？** → 读 `pipeline/monitor.md` 查当前 Stage → 返回上表路由 → 加载对应 SKILL.md
 
@@ -85,7 +87,7 @@
 | Stage 2           | Lead          | `pipeline/1_architecture/YYYY-MM-DD-*-design.md`                                | Stage 3              |
 | Stage 3           | Lead          | `2_planning/task.md`, `dependency_graph.md`, `specs/TASK_SPEC_T-{ID}.md`        | Stage 4              |
 | Stage 4           | Lead          | 创建 Git Worktree，验证基线                                                     | Stage 5              |
-| Stage 5           | Dev（各兵种） | `src/` 代码文件 + `tests/` 测试文件                                             | Stage 6              |
+| Stage 5           | Dev（各兵种）+ code-simplifier | `src/` 代码文件 + `tests/` 测试文件 + simplify commit                | Stage 6              |
 | Stage 6           | Reviewer      | `3_review/Audit_Report.md`, `Integration_Report.md`                             | Stage 7              |
 | Stage 7           | Lead          | 合并分支，清理 Worktree                                                         | 新任务 → Stage 0     |
 
@@ -120,7 +122,7 @@
 ## 核心地图静默索引 (Auto-Loaded Maps)
 
 `1[Fusion Docs]|root: .claude/rules 2|01-roles:{01-fusion-roles.md} 3|02-workflow:{00-fusion-workflow.md}`
-`4[Role Skills]|root: .claude/skills 5|01-pm:{pm,pm-consultant,ux-designer,ux-consultant} 6|02-lead:{lead,architecture-consultant} 7|03-dev:{fe-ui-builder,fe-logic-binder,be-api-router,be-domain-modeler,be-ai-integrator,db-schema-designer} 8|04-reviewer:{qa-01,qa-02,qa-03,qa-04,iv-01,iv-02,iv-03} 9|05-aux:{gene-extractor}`
+`4[Role Skills]|root: .claude/skills 5|01-pm:{pm,pm-consultant,ux-designer,ux-consultant} 6|02-lead:{lead,architecture-consultant} 7|03-dev:{fe-ui-builder,fe-logic-binder,be-api-router,be-domain-modeler,be-ai-integrator,db-schema-designer,code-simplifier} 8|04-reviewer:{qa-01,qa-02,qa-03,qa-04,iv-01,iv-02,iv-03} 9|05-aux:{gene-extractor}`
 `10[Core Rules]|root: .claude/rules 11|01-gates:{hooks.md,agents.md,gate-approval-protocol.md} 12|02-coding:{coding-style.md,security.md} 13|03-process:{document-standards.md,testing.md,feature-traceability-standard.md} 14|04-planning:{dag-task-planning.md}`
 
 ---

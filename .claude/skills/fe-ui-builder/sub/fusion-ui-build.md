@@ -102,4 +102,4 @@ export default function LoginForm({ onSubmit, isLoading = false, errorMessage }:
 - [ ] WCAG 可访问性基本合规（aria-label / role 属性）
 - [ ] 零 API 调用（Props 接口已预留）
 
-**完成后 → 在 monitor.md 标记 `[x]` → 进入 QA 轮询循环。**
+**完成后 → 在 monitor.md 标记 `[x]` → 调用 code-simplifier → 进入 QA 轮询循环。**

@@ -21,12 +21,13 @@
 | 8 | 🔵 REFACTOR: 清理代码（函数 < 40 行，文件 < 300 行） | 每函数 ≤ 40 行 + 每文件 ≤ 300 行 + 测试仍 PASS |
 | 9 | 🔵 REFACTOR: `git commit -m "refactor: T-{ID} ..."` | commit hash 已记录 |
 | 10 | 在 monitor.md 本行 Worker 标为 `[x]` | monitor.md 对应 T-ID 行 Worker = `[x]` |
+| 10.5 | 调用 code-simplifier 简化 + 验证测试 + commit | Simplify = `[✓]` 或 `[SKIP]` |
 | 11 | 进入 QA 轮询循环 | `[✓]` → 正常退出 / `[✗]` → 读取审计报告返工 |
 
 ## Task 实例追踪（由 Dev 在执行中填写）
 
-| T-ID | Assignee | RED commit | GREEN commit | Worker | QA |
+| T-ID | Assignee | RED commit | GREEN commit | Worker | Simplify | QA |
 |------|----------|-----------|-------------|--------|-----|
-| | | | | | |
+| | | | | | | |
 
 > 此表在实际项目中由 Dev 逐行填写。RED/GREEN commit 列是 TDD 证据链的物理记录。

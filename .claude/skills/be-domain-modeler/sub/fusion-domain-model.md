@@ -139,4 +139,4 @@ export class PrismaUserRepository implements UserRepository {
 - [ ] 领域服务通过依赖注入接受 Repository
 - [ ] 业务约束验证完整（边界值/空值/权限规则）
 
-**完成后 → 在 monitor.md 标记 `[x]` → 进入 QA 轮询循环。**
+**完成后 → 在 monitor.md 标记 `[x]` → 调用 code-simplifier → 进入 QA 轮询循环。**

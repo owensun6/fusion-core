@@ -47,6 +47,12 @@
 | `be-ai-integrator`   | LLM/MCP 子系统接入               | [be-ai-integrator/SKILL.md](be-ai-integrator/SKILL.md)     |
 | `db-schema-designer` | 数据库 Schema + 迁移脚本         | [db-schema-designer/SKILL.md](db-schema-designer/SKILL.md) |
 
+### 代码简化（Stage 5 Dev 交付后）
+
+| 角色代号          | 职责                                                           | SKILL.md                                               |
+| ----------------- | -------------------------------------------------------------- | ------------------------------------------------------ |
+| `code-simplifier` | 代码简化，提升可读性/一致性/可维护性（调用 CC 官方 agent） | [code-simplifier/SKILL.md](code-simplifier/SKILL.md) |
+
 ### 质量审计组（Stage 6）— 串行管道
 
 ```
@@ -105,9 +111,10 @@ qa-01 → qa-02 → qa-03 → qa-04 → iv-01 → iv-02 → iv-03
 | 架构与规划组          | 2      |
 | 前端开发组            | 2      |
 | 后端开发组            | 4      |
+| 代码简化              | 1      |
 | 质量审计组（QA + IV） | 7      |
 | 辅助角色              | 1      |
-| **合计**              | **20** |
+| **合计**              | **21** |
 
 Commander（人类）不计入 AI 角色体系。
 

@@ -117,4 +117,4 @@ function buildMedicalAnalysisPrompt(text: string): string {
 - [ ] Prompt 封装在独立可调优函数中
 - [ ] 明确的降级策略（不返回 500 给前端）
 
-**完成后 → 在 monitor.md 标记 `[x]` → 进入 QA 轮询循环。**
+**完成后 → 在 monitor.md 标记 `[x]` → 调用 code-simplifier → 进入 QA 轮询循环。**
