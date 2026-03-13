@@ -65,6 +65,8 @@ Gate 0 通过，Stage 0.5 激活
     ├─ 确认 Stitch MCP 可用
     ├─ 输出 User_Flow.md（先流程，再界面）
     ├─ 逐屏 Stitch MCP 生成初稿 → stitch-raw/
+    ├─ 逐屏调用 get_screen 下载 HTML 代码 → stitch-code/*.html（铁律：不可跳过）
+    ├─ 用 Playwright 打开每个 HTML 文件给 Commander 浏览器预览
     ├─ 人工审查调整 → Wireframes/
     └─ 逐屏写注释文件（含 F-ID 引用）
     ↓
@@ -84,7 +86,7 @@ Gate 0 通过，Stage 0.5 激活
 ## 📦 产出链（强制四连，不可跳步，不可并联）
 
 ```
-Feature_Screen_Map.md → User_Flow.md → Wireframes/ → UI_CONTRACT.md
+Feature_Screen_Map.md → User_Flow.md → Wireframes/ → stitch-code/*.html → UI_CONTRACT.md
 ```
 
 所有文件路径: `pipeline/0_5_prototype/`
@@ -110,6 +112,7 @@ Feature_Screen_Map.md → User_Flow.md → Wireframes/ → UI_CONTRACT.md
 [x] Feature_Screen_Map.md 覆盖所有 F-ID
 [x] User_Flow.md 覆盖所有用户角色（核心流 + 异常流）
 [x] Wireframes/ 存在（每个屏幕有 stitch-raw 版 + 审查版）
+[x] stitch-code/*.html 已下载（每个屏幕对应一个 HTML 文件，用 Playwright 打开给 Commander 确认过）
 [x] UI_CONTRACT.md 已创建（含 F-ID 覆盖矩阵 + 全局契约）
 [x] UX Consultant 审查通过（PASS）
 [x] Commander 确认："这就是我想要的"

@@ -1,6 +1,6 @@
 ---
 name: db-schema-designer
-description: 'Database Schema Designer - ORM Schema、迁移脚本、高性能索引策略。Stage 5。'
+description: 'Database Schema Designer - ORM Schema、迁移脚本、高性能索引策略。当 Stage 5 任务包含数据库设计、表结构定义或迁移脚本编写，或 fusion-swarm 分配 DB 子任务时触发。'
 ---
 
 # DB-Schema-Designer (Database & Migration Engineer) — 母技能

@@ -27,6 +27,8 @@ description: Lead 专用。Stage 1 架构设计：System_Design + INTERFACE + Da
 [x] pipeline/0_5_prototype/UI_CONTRACT.md（若 Stage 0.5 非 SKIP）
 ```
 
+**前置动作**: 读取 PRD.md Section 4「假设登记表」，掌握 PM 阶段识别的所有假设及其 Impact×Risk 评级。架构设计过程中关注这些假设是否与技术方案冲突。
+
 ---
 
 ## 执行序列
@@ -184,7 +186,26 @@ erDiagram
 
 ````
 
-### Step 5: 产出 ADR（每个重大技术决策一份）
+### Step 5: 架构层假设登记（Feasibility 维度）
+
+在 INTERFACE.md 末尾追加「架构层假设」章节。PM 只覆盖了 Value/Usability/Viability，Feasibility 维度由 Lead 在此补充。
+
+```markdown
+## 架构层假设（Lead 补充）
+
+> PM 假设表中的 Feasibility 盲区，由 Lead 在架构设计过程中识别并登记。
+
+| ID | 假设描述 | 影响(H/M/L) | 风险(H/M/L) | 与 PRD 假设冲突？ |
+|----|---------|------------|------------|-----------------|
+| A-S1-01 | <技术/集成/性能/数据假设> | H/M/L | H/M/L | 无 / 冲突 A-XX |
+```
+
+**规则**:
+- 维度扫描提示：这个技术方案真的能做到吗？这两个系统真的能连通吗？这个性能指标有依据吗？数据真的是这个结构吗？
+- 如果发现与 PRD 假设冲突（如 PM 假设"院内网可访问外部 API"但架构判断不可行），在「与 PRD 假设冲突？」列标注冲突的 A-ID
+- H×H 项将在 Gate 2 前接受硬锁检查
+
+### Step 6: 产出 ADR（每个重大技术决策一份）
 
 存放路径: `pipeline/1_architecture/ADR/ADR-001-[决策主题].md`
 
@@ -219,7 +240,7 @@ erDiagram
 
 ---
 
-### Step 6: 更新 FEATURE_LIST.md 追踪总表"接口"列
+### Step 7: 更新 FEATURE_LIST.md 追踪总表"接口"列
 
 打开 `pipeline/0_requirements/FEATURE_LIST.md`，在追踪总表中为每个 F-ID 填入对应的接口编号：
 
@@ -239,6 +260,8 @@ erDiagram
 - [ ] FEATURE_LIST.md 追踪总表"接口"列已全部填入（覆盖率 100%）
 - [ ] Data_Models.md 包含所有核心实体 + 并发保护方案
 - [ ] 每个重大技术决策有对应 ADR（至少 1 份）
+- [ ] INTERFACE.md 末尾包含「架构层假设」章节，Feasibility 假设已登记
+- [ ] 与 PRD 假设冲突的项已标注（如有）
 - [ ] 零业务代码（无 class / function / const 等编程语法）
 
 **自检通过 → 通知 Architecture Consultant 启动对抗审查。**

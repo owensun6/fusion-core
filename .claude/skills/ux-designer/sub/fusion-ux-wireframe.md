@@ -88,17 +88,23 @@ description: UX Designer 专用。基于 Feature_Screen_Map，通过 Stitch MCP 
 3. **提交 Stitch MCP，生成初稿**
    - 原始结果保存至 `pipeline/0_5_prototype/Wireframes/stitch-raw/[屏幕名].png`
 
-4. **导出 Stitch 生成的前端代码**
+4. **导出 Stitch 生成的前端代码（铁律：不可跳过）**
    - 对每个屏幕调用 `get_screen`，检查返回结构中的 `htmlCode` 字段
    - 将 HTML 代码文件保存至 `pipeline/0_5_prototype/stitch-code/[屏幕名].html`
    - 此代码将作为 Stage 5 fe-ui-builder 的起点骨架，避免从零构建
+   - **验证**: `ls pipeline/0_5_prototype/stitch-code/` 文件数 = 屏幕数，否则阻塞
 
-5. **人工审查调整**
+5. **浏览器展示给 Commander（铁律：不可跳过）**
+   - 用 Playwright `browser_navigate` 打开每个 `stitch-code/*.html` 文件（`file://` 协议）
+   - 截图或等待 Commander 在浏览器中确认视觉效果
+   - Commander 未确认前，不得进入下一步
+
+6. **人工审查调整**
    - 检查每个屏幕是否包含了对应 F-ID 的所有功能点
    - 检查异常状态（错误提示/空状态/加载中）是否有体现
    - 调整后版本保存至 `pipeline/0_5_prototype/Wireframes/[屏幕名].png`
 
-6. **逐屏标注**
+7. **逐屏标注**
    在每张线框图旁边写注释文件 `pipeline/0_5_prototype/Wireframes/[屏幕名]-notes.md`：
 
    ```markdown
@@ -147,7 +153,8 @@ description: UX Designer 专用。基于 Feature_Screen_Map，通过 Stitch MCP 
 
 - [ ] User_Flow 覆盖所有用户角色
 - [ ] 每个屏幕都有 stitch-raw 原始版 + 人工审查版
-- [ ] 每个屏幕的 HTML 代码已导出至 `stitch-code/`
+- [ ] 每个屏幕的 HTML 代码已导出至 `stitch-code/`（`ls` 验证文件数 = 屏幕数）
+- [ ] 每个 HTML 文件已用 Playwright 打开给 Commander 浏览器确认
 - [ ] 每个屏幕都有 notes.md 注释（含 F-ID 引用）
 - [ ] 零技术术语（全文扫描确认）
 - [ ] Feature_Screen_Map 中所有屏幕都有对应线框图（无遗漏）

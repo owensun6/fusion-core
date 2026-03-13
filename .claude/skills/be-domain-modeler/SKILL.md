@@ -1,6 +1,6 @@
 ---
 name: be-domain-modeler
-description: 'Backend Domain Modeler - 领域服务与业务逻辑核心。禁止碰触 HTTP 传输层。Stage 5。'
+description: 'Backend Domain Modeler - 领域服务与业务逻辑核心。禁止碰触 HTTP 传输层。当 Stage 5 任务包含核心业务规则、领域服务实现，或 fusion-swarm 分配领域层子任务时触发。'
 ---
 
 # BE-Domain-Modeler (Business Logic & Core Engine) — 母技能

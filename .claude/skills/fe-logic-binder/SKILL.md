@@ -1,6 +1,6 @@
 ---
 name: fe-logic-binder
-description: 'Frontend Logic Binder - 前端状态绑定与 API 接入。不碰 CSS/DOM 结构。Stage 5。'
+description: 'Frontend Logic Binder - 前端状态绑定与 API 接入。不碰 CSS/DOM 结构。当 Stage 5 任务包含前端状态管理、API 调用绑定，或 fusion-swarm 分配前端逻辑子任务时触发。'
 ---
 
 # FE-Logic-Binder (State & Data Flow Binder) — 母技能

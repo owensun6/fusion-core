@@ -1,6 +1,6 @@
 ---
 name: be-ai-integrator
-description: 'Backend AI Integrator - LLM/MCP 子系统接入，Prompt 工程，降级策略。Stage 5。'
+description: 'Backend AI Integrator - LLM/MCP 子系统接入，Prompt 工程，降级策略。当 Stage 5 任务包含 AI/LLM 集成、MCP 工具调用，或 fusion-swarm 分配 AI 接入子任务时触发。'
 ---
 
 # BE-AI-Integrator (LLM/MCP Subsystem Specialist) — 母技能

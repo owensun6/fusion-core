@@ -23,9 +23,10 @@
 | 2.2 | 确认 Stitch MCP 可用 | ⬜ | | Stitch 工具调用返回成功（不可用 → 暂停通知 Commander） |
 | 2.3 | 为每个屏幕准备 Stitch Prompt | ⬜ | | Prompt 数量 = Feature_Screen_Map 屏幕数 |
 | 2.4 | Stitch MCP 生成初稿 | ⬜ | `Wireframes/stitch-raw/*.png` | 生成文件数 = 屏幕数 |
-| 2.5 | 导出 HTML 代码 | ⬜ | `stitch-code/*.html` | HTML 文件数 = 屏幕数 + 浏览器可打开 |
-| 2.6 | 人工审查调整（确认 F-ID 功能点覆盖） | ⬜ | `Wireframes/*.png` | Commander 确认每屏覆盖对应 F-ID |
-| 2.7 | 逐屏标注 notes.md | ⬜ | `Wireframes/*-notes.md` | notes 文件数 = 屏幕数，含区域/功能/操作/跳转四项 |
+| 2.5 | 逐屏调用 `get_screen` 导出 HTML 代码 | ⬜ | `stitch-code/*.html` | `ls stitch-code/` 文件数 = 屏幕数 |
+| 2.6 | Playwright 打开 HTML 给 Commander 浏览器预览 | ⬜ | | Commander 在浏览器中看到每个屏幕的实际渲染效果 |
+| 2.7 | 人工审查调整（确认 F-ID 功能点覆盖） | ⬜ | `Wireframes/*.png` | Commander 确认每屏覆盖对应 F-ID |
+| 2.8 | 逐屏标注 notes.md | ⬜ | `Wireframes/*-notes.md` | notes 文件数 = 屏幕数，含区域/功能/操作/跳转四项 |
 
 ## UI 契约
 

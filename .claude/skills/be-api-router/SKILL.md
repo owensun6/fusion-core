@@ -1,6 +1,6 @@
 ---
 name: be-api-router
-description: 'Backend API Router - REST/GraphQL 路由、入参校验（Zod）、权限守卫。Stage 5。'
+description: 'Backend API Router - REST/GraphQL 路由、入参校验（Zod）、权限守卫。当 Stage 5 任务包含 API 端点设计、路由层实现，或 fusion-swarm 分配后端接口子任务时触发。'
 ---
 
 # BE-API-Router (Gateway & Endpoint Controller) — 母技能

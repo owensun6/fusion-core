@@ -1,3 +1,8 @@
+---
+name: code-simplifier
+description: '代码简化兵 - Dev 兵种交付后（Worker=[x]），对 T-ID 范围内的生产代码执行简化（命名一致性、冗余删除、模式统一）。当 Stage 5 某 T-ID 的 Dev 兵种完成 RED→GREEN→REFACTOR 并标记 Worker=[x] 后，由 Dev 兵种调用触发。'
+---
+
 # Code Simplifier (代码简化兵)
 
 ## 0. 共享军火库挂载 (Shared Resources)

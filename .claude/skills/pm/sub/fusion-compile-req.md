@@ -71,20 +71,26 @@ status: PENDING_GATE_0
 - 预估并发量: <推断或标记 TBD>
 - 安全要求: <推断或标记 TBD>
 
-## 4. 编译器假设与置信度（Commander 需确认）
+## 4. 假设登记表（Commander 需确认）
 
-| #   | 推断问题    | 编译器假设 | 依据来源     | 置信度   | Commander 确认 |
-| --- | ----------- | ---------- | ------------ | -------- | -------------- |
-| Q1  | <隐含决策1> | <假设>     | <来源优先级> | 高/中/低 | YES/NO         |
-| Q2  | <隐含决策2> | <假设>     | <来源优先级> | 高/中/低 | YES/NO         |
-| Q3  | <隐含决策3> | <假设>     | <来源优先级> | 高/中/低 | YES/NO         |
+> 对每个功能/决策，逐维度扫描隐含假设。PM 负责 Value/Usability/Viability 三个维度，Feasibility 留给 Lead 在 Stage 1 补充。
+
+**维度扫描提示（每个功能过一遍）**:
+- **Value（价值）**: 用户真的需要这个吗？痛点有证据还是我们猜的？
+- **Usability（可用性）**: 用户能在目标场景下顺畅使用吗？是验证过还是想当然？
+- **Viability（商业可行性）**: 商业模式/合规/成本，哪些是确认的哪些是推测？
+
+| ID | 假设描述 | 维度 | 依据来源 | 影响(H/M/L) | 风险(H/M/L) | Commander 确认 |
+|----|---------|------|---------|------------|------------|---------------|
+| A-01 | <假设内容> | Value/Usability/Viability | <来源优先级> | H/M/L | H/M/L | YES/NO |
+| A-02 | <假设内容> | Value/Usability/Viability | <来源优先级> | H/M/L | H/M/L | YES/NO |
 ```
 
-**置信度说明**:
+**Impact × Risk 说明**:
 
-- 高：有明确依据（Commander 说明 / 现有实现 / 架构约束）→ 直接执行
-- 中：基于行业惯例或合理推断 → 执行，Lead 评审时关注
-- 低：无明确依据，采用 MVP → 标注"待确认"，Lead 可调整
+- **影响(Impact)**: 如果此假设不成立，下游返工规模。H=大面积返工，M=局部调整，L=可忽略
+- **风险(Risk)**: 此假设不成立的可能性。H=无证据支撑，M=有间接证据，L=有直接证据
+- **H×H 项**: 高影响且高风险的假设，必须在 Gate 2 前有验证结论，否则阻断流水线
 
 ### Step 2: 产出 FEATURE_LIST.md（功能追踪矩阵）
 
@@ -166,7 +172,8 @@ Feature: [功能名称]
 
 ## Exit Gates（进入 fusion-validate-req 的条件）
 
-- [ ] PRD.md 四章节完整 + Author Stamp 存在
+- [ ] PRD.md 四章节完整（含假设登记表）+ Author Stamp 存在
+- [ ] 假设登记表非空，每条假设有维度 + Impact×Risk 评级
 - [ ] FEATURE_LIST.md 所有子功能有唯一 F-ID
 - [ ] BDD_Scenarios.md 每个 F-ID 有 Happy Path + Error Case
 - [ ] BDD 中无技术术语

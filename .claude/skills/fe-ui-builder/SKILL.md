@@ -1,6 +1,6 @@
 ---
 name: fe-ui-builder
-description: 'Frontend UI Builder - 前端 UI 哑组件构建。绝不碰 API 和状态管理。Stage 5。'
+description: 'Frontend UI Builder - 前端 UI 哑组件构建。绝不碰 API 和状态管理。当 Stage 5 任务包含 UI 组件开发、像素级还原原型，或 fusion-swarm 分配前端 UI 子任务时触发。'
 ---
 
 # FE-UI-Builder (Pixel-Perfect UI Constructor) — 母技能
