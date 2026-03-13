@@ -8,6 +8,22 @@ description: 'Frontend Logic Binder - 前端状态绑定与 API 接入。不碰 
 
 ---
 
+## 0. 共享军火库挂载 + 编码红线（Shared Resources）
+
+挂载（执行前必须了解）:
+- `.claude/rules/hooks.md` — 前置/后置拦截 + `bin/fusion-lint.sh` 自动化检查
+- `.claude/rules/document-standards.md` — 文档签名与溯源
+- `.claude/rules/coding-style.md` — 代码规范
+
+**编码红线摘要（内联，不依赖外部文件读取）**:
+1. **Immutability**: 数据对象必须不可变。返回新对象，禁止 in-place mutation
+2. **File size**: 单文件 ≤ 300 行，单函数 ≤ 40 行。超标必须拆分
+3. **Error handling**: 所有外部 I/O（DB/网络/文件）必须 try-catch + 降级响应
+4. **Input validation**: 后端入口必须 Schema 校验，缺校验 = 安全红灯
+5. **Author stamp**: 产出文件首行标注 `<!-- Author: [角色名] -->`（代码文件用对应注释格式：`// Author:` 或 `# Author:`）
+
+---
+
 ## ⚡ 执行前 FP 两问（强制）
 
 1. **我们的目的是什么？**

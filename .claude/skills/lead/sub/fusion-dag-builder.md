@@ -145,6 +145,25 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
   When: 执行 `prisma migrate dev`
   Then: 迁移成功，无报错
 
+## 测试规格（Gate 2 必审）
+
+- 测试文件: `tests/path/test_xxx.ext`
+- test_case_1: [Given-When-Then 中哪条 → 断言描述]
+- test_case_2: [Given-When-Then 中哪条 → 断言描述]
+
+> 每条 BDD Given-When-Then 至少对应一个 test_case。Dev 在 Stage 5 RED 阶段从此规格直接生成测试代码。
+
+## 结构性约束测试（derived from coding-style.md — Gate 2 必审）
+
+> Lead 扫描本 Task 涉及的模块，从 coding-style.md 派生适用的结构性断言。不适用的标注 N/A 并说明理由。
+
+- immutability: [该模块的数据类必须不可变 — 断言描述，如 "BetResult frozen=True, 赋值抛异常"]
+- error_handling: [该模块涉及的外部 I/O 点 — 每个点必须有 error path 测试]
+- input_validation: [该模块暴露的入口 — 缺 schema 校验则 FAIL，或 N/A（内部模块无外部输入）]
+- auth_boundary: [涉及鉴权/权限时必填 — 未认证→401, 越权→403；不涉及则 N/A]
+
+> file_size（单文件 ≤ 300 行）由 `bin/fusion-lint.sh` L4 自动检查，不需要在此重复声明。
+
 ## 禁止事项
 
 - 禁止修改任何业务服务代码
@@ -152,6 +171,7 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
 ```
 
 > **BDD 格式铁律**: 验收标准必须写为 Given-When-Then，禁止使用模糊的 checkbox 格式。Dev 将从 BDD 逐条生成测试断言，模糊的标准 = 模糊的测试 = 无效的 TDD。
+> **测试规格铁律**: 每份 TASK_SPEC 必须包含「测试规格」章节，列出测试文件路径和每条测试用例的断言描述。空测试规格 = Gate 2 不通过。
 
 ---
 
@@ -175,6 +195,8 @@ T-ID 来自 TASK_SPEC 中的"来源 F-ID"字段，反向填入。一个 F-ID 可
 - [ ] dependency_graph.md 无循环依赖
 - [ ] TASK_SPEC 数量 = task.md 中的 Task 数量
 - [ ] 每个 TASK_SPEC 的验收标准为 BDD Given-When-Then 格式（无模糊 checkbox）
+- [ ] 每个 TASK_SPEC 的「测试规格」章节非空（test_case 数 ≥ BDD 条数，测试文件路径明确）
+- [ ] 每个 TASK_SPEC 的「结构性约束测试」章节已填写（immutability + input_validation 不可全为 N/A，除非有理由）
 - [ ] FEATURE_LIST.md 追踪总表"Task"列已全部填入对应 T-ID
 - [ ] **Harness 就绪检查**: 测试运行命令已在 package.json/Makefile 中定义，测试套件可在隔离环境独立执行
 - [ ] Commander 签字（Gate 2）

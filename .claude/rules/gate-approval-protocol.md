@@ -41,6 +41,18 @@ Gate 2（Stage 3 → Stage 4）新增前置条件：
 
 验证结论的形式不限：用户访谈记录、技术 Spike 代码、第三方文档截图、Commander 口头确认均可。关键是**有结论**，而非**仍为假设**。
 
+### 测试规格检查（Gate 2 附加条件）
+
+- 每份 TASK_SPEC 的「测试规格」章节必须非空（至少 1 个 test_case）
+- test_case 数量 ≥ BDD Given-When-Then 条数（每条验收标准至少 1 个测试用例）
+- 测试文件路径必须明确（禁止占位符 `TBD`）
+
+### 结构性约束检查（Gate 2 附加条件）
+
+- 每份 TASK_SPEC 的「结构性约束测试」章节必须已填写
+- immutability 和 input_validation 两项不可同时为 N/A（除非该 Task 确实不涉及数据结构和外部输入，需附理由）
+- 涉及鉴权/权限的 Task（Assignee 为 be-api-router 或 be-domain-modeler 且有 auth 相关 BDD）必须填写 auth_boundary
+
 ## 5. 快速通道物理锁 (Fast-Track Limitations)
 
 - **触发**: 仅针对单文件修改或极轻量脚本需求，且 Commander 在初始意图时明确授权 `跳过架构设计`。

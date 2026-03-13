@@ -12,13 +12,15 @@
 | # | 原子步骤 | 完成标志 |
 |---|---------|---------|
 | 1 | 读取 monitor.md 确认上游 Blocker 已完成 | Blocker 全部 `[x]` |
-| 2 | 读取 TASK_SPEC_T-{ID}.md（BDD 验收标准） | Given-When-Then 条数已确认，测试断言数 = BDD 条数 |
+| 2 | 读取 TASK_SPEC_T-{ID}.md（BDD + 结构性约束） | Given-When-Then 条数 + 结构性约束项数已确认，测试断言数 = BDD 条数 + 结构性约束条数 |
 | 3 | 🔴 RED: 从 BDD 逐条生成测试断言 | `.spec.ts` 文件已写入 + 断言数 = BDD 条数 |
 | 4 | 🔴 RED: 运行测试，确认全部 FAIL | 终端输出 FAIL + 失败数 = 断言数 |
 | 5 | 🔴 RED: `git commit -m "test(red): T-{ID} ..."` | commit hash 已记录 |
 | 6 | 🟢 GREEN: 编写最简实现让测试通过 | 终端输出 ALL PASS + 0 failures |
+| 6.5 | 🔒 SECRET SCAN: 提交前密钥扫描 | `grep` 扫描变更文件无 API_KEY/SECRET/PASSWORD 模式 |
 | 7 | 🟢 GREEN: `git commit -m "feat(green): T-{ID} ..."` | commit hash 已记录 + 时间晚于 RED commit |
-| 8 | 🔵 REFACTOR: 清理代码（函数 < 40 行，文件 < 300 行） | 每函数 ≤ 40 行 + 每文件 ≤ 300 行 + 测试仍 PASS |
+| 7.5 | 🟡 LINT: 运行 `bin/fusion-lint.sh` L2-L5（Author/残留/行数） | lint exit 0（无 ERROR）；有 WARNING 则在 REFACTOR 中修复 |
+| 8 | 🔵 REFACTOR: 清理代码（函数 < 40 行，文件 < 300 行） | 每函数 ≤ 40 行 + 每文件 ≤ 300 行 + 测试仍 PASS + lint WARNING 已清除 |
 | 9 | 🔵 REFACTOR: `git commit -m "refactor: T-{ID} ..."` | commit hash 已记录 |
 | 10 | 在 monitor.md 本行 Worker 标为 `[x]` | monitor.md 对应 T-ID 行 Worker = `[x]` |
 | 10.5 | 调用 code-simplifier 简化 + 验证测试 + commit | Simplify = `[✓]` 或 `[SKIP]` |

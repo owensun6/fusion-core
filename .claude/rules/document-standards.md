@@ -9,15 +9,17 @@ Fusion-Core 规定所有 AI 代理生成的交付物（无论是 PRD、架构图
 这是为了防止“前端特种兵私自修改后端契约”等越权行为。在发生交叉编译错误时，这是追溯责任人的关键凭证。
 
 **签名格式**:
-在 Markdown 文件的首行，添加以下注释块：
 
-```markdown
-<!-- Author: [Role] -->
+| 文件类型 | 签名格式 | 位置 |
+|---------|---------|------|
+| `.md` | `<!-- Author: [角色名] -->` | 文件首行 |
+| `.py` | `# Author: [角色名]` | 文件首行（或 docstring 后第一行） |
+| `.ts` / `.js` / `.tsx` / `.jsx` | `// Author: [角色名]` | 文件首行 |
+| `.sql` | `-- Author: [角色名]` | 文件首行 |
 
-# 标题
-```
+_[角色名] 填入具体兵种名（如 `be-domain-modeler`、`fe-ui-builder`），不可用笼统的 `Dev`。_
 
-_[Role] 必须填入：`PM`, `Lead`, `Dev`, 或 `Reviewer`。_
+**检查方式**: `bin/fusion-lint.sh` 的 L2 检查项会自动扫描产出文件的 Author stamp。
 
 ## 2. 架构决策记录 (ADR: Architecture Decision Records)
 

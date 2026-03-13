@@ -16,9 +16,11 @@
 | 1.6 | 死锁检查（无循环依赖） | ⬜ | | 拓扑排序可完成（无环） |
 | 1.7 | 产出 task.md | ⬜ | `task.md` | 首行 `<!-- Author: Lead -->` + 每 Task 有 Assignee + Blocker |
 | 1.8 | 逐个产出 TASK_SPEC_T-{ID}.md（BDD 验收标准） | ⬜ | `specs/TASK_SPEC_T-*.md` | TASK_SPEC 文件数 = task.md Task 数 + 每份含 Given-When-Then |
-| 1.9 | 更新 FEATURE_LIST 追踪总表"Task"列 | ⬜ | | FEATURE_LIST "Task"列无空值 |
-| 1.10 | Harness 就绪检查（测试命令可独立运行） | ⬜ | | 测试运行命令执行返回 exit 0（可为 0 tests） |
-| 1.11 | Commander Gate 2 签字 | ⬜ | | monitor.md Gate 2 状态 = ✅ |
+| 1.9 | 每份 TASK_SPEC 填写「测试规格」章节 | ⬜ | | 每份 TASK_SPEC 测试规格非空 + test_case 数 ≥ BDD 条数 |
+| 1.10 | 每份 TASK_SPEC 填写「结构性约束测试」章节 | ⬜ | | immutability + input_validation 已填（或附 N/A 理由） |
+| 1.11 | 更新 FEATURE_LIST 追踪总表"Task"列 | ⬜ | | FEATURE_LIST "Task"列无空值 |
+| 1.12 | Harness 就绪检查（测试命令可独立运行） | ⬜ | | 测试运行命令执行返回 exit 0（可为 0 tests） |
+| 1.13 | Commander Gate 2 签字 | ⬜ | | monitor.md Gate 2 状态 = ✅ |
 
 ## Stage 4: Git Worktree 物理隔离
 

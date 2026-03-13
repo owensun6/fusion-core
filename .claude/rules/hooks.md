@@ -1,26 +1,46 @@
-# 第一性原理 Hooks 拦截系统 (Pre/Post/Stop)
+# Hooks 拦截系统 (Pre/Post/Stop)
 
-> **[!] CRITICAL (强制壁垒)**: 本文件定义了 Fusion-Core 的物理环境边界。所有特种兵在挥舞工具前后，必须经过如下审计。这不仅是约束，更是为了保护系统熵不增。
+> 本文件定义 Fusion-Core 的质量拦截点。分为 **自动化检查**（有脚本实现）和 **自检提示**（依赖 Agent 自律）。
 
-## 1. 挥刀前拦截 (PreToolUse)
+## 1. 自动化检查 [AUTO] — `bin/fusion-lint.sh`
 
-任何涉及破坏性或长周期操作（如写文件、删目录、运行跑线脚本）前，必须执行以下三问：
+以下检查由 `bin/fusion-lint.sh` 脚本执行，Stage 5 GREEN→REFACTOR 之间强制运行。
 
-1. **密钥扫描**: 当前变更的内容中，是否携带了人类世界的真实云密钥、DB 密码？(若有，立即终止！)
-3. **白名单校验**: 你将要覆盖的文件，是否在由前置 Hook 圈定的专属领地内？(UI 兵不准碰 DB，死线不可越！)
-4. **时长估算**: 正要执行的测试/跑线是否可能陷入死循环？是否已设定安全的 Timeout 阈值？
+| # | 检查项 | 检测方式 | 阻断级别 |
+|---|--------|---------|---------|
+| L1 | 密钥泄露扫描 | `grep -rn` 匹配 API_KEY/SECRET/PASSWORD/TOKEN 模式 | CRITICAL — 立即终止 |
+| L2 | Author 签名存在性 | 检查产出文件首行是否含 `Author:` 标记 | ERROR — 必须补签 |
+| L3 | 调试残留清理 | `grep -rn` 匹配 console.log/print()/TODO/FIXME | WARNING — 必须清除 |
+| L4 | 文件行数检查 | `wc -l` 检查产出文件 ≤ 300 行 | WARNING — 必须拆分 |
+| L5 | 函数行数检查 | 语言对应 lint 工具（项目自配） | WARNING — 必须拆分 |
 
-## 2. 收刀后拦截 (PostToolUse)
+**使用方式**:
+```bash
+# Stage 4 初始化时复制到项目
+cp fusion-core/bin/fusion-lint.sh .worktrees/feature-xxx/bin/
 
-结束一次工具挥复（如写完代码）后，必须原地自检：
+# Stage 5 GREEN commit 后运行
+bash bin/fusion-lint.sh src/
+```
 
-1. **红绿灯约束**: 你的代码能通过 `fusion-tdd-engine` 的快照拦截吗？是否有配套的测试代码？
-2. **规范扫描**: 是否通过了 `TypeScript` 类型检查？是否遗留了 `TODO`, `console.log` 等开发态死区代码？(必须全数擦除)
-3. **签名验证**: 是否在主要产出物顶部留下了自己的签名 `<Author: xxx Router>`？
+**脚本路径**: `bin/fusion-lint.sh`（模板，项目可扩展）
 
-## 3. 停机收工拦截 (Stop)
+## 2. 自检提示 [MANUAL] — Agent 自律
 
-当你准备喊出 `I am done!` 向人类 Commander 报喜前，强制最后一次检查：
+以下检查无法完全自动化，依赖 Agent 在执行前/后自行验证。
 
-1. **十字路口**: 所有检查灯都绿了吗？如果有任意黄灯，退回去叫对应的 Reviewer 出马。
-2. **自动大盘刷新 (Auto-Monitor Sync)**: 系统底层已接入 `Update_Monitor.sh`。一旦产出物写入指定目录，系统将自动点亮 `pipeline/monitor.md` 中的对应模块，**人类特种兵无需手动打卡汇报状态**。
+### PreToolUse（写代码/执行命令前）
+
+1. **[MANUAL] 文件白名单校验**: 你将要修改的文件，是否在本兵种的职责范围内？（UI 兵不碰 DB，领域兵不碰路由）
+2. **[MANUAL] 长运行预估**: 正要执行的测试/脚本是否可能超时？是否已设 Timeout？
+
+### PostToolUse（写代码/执行命令后）
+
+1. **[AUTO] 运行 `bin/fusion-lint.sh`**（L1-L5 自动覆盖）
+2. **[MANUAL] 类型检查**: 是否通过了语言对应的类型检查（`tsc --noEmit` / `mypy` / `cargo check`）？
+3. **[MANUAL] TDD 证据**: 是否有对应的测试文件？RED commit 是否早于 GREEN commit？
+
+### Stop（宣称完成前）
+
+1. **[AUTO] 最终 lint 扫描**（无 CRITICAL/ERROR）
+2. **[MANUAL] monitor.md 状态更新**: Worker 列已标记 `[x]`

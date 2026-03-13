@@ -93,6 +93,16 @@ if [ -f Cargo.toml ]; then cargo build; fi
 if [ -f go.mod ]; then go mod download; fi
 ```
 
+### Step 5.5: 复制 fusion-lint 脚本到 worktree
+
+```bash
+mkdir -p bin
+cp "$(git rev-parse --show-toplevel)/bin/fusion-lint.sh" bin/fusion-lint.sh 2>/dev/null || true
+chmod +x bin/fusion-lint.sh 2>/dev/null || true
+```
+
+若 `bin/fusion-lint.sh` 不存在（非 fusion-core 项目），跳过此步。
+
 ### Step 6: 验证基线测试（必须全绿才可继续）
 
 ```bash
