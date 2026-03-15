@@ -177,12 +177,11 @@ Stage 7: ✅已完成
 合并时间: [YYYY-MM-DD]
 ```
 
-### Step 8: 自动触发 Gene Extractor（强制）
+### Step 8:（可选）萃取经验
 
 ```
-→ 加载 .claude/skills/gene-extractor/SKILL.md
-→ 提取本次战役的跨项目可复用经验写入 Gene Bank
-→ 这是战役的最后一步，不可跳过
+→ 提示 Commander: "是否需要萃取本次战役经验？如需，请调用 /fusion-extract-genes"
+→ Commander 决定是否执行，不自动触发
 ```
 
 ---

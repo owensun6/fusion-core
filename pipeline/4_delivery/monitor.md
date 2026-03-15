@@ -16,7 +16,7 @@
 | 6 | 清理 Worktree | ⬜ | | `git worktree list` 中无已完成分支 |
 | 7 | 更新 FEATURE_LIST 追踪总表 | ⬜ | | "实现"+"QA"列全标 ✅，无空值 |
 | 8 | 更新主 monitor.md Stage 7 状态 | ⬜ | | monitor.md Stage 7 = ✅ |
-| 9 | 自动触发 Gene Extractor（强制不可跳过） | ⬜ | Gene Bank 更新 | Gene Bank 文件有新增/更新记录 |
+| 9 | （可选）Commander 手动调用 `/fusion-extract-genes` 萃取经验 | ⬜ | Gene Bank 更新 | Commander 决定是否执行 |
 
 ## FEATURE_LIST 最终验收矩阵
 

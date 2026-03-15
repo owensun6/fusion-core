@@ -30,7 +30,7 @@
 | iv-01 | Stage 6 | E2E 端到端连通性验证 |
 | iv-02 | Stage 6 | 数据穿透性与 ACID 验证 |
 | iv-03 | Stage 6 | 混沌与极限破坏测试 |
-| Gene Extractor | 每 2-3 轮/任意阶段 | 跨项目经验提取写入 Gene Bank |
+| Gene Extractor | Commander 手动触发 | 跨项目经验提取写入 Gene Bank（`/fusion-extract-genes`） |
 | Commander | All Gates | 签字审批、最终决策（人类角色） |
 
 > Stage 6 串行管道: qa-01 → qa-02 → qa-03 → qa-04 → iv-01 → iv-02 → iv-03。前一道 FAIL，后续道次不得启动。

@@ -109,6 +109,16 @@ description: Lead 专用。Stage 3 微粒任务规划：将设计方案切分为
 
 ### Step 5: 为每个任务产出 TASK_SPEC
 
+**模板选择（强制判定）**:
+
+| 条件 | 模板 | 路径 |
+|------|------|------|
+| 验收可用一条 shell 命令表达（无业务逻辑判断、无新增接口、无数据变换） | TASK_SPEC_LITE | `pipeline/2_planning/specs/TASK_SPEC_LITE_TEMPLATE.md` |
+| 其他所有任务 | TASK_SPEC（完整版） | `pipeline/2_planning/specs/TASK_SPEC_TEMPLATE.md` |
+
+> 典型 LITE 场景: 批量替换（如 `printStackTrace` → `logger`）、删除死代码、配置项迁移、格式统一化。
+> LITE 任务不需要 BDD / 测试规格 / 结构性约束章节。
+
 路径: `pipeline/2_planning/specs/TASK_SPEC_T-{ID}.md`
 
 ```markdown
@@ -194,9 +204,10 @@ T-ID 来自 TASK_SPEC 中的"来源 F-ID"字段，反向填入。一个 F-ID 可
 - [ ] 无 Phase 闸门语法（调度完全由 Blocker 字段驱动，Phase 仅为视觉分组）
 - [ ] dependency_graph.md 无循环依赖
 - [ ] TASK_SPEC 数量 = task.md 中的 Task 数量
-- [ ] 每个 TASK_SPEC 的验收标准为 BDD Given-When-Then 格式（无模糊 checkbox）
-- [ ] 每个 TASK_SPEC 的「测试规格」章节非空（test_case 数 ≥ BDD 条数，测试文件路径明确）
-- [ ] 每个 TASK_SPEC 的「结构性约束测试」章节已填写（immutability + input_validation 不可全为 N/A，除非有理由）
+- [ ] 每个完整版 TASK_SPEC 的验收标准为 BDD Given-When-Then 格式（无模糊 checkbox）
+- [ ] 每个完整版 TASK_SPEC 的「测试规格」章节非空（test_case 数 ≥ BDD 条数，测试文件路径明确）
+- [ ] 每个完整版 TASK_SPEC 的「结构性约束测试」章节已填写（immutability + input_validation 不可全为 N/A，除非有理由）
+- [ ] 每个 LITE 版 TASK_SPEC 有明确的验收命令（可执行、exit 0 = 通过）
 - [ ] FEATURE_LIST.md 追踪总表"Task"列已全部填入对应 T-ID
 - [ ] **Harness 就绪检查**: 测试运行命令已在 package.json/Makefile 中定义，测试套件可在隔离环境独立执行
 - [ ] Commander 签字（Gate 2）

@@ -2,14 +2,28 @@
 
 > **[!] CRITICAL**: 每一个 Gate 都是一道生死门。绝不允许未携带绿灯盖戳的交付物越界进入下一个阶段。
 
+## 0. Gate 提交前置条件：FP 自检日志（所有 Gate 强制）
+
+任何角色在提交 Gate 审批前，**必须**在提交信息中附带以下 FP 自检日志。缺少此日志 → Gate 拒绝受理。
+
+```
+FP-1 目的: [用自己的话说清本阶段的目的，禁止复制 SKILL.md 原文]
+FP-2 原子性: [列出本阶段中被删除/合并的步骤及理由；若无删减，说明为什么每步都不可再分]
+```
+
+> 此规则将 FP 两问从 SKILL.md 头部的"提醒文字"升级为 Gate 的物理前置条件。没有自检日志 = 没有思考 = 不受理。
+
+---
+
 ## 1. 批准流程 (Approve)
 
 - **动作**: Commander 在审阅输入产物后，明确回复文字或由自动化 Hook 拉起绿色盖章。
 - **后置执行**:
   1. Agent 立即将当前阶段的核心产出物加上 `<!-- status: APPROVED -->` 的元数据标签。
   2. Hook 自动更新 `pipeline/monitor.md` 对应的 Gate 槽位状态为 `✅`。
-  3. **自动触发 Gene Extractor**: 加载 `.claude/skills/gene-extractor/SKILL.md`，提取本阶段的跨项目可复用经验写入 Gene Bank。
-  4. 全局 Agent 将被授权进入下一个预设的 Stage。
+  3. 全局 Agent 将被授权进入下一个预设的 Stage。
+
+> Gene Extractor 不再自动触发。需要萃取经验时，Commander 手动调用 `/fusion-extract-genes`。
 
 ## 2. 拒绝与返工流 (Reject & Rework Loop)
 
@@ -41,15 +55,19 @@ Gate 2（Stage 3 → Stage 4）新增前置条件：
 
 验证结论的形式不限：用户访谈记录、技术 Spike 代码、第三方文档截图、Commander 口头确认均可。关键是**有结论**，而非**仍为假设**。
 
-### 测试规格检查（Gate 2 附加条件）
+### 测试规格检查（Gate 2 附加条件 — 仅完整版 TASK_SPEC）
 
-- 每份 TASK_SPEC 的「测试规格」章节必须非空（至少 1 个 test_case）
+> LITE 版 TASK_SPEC 豁免此检查。LITE 版只需验收命令可执行（exit 0 = 通过）。
+
+- 每份完整版 TASK_SPEC 的「测试规格」章节必须非空（至少 1 个 test_case）
 - test_case 数量 ≥ BDD Given-When-Then 条数（每条验收标准至少 1 个测试用例）
 - 测试文件路径必须明确（禁止占位符 `TBD`）
 
-### 结构性约束检查（Gate 2 附加条件）
+### 结构性约束检查（Gate 2 附加条件 — 仅完整版 TASK_SPEC）
 
-- 每份 TASK_SPEC 的「结构性约束测试」章节必须已填写
+> LITE 版 TASK_SPEC 豁免此检查。
+
+- 每份完整版 TASK_SPEC 的「结构性约束测试」章节必须已填写
 - immutability 和 input_validation 两项不可同时为 N/A（除非该 Task 确实不涉及数据结构和外部输入，需附理由）
 - 涉及鉴权/权限的 Task（Assignee 为 be-api-router 或 be-domain-modeler 且有 auth 相关 BDD）必须填写 auth_boundary
 

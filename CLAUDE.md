@@ -101,14 +101,6 @@
 → 写入更新后的 monitor.md
 ```
 
-**步骤 3.5: 自动触发 Gene Extractor**
-
-```
-→ 每次 Gate 通过后，自动加载 .claude/skills/gene-extractor/SKILL.md
-→ 提取本阶段跨项目可复用经验写入 Gene Bank
-→ 完成后继续步骤 4
-```
-
 **步骤 4: 加载下一阶段角色**
 
 ```
