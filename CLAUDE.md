@@ -128,6 +128,64 @@
 
 ---
 
+## ⚙️ 执行纪律 (Execution Discipline)
+
+### 会话启动 (Session Start)
+
+新会话开始时，**必须检查 Handoff 文件**：
+
+```
+ls -t pipeline/handoffs/*.md 2>/dev/null | grep -v archive | head -1
+```
+
+- 存在 → 读取全文 → 归档到 `pipeline/handoffs/archive/` → 重建上下文
+- 不存在 → 读取 `pipeline/monitor.md` → 继续当前 Stage
+
+### 计划纪律 (Plan Node Default)
+
+- 非琐碎任务（3 步以上 / 涉及架构）必须先进入计划模式
+- 进展受阻立刻停止，重新制定计划，不得盲目推进
+- 提前编写详细规范以减少歧义
+
+### 子代理策略 (Subagent Strategy)
+
+- 慷慨使用子代理，保持主 context window 整洁
+- 研究、探索、并行分析任务分流给子代理
+- 对于复杂问题，通过子代理投入更多算力
+
+### 自我改进循环 (Self-Improvement Loop)
+
+- 用户纠正后：通过 `/fusion-save` 将经验写入 Gene Bank
+- 为自己编写规则，防止犯同样的错误
+- 在相关项目会话开始时回顾这些经验教训
+
+### 完成前验证 (Verification Before Done)
+
+- 绝不将未验证的任务标记为完成
+- 问自己："资深工程师会批准这个 PR 吗？"
+- 运行测试，检查日志，证明正确性
+
+### 追求优雅 (Demand Elegance)
+
+- 修复完成后问："是否有更优雅的方法？"
+- 感觉 hacky 就重做，不允许临时方案固化为生产代码
+- 对于简单明显的修复，跳过此步，不过度设计
+
+### 自主修复 Bug (Autonomous Bug Fixing)
+
+- 收到 Bug 报告直接修复，不寻求手把手指导
+- 主动修复失败的 CI 测试，要求用户零上下文切换
+
+---
+
+## 核心原则 (Core Principles)
+
+- **简单至上**: 每次更改尽可能简单，影响最小的代码
+- **拒绝懒惰**: 找根本原因，不搞临时修复，坚持高级开发人员标准
+- **最小影响**: 更改仅触及必要部分，避免引入 Bug
+
+---
+
 ## 快速启动
 
 **当 Commander 分配新任务时**:

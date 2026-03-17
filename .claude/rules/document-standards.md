@@ -2,6 +2,30 @@
 
 > **[!] CRITICAL**: 拒绝无头文件。拒绝无署名的产出。文档是跨环节协同的唯一证据链。
 
+## 0. 文件命名规范 (File Naming Convention)
+
+项目中归档性质的文档文件，**文件名必须携带创建日期前缀**，便于在目录中快速识别时间线。
+
+**格式**: `YYYY-MM-DD-原文件名.扩展名`
+
+**适用范围**（需要日期前缀）:
+- `docs/`、`research/`、`reports/` 等归档文档目录
+- 实验报告、架构概览、技术调研等保存性材料
+
+**不适用**（无需日期前缀）:
+- `pipeline/` 下的流水线产出物（`PRD.md`、`System_Design.md`、`INTERFACE.md` 等）——这些有固定文件名，被下游阶段硬引用
+- 看板/索引文件（`monitor.md`、`FEATURE_LIST.md`、`CLAUDE.md`）
+- 代码文件、配置文件、系统目录
+
+**示例**:
+
+| 场景 | 文件名 |
+|------|--------|
+| 保存实验报告到 docs/ | `2026-03-17-spike-experiment-report.md` |
+| 保存架构概览到 docs/ | `2026-03-17-architecture-overview.html` |
+| 保存技术调研到 research/ | `2026-03-17-llm-provider-comparison.md` |
+| pipeline 产出的 PRD | `PRD.md`（不加日期） |
+
 ## 1. 强制电子签名 (Author Stamp Protocol)
 
 Fusion-Core 规定所有 AI 代理生成的交付物（无论是 PRD、架构图、还是接口文档），**必须在文件头部显式声明负责写入的角色。**
