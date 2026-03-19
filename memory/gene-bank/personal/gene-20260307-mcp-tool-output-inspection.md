@@ -3,7 +3,9 @@ id: gene-20260307-mcp-tool-output-inspection
 trigger: 'when calling any MCP tool for the first time or integrating a new external tool'
 action: 'inspect the complete return data structure before deciding what to use; never assume output shape based on tool name or category'
 confidence: 0.8
-domain: 'workflow'
+topic: 'workflow'
+universality: 'global'
+project_types: []
 role_binding: 'ux-designer,fe-ui-builder,be-ai-integrator'
 source: 'session'
 campaign_id: 'fusion-method-coaching'

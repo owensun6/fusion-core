@@ -12,8 +12,11 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "jest",
+    "pretest": "command -v bats >/dev/null 2>&1 || (echo 'ERROR: bats not installed. Run: brew install bats-core' && exit 1)",
+    "test": "bats bin/tests/*.bats && jest",
     "test:coverage": "jest --coverage",
+    "test:unit": "jest",
+    "test:lint-sh": "bats bin/tests/*.bats",
     "lint": "eslint . --ext .js,.ts",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules",
     "format": "prettier --write \"**/*.{js,ts,md,json}\"",

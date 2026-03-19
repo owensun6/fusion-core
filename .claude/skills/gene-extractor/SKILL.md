@@ -41,6 +41,55 @@ model: haiku
 
 ---
 
+## Gene 判定标准（Commander 人工 review checklist）
+
+**Gene Extractor 提取候选后，Commander 逐项确认——不由 AI 自判：**
+
+```
+[ ] Q1. 换一个完全不同的项目，这条经验还成立吗？
+        成立 → universality: global
+        只在特定技术栈成立 → universality: conditional，填写 project_types
+        只在这个项目成立 → 拒绝，写 MEMORY.md 不写 Gene Bank
+
+[ ] Q2. 这是"过程中犯错被纠正"吗？
+        是 → confidence 起点 0.6
+        只是"应该知道的常识" → 拒绝，价值不足
+
+[ ] Q3. 没读过这条 Gene 的新 Agent，会犯同样的错吗？
+        会 → 通过，写入 Gene Bank
+        不会（已有文档或代码防护） → 拒绝，不重复记录
+```
+
+> **为什么是 Commander 而非 AI 自判**：AI 会给出"听起来合理"的答案。Gene 是否跨项目通用，只有见过多个项目的 Commander 能判断。
+
+---
+
+## Gene 生命周期与毕业机制
+
+Gene Bank 是**暂存区**，不是运行时库。Gene 最终目的地是对应兵种的 SKILL.md。
+
+```
+提取 (0.5)
+    ↓ Commander review → 通过三问
+确认 (0.6)
+    ↓ 第二个项目复现同一问题
+强化 (0.7-0.8)
+    ↓ 第三次复现 或 Commander 主动确认"这是普遍规律"
+稳定 (0.9) → 毕业
+    ↓
+patch 进对应兵种 SKILL.md（trigger + action 直接写入）
+    ↓
+Gene Bank 条目标记 graduated: true，保留作历史记录
+```
+
+**毕业后的位置**：
+- `universality: global` → patch 进 `role_binding` 对应的每个 SKILL.md
+- `universality: conditional` → patch 进 SKILL.md 内的 "特定技术栈补丁" 章节
+
+**为什么不注入 CLAUDE.md**：CLAUDE.md 是全局上下文，基因全量注入 = 上下文爆炸。SKILL.md 按角色按需加载，不占全局 token。
+
+---
+
 ## 🗺️ 子技能武器库
 
 | 子技能                 | 路径                                                        | 用途               |

@@ -70,13 +70,15 @@ DEBUG_HITS=$(grep -rn \
   -e '// FIXME' \
   "$TARGET_DIR" \
   --include='*.py' --include='*.ts' --include='*.js' --include='*.tsx' --include='*.jsx' \
-  -not -l '*.test.*' -not -l '*.spec.*' \
+  --exclude='*.test.ts' --exclude='*.test.js' --exclude='*.test.tsx' --exclude='*.test.jsx' \
+  --exclude='*.spec.ts' --exclude='*.spec.js' --exclude='*.spec.tsx' --exclude='*.spec.jsx' \
+  --exclude-dir=tests --exclude-dir=test \
   2>/dev/null || true)
 
 if [ -n "$DEBUG_HITS" ]; then
   echo "WARNING: Debug/TODO residue found:"
   echo "$DEBUG_HITS"
-  if [ "$EXIT_CODE" -lt 2 ]; then EXIT_CODE=2; fi
+  if [ "$EXIT_CODE" -eq 0 ]; then EXIT_CODE=2; fi
 else
   echo "OK: No debug residue"
 fi
@@ -89,7 +91,7 @@ while IFS= read -r file; do
   LINES=$(wc -l < "$file" 2>/dev/null || echo 0)
   if [ "$LINES" -gt "$MAX_FILE_LINES" ]; then
     OVERSIZED="$OVERSIZED\n  OVERSIZED ($LINES lines): $file"
-    if [ "$EXIT_CODE" -lt 2 ]; then EXIT_CODE=2; fi
+    if [ "$EXIT_CODE" -eq 0 ]; then EXIT_CODE=2; fi
   fi
 done < <(find "$TARGET_DIR" -type f \( -name '*.py' -o -name '*.ts' -o -name '*.js' -o -name '*.tsx' -o -name '*.jsx' \) \
   -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/dist/*')
