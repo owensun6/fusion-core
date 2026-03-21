@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const path = require('path');
 
 const command = process.argv[2];
@@ -9,7 +9,7 @@ const runScript = (scriptName, args = []) => {
   const scriptPath = path.join(__dirname, '..', '.claude', 'scripts', scriptName);
   try {
     console.log(`🚀 Executing Fusion-Core command: ${scriptName}`);
-    execSync(`bash "${scriptPath}" ${args.join(' ')}`, { stdio: 'inherit' });
+    execFileSync('bash', [scriptPath, ...args], { stdio: 'inherit' });
   } catch {
     console.error(`❌ Command failed: ${scriptName}`);
     process.exit(1);
@@ -20,13 +20,7 @@ switch (command) {
   case 'start': {
     const startScript = path.join(__dirname, 'scripts', 'start-project.sh');
     try {
-      execSync(
-        `bash "${startScript}" ${process.argv
-          .slice(3)
-          .map((a) => `"${a}"`)
-          .join(' ')}`,
-        { stdio: 'inherit' },
-      );
+      execFileSync('bash', [startScript, ...process.argv.slice(3)], { stdio: 'inherit' });
     } catch {
       console.error('❌ Project start failed');
       process.exit(1);
@@ -49,7 +43,7 @@ switch (command) {
     try {
       const extractScript = path.join(__dirname, 'scripts', 'extract-genes.sh');
       console.log('🧬 Executing Gene Extractor...');
-      execSync(`bash "${extractScript}"`, { stdio: 'inherit' });
+      execFileSync('bash', [extractScript], { stdio: 'inherit' });
     } catch {
       console.error('❌ Gene extraction failed');
       process.exit(1);
@@ -57,7 +51,7 @@ switch (command) {
     break;
   case 'uninstall':
     try {
-      execSync(`bash "${path.join(__dirname, '..', 'uninstall.sh')}"`, { stdio: 'inherit' });
+      execFileSync('bash', [path.join(__dirname, '..', 'uninstall.sh')], { stdio: 'inherit' });
     } catch {
       process.exit(1);
     }

@@ -181,4 +181,8 @@ function main() {
   console.log(`\n✅ [IV-01] 视觉验收通过！Gate 1.5a 绿灯。\n`);
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = { PASS_THRESHOLD, parseVlmResult, buildReport, updateMonitor };

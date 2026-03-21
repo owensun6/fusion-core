@@ -342,8 +342,15 @@ describe('V4.1 matchRoles edge cases', () => {
   });
 });
 
-describe('Threshold constant', () => {
-  it('should be 90', () => {
-    expect(90).toBe(90);
+describe('Immutability', () => {
+  it('capabilities arrays should be frozen (deep immutability)', () => {
+    const pm = getRoute('pm');
+    expect(Object.isFrozen(pm.capabilities)).toBe(true);
+    expect(() => pm.capabilities.push('hacked')).toThrow();
+  });
+
+  it('role entry objects should be frozen', () => {
+    const lead = getRoute('lead');
+    expect(Object.isFrozen(lead)).toBe(true);
   });
 });
